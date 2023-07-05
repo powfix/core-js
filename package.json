@@ -1,0 +1,23 @@
+{
+  "name": "core-js",
+  "version": "0.0.1",
+  "description": "core package",
+  "private": true,
+  "repository": "git@github.com:powfix/core-js.git",
+  "author": "Kwon Kyung-Min <powfix@gmail.com>",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "yarn clean && tsc -p . && git add dist"
+  },
+  "dependencies": {
+    "file-type": "^18.5.0",
+    "moment": "^2.29.4",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.3.3",
+    "@types/uuid": "9.0.2",
+    "typescript": "5.1.6"
+  }
+}

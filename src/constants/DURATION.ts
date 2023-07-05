@@ -1,0 +1,18 @@
+export class DURATION {
+
+}
+
+export namespace DURATION {
+  export enum UNIT {
+    NANOSECONDS = 'NANOSECONDS',
+    MICROSECONDS = 'MICROSECONDS',
+    MILLISECONDS = 'MILLISECONDS',
+    SECONDS = 'SECONDS',
+    MINUTES = 'MINUTES',
+    HOURS = 'HOURS',
+    DAYS = 'DAYS',
+    YEARS = 'YEARS',
+    DECADES = 'DECADES',
+    CENTURIES = 'CENTURIES',
+  }
+}

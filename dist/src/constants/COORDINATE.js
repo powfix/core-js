@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.COORDINATE = void 0;
+class COORDINATE {
+}
+exports.COORDINATE = COORDINATE;
+COORDINATE.LATITUDE_MIN_LENGTH = 1;
+COORDINATE.LATITUDE_MAX_LENGTH = 10;
+COORDINATE.LONGITUDE_MIN_LENGTH = 1;
+COORDINATE.LONGITUDE_MAX_LENGTH = 11;

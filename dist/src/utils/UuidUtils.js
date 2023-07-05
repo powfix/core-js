@@ -1,16 +1,13 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UuidUtils = void 0;
-const uuid_1 = __importDefault(require("uuid"));
+const uuid = require('uuid');
 function binaryToString(binary) {
     return Buffer.from(binary).toString('hex');
 }
 class UuidUtils {
     static v4() {
-        return uuid_1.default.v4();
+        return uuid.v4();
     }
     static format(uuid) {
         if (uuid.length === 32) {

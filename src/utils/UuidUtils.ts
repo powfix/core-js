@@ -1,11 +1,10 @@
-import uuid from 'uuid';
+const uuid = require('uuid');
 
 function binaryToString(binary: Buffer): string {
 	return Buffer.from(binary).toString('hex');
 }
 
 export class UuidUtils {
-
 	static v4(): string {
 		return uuid.v4();
 	}

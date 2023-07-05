@@ -1,7 +1,6 @@
 /** @constants */
 import {DURATION} from "./src/constants/DURATION";
 import {DISTANCE} from "./src/constants/DISTANCE";
-import {RESPONSE} from "./src/constants/RESPONSE";
 
 /** @model */
 import {Coordinate} from "./src/models/Coordinate";
@@ -23,7 +22,6 @@ import {Validator} from './src/utils/Validator';
 export {
   DISTANCE,
   DURATION,
-  RESPONSE,
 };
 
 /** @models */

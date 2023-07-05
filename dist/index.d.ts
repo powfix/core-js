@@ -1,7 +1,6 @@
 /** @constants */
 import {DURATION} from "./src/constants/DURATION";
 import {DISTANCE} from "./src/constants/DISTANCE";
-import {RESPONSE} from "./src/constants/RESPONSE";
 /** @model */
 import {Coordinate} from "./src/models/Coordinate";
 import {Point2} from "./src/models/Point2";
@@ -17,7 +16,7 @@ import {RandomUtils} from "./src/utils/RandomUtils";
 import {Sequence, Sequencer, SequencerEvent, SequencerOption, SequencerStatus} from "./src/utils/Sequencer";
 import {Validator} from './src/utils/Validator';
 /** @constants */
-export { DISTANCE, DURATION, RESPONSE, };
+export { DISTANCE, DURATION, };
 /** @models */
 export { Coordinate, Point2, Point3, };
 /** @Utils */

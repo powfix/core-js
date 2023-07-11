@@ -8,7 +8,7 @@ import {Point2} from "./src/models/Point2";
 import {Point3} from "./src/models/Point3";
 
 /** @service */
-import {Session} from "./src/services/Session";
+import {Session, SessionOptions, StorageProvider} from "./src/services/Session";
 
 /** @utils */
 import {StringUtils} from "./src/utils/StringUtils";
@@ -37,6 +37,8 @@ export {
 /** @services */
 export {
   Session,
+  SessionOptions,
+  StorageProvider
 };
 
 /** @Utils */

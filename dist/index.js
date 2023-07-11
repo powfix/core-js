@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.DURATION = exports.DISTANCE = void 0;
+exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.Session = exports.DURATION = exports.DISTANCE = void 0;
 /** @constants */
 const DURATION_1 = require("./src/constants/DURATION");
 Object.defineProperty(exports, "DURATION", { enumerable: true, get: function () { return DURATION_1.DURATION; } });
 const DISTANCE_1 = require("./src/constants/DISTANCE");
 Object.defineProperty(exports, "DISTANCE", { enumerable: true, get: function () { return DISTANCE_1.DISTANCE; } });
+/** @service */
+const Session_1 = require("./src/services/Session");
+Object.defineProperty(exports, "Session", { enumerable: true, get: function () { return Session_1.Session; } });
 /** @utils */
 const StringUtils_1 = require("./src/utils/StringUtils");
 Object.defineProperty(exports, "StringUtils", { enumerable: true, get: function () { return StringUtils_1.StringUtils; } });

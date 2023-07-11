@@ -7,6 +7,9 @@ import {Coordinate} from "./src/models/Coordinate";
 import {Point2} from "./src/models/Point2";
 import {Point3} from "./src/models/Point3";
 
+/** @service */
+import {Session} from "./src/services/Session";
+
 /** @utils */
 import {StringUtils} from "./src/utils/StringUtils";
 import {UuidUtils} from "./src/utils/UuidUtils";
@@ -29,6 +32,11 @@ export {
   Coordinate,
   Point2,
   Point3,
+};
+
+/** @services */
+export {
+  Session,
 };
 
 /** @Utils */

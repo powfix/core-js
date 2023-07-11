@@ -96,7 +96,6 @@ class Session {
             // 스토리지에서 authorization 제거
             yield this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
         });
-        console.log("Session():initialized at", Date.now());
         // Init service parameters
         this.api = options.api;
         this.storageProvider = options.storageProvider;

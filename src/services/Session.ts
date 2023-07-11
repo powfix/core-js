@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 import {ApisauceInstance} from "apisauce";
-import jwt from 'jsonwebtoken';
+import * as jose from 'jose';
 
 export interface SessionOptions {
   api: ApisauceInstance;
@@ -54,7 +54,7 @@ export class Session {
   public setSession = async (token: string): Promise<void> => {
     token = token.replace(/^Bearer\s+/, '');
 
-    const decoded = jwt.decode(token);
+    const decoded = jose.decodeJwt(token);
     if (!decoded) {
       throw new Error('failed to decode');
     }

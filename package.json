@@ -8,7 +8,11 @@
     "type": "git",
     "url": "https://github.com/powfix/core-js"
   },
-  "keywords": ["javascript", "core", "util"],
+  "keywords": [
+    "javascript",
+    "core",
+    "util"
+  ],
   "homepage": "https://github.com/powfix/core-js",
   "license": "MIT",
   "main": "dist/index.js",
@@ -17,11 +21,15 @@
     "build": "yarn clean && tsc -p . && git add dist"
   },
   "dependencies": {
+    "apisauce": "^3.0.1",
+    "axios": "^1.4.0",
     "file-type": "^18.5.0",
+    "jsonwebtoken": "^9.0.1",
     "moment": "^2.29.4",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "20.3.3",
     "@types/uuid": "9.0.2",
     "typescript": "5.1.6"

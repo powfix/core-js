@@ -40,6 +40,17 @@ class Session {
             return this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
         };
         this.setAuthorization = (authorization) => {
+            if (authorization === null) {
+                this.removeAuthorization();
+                return;
+            }
+            if (authorization === undefined) {
+                authorization = this.getAuthorization();
+            }
+            if (!authorization) {
+                console.log('authorization is null or undefined');
+                return;
+            }
             authorization = authorization.replace(/^Bearer\s+/, '');
             const decoded = jose.decodeJwt(authorization);
             if (!decoded) {

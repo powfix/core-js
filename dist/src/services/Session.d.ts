@@ -16,7 +16,7 @@ export declare class Session {
     constructor(options: SessionOptions);
     hasAuthorization: () => boolean;
     getAuthorization: () => string | null;
-    setAuthorization: (authorization: string) => void;
+    setAuthorization: (authorization?: string | null) => void;
     removeAuthorization: () => void;
 }
 export declare namespace Session {

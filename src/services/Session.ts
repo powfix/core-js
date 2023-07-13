@@ -35,7 +35,7 @@ export class Session {
     this.storageProvider = options.storageProvider;
   }
 
-  public hasAuthorization = (): boolean => !!this.getAuthorization();
+  public hasAuthorization = async () => !!await this.getAuthorization();
 
   public getAuthorization = async (): Promise<string | null> => {
     return await this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);

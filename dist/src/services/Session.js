@@ -44,7 +44,7 @@ class Session {
     // public off = this.emitter.off;
     // private emit = this.emitter.emit;
     constructor(options) {
-        this.hasAuthorization = () => !!this.getAuthorization();
+        this.hasAuthorization = () => __awaiter(this, void 0, void 0, function* () { return !!(yield this.getAuthorization()); });
         this.getAuthorization = () => __awaiter(this, void 0, void 0, function* () {
             return yield this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
         });

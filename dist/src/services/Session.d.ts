@@ -14,7 +14,7 @@ export declare class Session {
     private api;
     private storageProvider;
     constructor(options: SessionOptions);
-    hasAuthorization: () => boolean;
+    hasAuthorization: () => Promise<boolean>;
     getAuthorization: () => Promise<string | null>;
     setAuthorization: (authorization: string) => Promise<void>;
     removeAuthorization: () => Promise<void>;

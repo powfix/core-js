@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Session = void 0;
 const jose = __importStar(require("jose"));
@@ -44,11 +35,11 @@ class Session {
     // public off = this.emitter.off;
     // private emit = this.emitter.emit;
     constructor(options) {
-        this.hasAuthorization = () => __awaiter(this, void 0, void 0, function* () { return !!(yield this.getAuthorization()); });
-        this.getAuthorization = () => __awaiter(this, void 0, void 0, function* () {
-            return yield this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
-        });
-        this.setAuthorization = (authorization) => __awaiter(this, void 0, void 0, function* () {
+        this.hasAuthorization = () => !!this.getAuthorization();
+        this.getAuthorization = () => {
+            return this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
+        };
+        this.setAuthorization = (authorization) => {
             authorization = authorization.replace(/^Bearer\s+/, '');
             const decoded = jose.decodeJwt(authorization);
             if (!decoded) {
@@ -56,16 +47,16 @@ class Session {
             }
             logWithTs('decode successfully', decoded);
             // AsyncStorage 에 토큰 저장
-            yield this.storageProvider.set(Session.STORAGE_KEY.SESSION_AUTHORIZATION, authorization);
+            this.storageProvider.set(Session.STORAGE_KEY.SESSION_AUTHORIZATION, authorization);
             // API Instance header 설정
             this.api.setHeader("Authorization", authorization);
-        });
-        this.removeAuthorization = () => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.removeAuthorization = () => {
             // API Instance header 에서 토큰 제거
             this.api.deleteHeader("Authorization");
             // 스토리지에서 authorization 제거
-            yield this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
-        });
+            this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
+        };
         // Init service parameters
         this.api = options.api;
         this.storageProvider = options.storageProvider;

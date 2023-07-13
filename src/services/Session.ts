@@ -8,10 +8,10 @@ export interface SessionOptions {
 }
 
 export interface StorageProvider {
-  set: (key: string, value: string) => Promise<void>;
-  get: (key: string) => Promise<string | null>;
-  remove: (key: string) => Promise<void>;
-  clear?: () => Promise<void>;
+  set: (key: string, value: string) => void;
+  get: (key: string) => string | null;
+  remove: (key: string) => void;
+  clear?: () => void;
 }
 
 const logWithTs = (...p: any) => {
@@ -35,13 +35,13 @@ export class Session {
     this.storageProvider = options.storageProvider;
   }
 
-  public hasAuthorization = async () => !!await this.getAuthorization();
+  public hasAuthorization = () => !!this.getAuthorization();
 
-  public getAuthorization = async (): Promise<string | null> => {
-    return await this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
+  public getAuthorization = () => {
+    return this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
   };
 
-  public setAuthorization = async (authorization: string) => {
+  public setAuthorization = (authorization: string) => {
     authorization = authorization.replace(/^Bearer\s+/, '');
 
     const decoded = jose.decodeJwt(authorization);
@@ -52,18 +52,18 @@ export class Session {
     logWithTs('decode successfully', decoded);
 
     // AsyncStorage 에 토큰 저장
-    await this.storageProvider.set(Session.STORAGE_KEY.SESSION_AUTHORIZATION, authorization);
+    this.storageProvider.set(Session.STORAGE_KEY.SESSION_AUTHORIZATION, authorization);
 
     // API Instance header 설정
     this.api.setHeader("Authorization", authorization);
   };
 
-  public removeAuthorization = async () => {
+  public removeAuthorization = () => {
     // API Instance header 에서 토큰 제거
     this.api.deleteHeader("Authorization");
 
     // 스토리지에서 authorization 제거
-    await this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
+    this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
   };
 }
 

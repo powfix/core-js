@@ -5,19 +5,19 @@ export interface SessionOptions {
     storageProvider: StorageProvider;
 }
 export interface StorageProvider {
-    set: (key: string, value: string) => Promise<void>;
-    get: (key: string) => Promise<string | null>;
-    remove: (key: string) => Promise<void>;
-    clear?: () => Promise<void>;
+    set: (key: string, value: string) => void;
+    get: (key: string) => string | null;
+    remove: (key: string) => void;
+    clear?: () => void;
 }
 export declare class Session {
     private api;
     private storageProvider;
     constructor(options: SessionOptions);
-    hasAuthorization: () => Promise<boolean>;
-    getAuthorization: () => Promise<string | null>;
-    setAuthorization: (authorization: string) => Promise<void>;
-    removeAuthorization: () => Promise<void>;
+    hasAuthorization: () => boolean;
+    getAuthorization: () => string | null;
+    setAuthorization: (authorization: string) => void;
+    removeAuthorization: () => void;
 }
 export declare namespace Session {
     enum STORAGE_KEY {

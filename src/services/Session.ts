@@ -1,9 +1,9 @@
 // import EventEmitter from 'events';
-import {ApisauceInstance} from "apisauce";
 import * as jose from 'jose';
+import {AxiosInstance} from "axios";
 
 export interface SessionOptions {
-  api: ApisauceInstance;
+  api: AxiosInstance;
   storageProvider: StorageProvider;
 }
 
@@ -20,7 +20,7 @@ const logWithTs = (...p: any) => {
 
 export class Session {
   // Service parameters
-  private api: ApisauceInstance;
+  private api: AxiosInstance;
   private storageProvider: StorageProvider;
 
   // Emitter
@@ -69,12 +69,12 @@ export class Session {
     this.storageProvider.set(Session.STORAGE_KEY.SESSION_AUTHORIZATION, authorization);
 
     // API Instance header 설정
-    this.api.setHeader("Authorization", authorization);
+    this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
   };
 
   public removeAuthorization = () => {
     // API Instance header 에서 토큰 제거
-    this.api.deleteHeader("Authorization");
+    delete this.api.defaults.headers.common.Authorization;
 
     // 스토리지에서 authorization 제거
     this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);

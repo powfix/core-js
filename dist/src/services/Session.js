@@ -24,6 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Session = void 0;
+// import EventEmitter from 'events';
 const jose = __importStar(require("jose"));
 const logWithTs = (...p) => {
     console.log(Date.now(), ...p);
@@ -60,11 +61,11 @@ class Session {
             // AsyncStorage 에 토큰 저장
             this.storageProvider.set(Session.STORAGE_KEY.SESSION_AUTHORIZATION, authorization);
             // API Instance header 설정
-            this.api.setHeader("Authorization", authorization);
+            this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
         };
         this.removeAuthorization = () => {
             // API Instance header 에서 토큰 제거
-            this.api.deleteHeader("Authorization");
+            delete this.api.defaults.headers.common.Authorization;
             // 스토리지에서 authorization 제거
             this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
         };

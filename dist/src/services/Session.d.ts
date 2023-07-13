@@ -1,7 +1,7 @@
-import {ApisauceInstance} from "apisauce";
+import {AxiosInstance} from "axios";
 
 export interface SessionOptions {
-    api: ApisauceInstance;
+    api: AxiosInstance;
     storageProvider: StorageProvider;
 }
 export interface StorageProvider {

@@ -1,4 +1,3 @@
-// import EventEmitter from 'events';
 import * as jose from 'jose';
 import {AxiosInstance} from "axios";
 
@@ -35,13 +34,15 @@ export class Session {
     this.storageProvider = options.storageProvider;
   }
 
-  public hasAuthorization = () => !!this.getAuthorization();
+  public hasAuthorization(): boolean {
+    return !!this.getAuthorization();
+  }
 
-  public getAuthorization = () => {
+  public getAuthorization() {
     return this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
-  };
+  }
 
-  public setAuthorization = (authorization?: string | null) => {
+  public setAuthorization(authorization?: string | null) {
     if (authorization === null) {
       this.removeAuthorization();
       return;
@@ -70,15 +71,15 @@ export class Session {
 
     // API Instance header 설정
     this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
-  };
+  }
 
-  public removeAuthorization = () => {
+  public removeAuthorization() {
     // API Instance header 에서 토큰 제거
     delete this.api.defaults.headers.common.Authorization;
 
     // 스토리지에서 authorization 제거
     this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
-  };
+  }
 }
 
 export namespace Session {

@@ -14,10 +14,10 @@ export declare class Session {
     private api;
     private storageProvider;
     constructor(options: SessionOptions);
-    hasAuthorization: () => boolean;
-    getAuthorization: () => string | null;
-    setAuthorization: (authorization?: string | null) => void;
-    removeAuthorization: () => void;
+    hasAuthorization(): boolean;
+    getAuthorization(): string | null;
+    setAuthorization(authorization?: string | null): void;
+    removeAuthorization(): void;
 }
 export declare namespace Session {
     enum STORAGE_KEY {

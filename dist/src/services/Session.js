@@ -24,7 +24,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Session = void 0;
-// import EventEmitter from 'events';
 const jose = __importStar(require("jose"));
 const logWithTs = (...p) => {
     console.log(Date.now(), ...p);
@@ -36,42 +35,44 @@ class Session {
     // public off = this.emitter.off;
     // private emit = this.emitter.emit;
     constructor(options) {
-        this.hasAuthorization = () => !!this.getAuthorization();
-        this.getAuthorization = () => {
-            return this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
-        };
-        this.setAuthorization = (authorization) => {
-            if (authorization === null) {
-                this.removeAuthorization();
-                return;
-            }
-            if (authorization === undefined) {
-                authorization = this.getAuthorization();
-            }
-            if (!authorization) {
-                console.log('authorization is null or undefined');
-                return;
-            }
-            authorization = authorization.replace(/^Bearer\s+/, '');
-            const decoded = jose.decodeJwt(authorization);
-            if (!decoded) {
-                throw new Error('failed to decode');
-            }
-            logWithTs('decode successfully', decoded);
-            // AsyncStorage 에 토큰 저장
-            this.storageProvider.set(Session.STORAGE_KEY.SESSION_AUTHORIZATION, authorization);
-            // API Instance header 설정
-            this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
-        };
-        this.removeAuthorization = () => {
-            // API Instance header 에서 토큰 제거
-            delete this.api.defaults.headers.common.Authorization;
-            // 스토리지에서 authorization 제거
-            this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
-        };
         // Init service parameters
         this.api = options.api;
         this.storageProvider = options.storageProvider;
+    }
+    hasAuthorization() {
+        return !!this.getAuthorization();
+    }
+    getAuthorization() {
+        return this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
+    }
+    setAuthorization(authorization) {
+        if (authorization === null) {
+            this.removeAuthorization();
+            return;
+        }
+        if (authorization === undefined) {
+            authorization = this.getAuthorization();
+        }
+        if (!authorization) {
+            console.log('authorization is null or undefined');
+            return;
+        }
+        authorization = authorization.replace(/^Bearer\s+/, '');
+        const decoded = jose.decodeJwt(authorization);
+        if (!decoded) {
+            throw new Error('failed to decode');
+        }
+        logWithTs('decode successfully', decoded);
+        // AsyncStorage 에 토큰 저장
+        this.storageProvider.set(Session.STORAGE_KEY.SESSION_AUTHORIZATION, authorization);
+        // API Instance header 설정
+        this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
+    }
+    removeAuthorization() {
+        // API Instance header 에서 토큰 제거
+        delete this.api.defaults.headers.common.Authorization;
+        // 스토리지에서 authorization 제거
+        this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
     }
 }
 exports.Session = Session;

@@ -8,6 +8,7 @@ import {Point3} from "./src/models/Point3";
 /** @service */
 import {Session, SessionOptions, StorageProvider} from "./src/services/Session";
 /** @utils */
+import {between} from "./src/utils/global/between";
 import {StringUtils} from "./src/utils/StringUtils";
 import {UuidUtils} from "./src/utils/UuidUtils";
 import {ArrayUtils} from "./src/utils/ArrayUtils";
@@ -24,4 +25,4 @@ export { Coordinate, Point2, Point3, };
 /** @services */
 export { Session, SessionOptions, StorageProvider };
 /** @Utils */
-export { UuidUtils, ArrayUtils, RandomUtils, DateUtils, StringUtils, CoordinateUtils, parseBoolean, Validator, Sequence, SequencerStatus, SequencerOption, SequencerEvent, Sequencer, };
+export { between, UuidUtils, ArrayUtils, RandomUtils, DateUtils, StringUtils, CoordinateUtils, parseBoolean, Validator, Sequence, SequencerStatus, SequencerOption, SequencerEvent, Sequencer, };

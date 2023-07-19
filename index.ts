@@ -11,6 +11,7 @@ import {Point3} from "./src/models/Point3";
 import {Session, SessionOptions, StorageProvider} from "./src/services/Session";
 
 /** @utils */
+import {between} from "./src/utils/global/between";
 import {StringUtils} from "./src/utils/StringUtils";
 import {UuidUtils} from "./src/utils/UuidUtils";
 import {ArrayUtils} from "./src/utils/ArrayUtils";
@@ -43,6 +44,9 @@ export {
 
 /** @Utils */
 export {
+  // Global
+  between,
+
   UuidUtils,
   ArrayUtils,
   RandomUtils,

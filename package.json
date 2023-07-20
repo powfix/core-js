@@ -32,7 +32,6 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "20.3.3",
     "@types/uuid": "9.0.2",
-    "redis": "^4.6.7",
     "typescript": "5.1.6"
   }
 }

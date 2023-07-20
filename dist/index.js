@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.between = exports.RedisClient = exports.Session = exports.DURATION = exports.DISTANCE = void 0;
+exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.between = exports.Session = exports.DURATION = exports.DISTANCE = void 0;
 /** @constants */
 const DURATION_1 = require("./src/constants/DURATION");
 Object.defineProperty(exports, "DURATION", { enumerable: true, get: function () { return DURATION_1.DURATION; } });
@@ -9,8 +9,6 @@ Object.defineProperty(exports, "DISTANCE", { enumerable: true, get: function () 
 /** @service */
 const Session_1 = require("./src/services/Session");
 Object.defineProperty(exports, "Session", { enumerable: true, get: function () { return Session_1.Session; } });
-const RedisClient_1 = require("./src/services/RedisClient");
-Object.defineProperty(exports, "RedisClient", { enumerable: true, get: function () { return RedisClient_1.RedisClient; } });
 /** @utils */
 const between_1 = require("./src/utils/global/between");
 Object.defineProperty(exports, "between", { enumerable: true, get: function () { return between_1.between; } });

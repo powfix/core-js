@@ -19,8 +19,8 @@ const logWithTs = (...p: any) => {
 
 export class Session {
   // Service parameters
-  private api: AxiosInstance;
-  private storageProvider: StorageProvider;
+  protected api: AxiosInstance;
+  protected storageProvider: StorageProvider;
 
   // Emitter
   // private emitter = new EventEmitter({});

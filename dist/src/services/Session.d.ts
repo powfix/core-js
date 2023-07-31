@@ -11,8 +11,8 @@ export interface StorageProvider {
     clear?: () => void;
 }
 export declare class Session {
-    private api;
-    private storageProvider;
+    protected api: AxiosInstance;
+    protected storageProvider: StorageProvider;
     constructor(options: SessionOptions);
     hasAuthorization(): boolean;
     getAuthorization(): string | null;

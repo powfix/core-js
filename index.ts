@@ -3,7 +3,7 @@ import {DURATION} from "./src/constants/DURATION";
 import {DISTANCE} from "./src/constants/DISTANCE";
 
 /** @model */
-import {Coordinate} from "./src/models/Coordinate";
+import {Coordinate, CoordinateM} from "./src/models/Coordinate";
 import {Point2} from "./src/models/Point2";
 import {Point3} from "./src/models/Point3";
 
@@ -31,6 +31,7 @@ export {
 /** @models */
 export {
   Coordinate,
+  CoordinateM,
   Point2,
   Point3,
 };

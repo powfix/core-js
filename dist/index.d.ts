@@ -2,7 +2,7 @@
 import {DURATION} from "./src/constants/DURATION";
 import {DISTANCE} from "./src/constants/DISTANCE";
 /** @model */
-import {Coordinate} from "./src/models/Coordinate";
+import {Coordinate, CoordinateM} from "./src/models/Coordinate";
 import {Point2} from "./src/models/Point2";
 import {Point3} from "./src/models/Point3";
 /** @service */
@@ -21,7 +21,7 @@ import {Validator} from './src/utils/Validator';
 /** @constants */
 export { DISTANCE, DURATION, };
 /** @models */
-export { Coordinate, Point2, Point3, };
+export { Coordinate, CoordinateM, Point2, Point3, };
 /** @services */
 export { Session, SessionOptions, StorageProvider, };
 /** @Utils */

@@ -39,11 +39,22 @@ class Session {
         this.api = options.api;
         this.storageProvider = options.storageProvider;
     }
+    getKey() {
+        try {
+            if (this.storageProvider.key) {
+                return this.storageProvider.key();
+            }
+        }
+        catch (e) {
+            console.error(e);
+        }
+        return Session.STORAGE_KEY.SESSION_AUTHORIZATION;
+    }
     hasAuthorization() {
         return !!this.getAuthorization();
     }
     getAuthorization() {
-        return this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
+        return this.storageProvider.get(this.getKey());
     }
     setAuthorization(authorization) {
         if (authorization === null) {
@@ -64,7 +75,7 @@ class Session {
         }
         logWithTs('decode successfully', decoded);
         // AsyncStorage 에 토큰 저장
-        this.storageProvider.set(Session.STORAGE_KEY.SESSION_AUTHORIZATION, authorization);
+        this.storageProvider.set(this.getKey(), authorization);
         // API Instance header 설정
         this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
     }
@@ -72,7 +83,7 @@ class Session {
         // API Instance header 에서 토큰 제거
         delete this.api.defaults.headers.common.Authorization;
         // 스토리지에서 authorization 제거
-        this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
+        this.storageProvider.remove(this.getKey());
     }
 }
 exports.Session = Session;

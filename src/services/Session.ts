@@ -7,6 +7,7 @@ export interface SessionOptions {
 }
 
 export interface StorageProvider {
+  key?: () => string;
   set: (key: string, value: string) => void;
   get: (key: string) => string | null;
   remove: (key: string) => void;
@@ -34,12 +35,24 @@ export class Session {
     this.storageProvider = options.storageProvider;
   }
 
+  private getKey(): string {
+    try {
+      if (this.storageProvider.key) {
+        return this.storageProvider.key();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    return Session.STORAGE_KEY.SESSION_AUTHORIZATION;
+  }
+
   public hasAuthorization(): boolean {
     return !!this.getAuthorization();
   }
 
   public getAuthorization() {
-    return this.storageProvider.get(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
+    return this.storageProvider.get(this.getKey());
   }
 
   public setAuthorization(authorization?: string | null) {
@@ -67,7 +80,7 @@ export class Session {
     logWithTs('decode successfully', decoded);
 
     // AsyncStorage 에 토큰 저장
-    this.storageProvider.set(Session.STORAGE_KEY.SESSION_AUTHORIZATION, authorization);
+    this.storageProvider.set(this.getKey(), authorization);
 
     // API Instance header 설정
     this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
@@ -78,7 +91,7 @@ export class Session {
     delete this.api.defaults.headers.common.Authorization;
 
     // 스토리지에서 authorization 제거
-    this.storageProvider.remove(Session.STORAGE_KEY.SESSION_AUTHORIZATION);
+    this.storageProvider.remove(this.getKey());
   }
 }
 

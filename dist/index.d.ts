@@ -7,9 +7,6 @@ import {Point2} from "./src/models/Point2";
 import {Point3} from "./src/models/Point3";
 /** @service */
 import {Session, SessionOptions, StorageProvider} from "./src/services/Session";
-import {RedisClient, RedisClientOptions} from "./src/services/redis/RedisClient";
-import {RedisPublisher} from "./src/services/redis/RedisPublisher";
-import {RedisSubscriber} from "./src/services/redis/RedisSubscriber";
 /** @utils */
 import {between} from "./src/utils/global/between";
 import {StringUtils} from "./src/utils/StringUtils";
@@ -26,6 +23,6 @@ export { DISTANCE, DURATION, };
 /** @models */
 export { Coordinate, CoordinateM, Point2, Point3, };
 /** @services */
-export { RedisClient, RedisClientOptions, RedisPublisher, RedisSubscriber, Session, SessionOptions, StorageProvider, };
+export { Session, SessionOptions, StorageProvider, };
 /** @Utils */
 export { between, UuidUtils, ArrayUtils, RandomUtils, DateUtils, StringUtils, CoordinateUtils, parseBoolean, Validator, Sequence, SequencerStatus, SequencerOption, SequencerEvent, Sequencer, };

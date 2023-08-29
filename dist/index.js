@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.between = exports.Session = exports.RedisClient = exports.DURATION = exports.DISTANCE = void 0;
+exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.between = exports.Session = exports.RedisSubscriber = exports.RedisPublisher = exports.RedisClient = exports.DURATION = exports.DISTANCE = void 0;
 /** @constants */
 const DURATION_1 = require("./src/constants/DURATION");
 Object.defineProperty(exports, "DURATION", { enumerable: true, get: function () { return DURATION_1.DURATION; } });
@@ -9,8 +9,12 @@ Object.defineProperty(exports, "DISTANCE", { enumerable: true, get: function () 
 /** @service */
 const Session_1 = require("./src/services/Session");
 Object.defineProperty(exports, "Session", { enumerable: true, get: function () { return Session_1.Session; } });
-const RedisClient_1 = require("./src/services/RedisClient");
+const RedisClient_1 = require("./src/services/redis/RedisClient");
 Object.defineProperty(exports, "RedisClient", { enumerable: true, get: function () { return RedisClient_1.RedisClient; } });
+const RedisPublisher_1 = require("./src/services/redis/RedisPublisher");
+Object.defineProperty(exports, "RedisPublisher", { enumerable: true, get: function () { return RedisPublisher_1.RedisPublisher; } });
+const RedisSubscriber_1 = require("./src/services/redis/RedisSubscriber");
+Object.defineProperty(exports, "RedisSubscriber", { enumerable: true, get: function () { return RedisSubscriber_1.RedisSubscriber; } });
 /** @utils */
 const between_1 = require("./src/utils/global/between");
 Object.defineProperty(exports, "between", { enumerable: true, get: function () { return between_1.between; } });

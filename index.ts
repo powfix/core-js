@@ -10,6 +10,8 @@ import {Point3} from "./src/models/Point3";
 /** @service */
 import {Session, SessionOptions, StorageProvider} from "./src/services/Session";
 import {RedisClient, RedisClientOptions} from "./src/services/redis/RedisClient";
+import {RedisPublisher} from "./src/services/redis/RedisPublisher";
+import {RedisSubscriber} from "./src/services/redis/RedisSubscriber";
 
 /** @utils */
 import {between} from "./src/utils/global/between";
@@ -41,6 +43,8 @@ export {
 export {
   RedisClient,
   RedisClientOptions,
+  RedisPublisher,
+  RedisSubscriber,
 
   Session,
   SessionOptions,

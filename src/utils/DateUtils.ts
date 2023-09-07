@@ -1,8 +1,12 @@
-import moment from "moment";
+import moment, {Moment, MomentInput} from "moment";
+
+interface PrettyDateOptions {
+  enableSeconds?: boolean;          // 초단위 표시 여부
+}
 
 export class DateUtils {
   /* eslint-disable no-mixed-operators */
-  static prettyDate = (time: any) => {
+  static prettyDate = (time: Moment | MomentInput, options?: PrettyDateOptions) => {
     const now = moment();
     const date = moment.isMoment(time) ? time : moment(time);
 
@@ -12,7 +16,7 @@ export class DateUtils {
     if (day_diff === 0) {
       if (diff >= 0) {
         return (
-          (diff < 60 && "방금전") ||
+          (diff < 60 && (options?.enableSeconds ? `${diff}초전` : '방금전')) ||
           (diff < 120 && "1분전") ||
           (diff < 3600 && Math.floor(diff / 60) + "분전") ||
           (diff < 7200 && "1시간전") ||

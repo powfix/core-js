@@ -16,19 +16,19 @@ export class DateUtils {
     if (day_diff === 0) {
       if (diff >= 0) {
         return (
-          (diff < 60 && (options?.enableSeconds ? `${diff}초전` : '방금전')) ||
-          (diff < 120 && "1분전") ||
-          (diff < 3600 && Math.floor(diff / 60) + "분전") ||
-          (diff < 7200 && "1시간전") ||
-          (diff < 86400 && Math.floor(diff / 3600) + "시간전")
+          (diff < 60 && (options?.enableSeconds ? `${diff}초전` : "방금 전")) ||
+          (diff < 120 && "1분 전") ||
+          (diff < 3600 && Math.floor(diff / 60) + "분 전") ||
+          (diff < 7200 && "1시간 전") ||
+          (diff < 86400 && Math.floor(diff / 3600) + "시간 전")
         );
       } else {
         return (
-          (diff > -60 && "잠시후") ||
-          (diff > -120 && "1분후") ||
-          (diff > -3600 && Math.floor(diff / 60) + "분후") ||
-          (diff > -7200 && "1시간후") ||
-          (diff > -86400 && Math.floor(diff / 3600) + "시간후")
+          (diff > -60 && "잠시 후") ||
+          (diff > -120 && "1분 후") ||
+          (diff > -3600 && Math.floor(diff / 60) + "분 후") ||
+          (diff > -7200 && "1시간 후") ||
+          (diff > -86400 && Math.floor(diff / 3600) + "시간 후")
         );
       }
     } else {
@@ -37,15 +37,15 @@ export class DateUtils {
 
       if (day_diff >= 0) {
         return (
-          (day_diff < 7 && day_diff + "일전") ||
-          (day_diff < 31 && Math.floor(day_diff / 7) + "주전") ||
+          (day_diff < 7 && day_diff + "일 전") ||
+          (day_diff < 31 && Math.floor(day_diff / 7) + "주 전") ||
           (day_diff < 360 && Math.floor(day_diff / 30) + "개월 전") ||
           (day_diff >= 360 && (Math.floor(day_diff / 360) === 0 ? 1 : Math.floor(day_diff / 360)) + "년 전")
         );
       } else {
         return (
-          (day_diff < 7 && day_diff + "일후") ||
-          (day_diff < 31 && Math.floor(day_diff / 7) + "주후") ||
+          (day_diff < 7 && day_diff + "일 후") ||
+          (day_diff < 31 && Math.floor(day_diff / 7) + "주 후") ||
           (day_diff < 360 && Math.floor(day_diff / 30) + "개월 후") ||
           (day_diff >= 360 && (Math.floor(day_diff / 360) === 0 ? 1 : Math.floor(day_diff / 360)) + "년 후")
         );

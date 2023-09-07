@@ -1,7 +1,9 @@
 import moment, {Moment, MomentInput} from "moment";
 
 interface PrettyDateOptions {
-  enableSeconds?: boolean;          // 초단위 표시 여부
+  enableSeconds?: boolean;              // 초단위 표시 여부
+
+  spacePrefixBeforeAfter?: boolean;     // 전/후 앞 띄워쓰기 유무
 }
 
 export class DateUtils {
@@ -13,41 +15,43 @@ export class DateUtils {
     const diff = now.diff(date, "seconds");
     const day_diff = now.diff(date, "days");
 
+    const prefixBeforeAfter: string = options?.spacePrefixBeforeAfter ? ' ' : '';
+
     if (day_diff === 0) {
       if (diff >= 0) {
         return (
-          (diff < 60 && (options?.enableSeconds ? `${diff}초전` : "방금 전")) ||
-          (diff < 120 && "1분 전") ||
-          (diff < 3600 && Math.floor(diff / 60) + "분 전") ||
-          (diff < 7200 && "1시간 전") ||
-          (diff < 86400 && Math.floor(diff / 3600) + "시간 전")
+          (diff < 60 && (options?.enableSeconds ? `${diff}초${prefixBeforeAfter}전` : `방금${prefixBeforeAfter}전`)) ||
+          (diff < 120 && `1분${prefixBeforeAfter}전`) ||
+          (diff < 3600 && Math.floor(diff / 60) + `분${prefixBeforeAfter}전`) ||
+          (diff < 7200 && `1시간${prefixBeforeAfter}전`) ||
+          (diff < 86400 && Math.floor(diff / 3600) + `시간${prefixBeforeAfter}전`)
         );
       } else {
         return (
-          (diff > -60 && "잠시 후") ||
-          (diff > -120 && "1분 후") ||
-          (diff > -3600 && Math.floor(diff / 60) + "분 후") ||
-          (diff > -7200 && "1시간 후") ||
-          (diff > -86400 && Math.floor(diff / 3600) + "시간 후")
+          (diff > -60 && `잠시${prefixBeforeAfter}후`) ||
+          (diff > -120 && `1분${prefixBeforeAfter}후`) ||
+          (diff > -3600 && Math.floor(diff / 60) + `분${prefixBeforeAfter}후`) ||
+          (diff > -7200 && `1시간${prefixBeforeAfter}후`) ||
+          (diff > -86400 && Math.floor(diff / 3600) + `시간${prefixBeforeAfter}후`)
         );
       }
     } else {
-      if (day_diff === 1) return "어제";
-      if (day_diff === -1) return "내일";
+      if (day_diff === 1) return `어제`;
+      if (day_diff === -1) return `내일`;
 
       if (day_diff >= 0) {
         return (
-          (day_diff < 7 && day_diff + "일 전") ||
-          (day_diff < 31 && Math.floor(day_diff / 7) + "주 전") ||
-          (day_diff < 360 && Math.floor(day_diff / 30) + "개월 전") ||
-          (day_diff >= 360 && (Math.floor(day_diff / 360) === 0 ? 1 : Math.floor(day_diff / 360)) + "년 전")
+          (day_diff < 7 && day_diff + `일${prefixBeforeAfter}전`) ||
+          (day_diff < 31 && Math.floor(day_diff / 7) + `주${prefixBeforeAfter}전`) ||
+          (day_diff < 360 && Math.floor(day_diff / 30) + `개월${prefixBeforeAfter}전`) ||
+          (day_diff >= 360 && (Math.floor(day_diff / 360) === 0 ? 1 : Math.floor(day_diff / 360)) + `년${prefixBeforeAfter}전`)
         );
       } else {
         return (
-          (day_diff < 7 && day_diff + "일 후") ||
-          (day_diff < 31 && Math.floor(day_diff / 7) + "주 후") ||
-          (day_diff < 360 && Math.floor(day_diff / 30) + "개월 후") ||
-          (day_diff >= 360 && (Math.floor(day_diff / 360) === 0 ? 1 : Math.floor(day_diff / 360)) + "년 후")
+          (day_diff < 7 && day_diff + `일${prefixBeforeAfter}후`) ||
+          (day_diff < 31 && Math.floor(day_diff / 7) + `주${prefixBeforeAfter}후`) ||
+          (day_diff < 360 && Math.floor(day_diff / 30) + `개월${prefixBeforeAfter}후`) ||
+          (day_diff >= 360 && (Math.floor(day_diff / 360) === 0 ? 1 : Math.floor(day_diff / 360)) + `년${prefixBeforeAfter}후`)
         );
       }
     }

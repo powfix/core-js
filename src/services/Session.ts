@@ -8,10 +8,10 @@ export interface SessionOptions {
 
 export interface StorageProvider {
   key?: () => string;
-  set: (key: string, value: string) => void;
-  get: (key: string) => string | null;
-  remove: (key: string) => void;
-  clear?: () => void;
+  set: (key: string, value: string) => Promise<void> | void;
+  get: (key: string) => Promise<string | null> | (string | null);
+  remove: (key: string) => Promise<void> | void;
+  clear?: () => Promise<void> | void;
 }
 
 const logWithTs = (...p: any) => {
@@ -47,22 +47,22 @@ export class Session {
     return Session.STORAGE_KEY.SESSION_AUTHORIZATION;
   }
 
-  public hasAuthorization(): boolean {
-    return !!this.getAuthorization();
+  public async hasAuthorization(): Promise<boolean> {
+    return !!(await this.getAuthorization());
   }
 
-  public getAuthorization() {
+  public async getAuthorization(): Promise<string | null> {
     return this.storageProvider.get(this.getKey());
   }
 
-  public setAuthorization(authorization?: string | null) {
+  public async setAuthorization(authorization?: string | null): Promise<void> {
     if (authorization === null) {
       this.removeAuthorization();
       return;
     }
 
     if (authorization === undefined) {
-      authorization = this.getAuthorization();
+      authorization = await this.getAuthorization();
     }
 
     if (!authorization) {
@@ -80,18 +80,18 @@ export class Session {
     logWithTs('decode successfully', decoded);
 
     // AsyncStorage 에 토큰 저장
-    this.storageProvider.set(this.getKey(), authorization);
+    await this.storageProvider.set(this.getKey(), authorization);
 
     // API Instance header 설정
     this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
   }
 
-  public removeAuthorization() {
+  public async removeAuthorization() {
     // API Instance header 에서 토큰 제거
     delete this.api.defaults.headers.common.Authorization;
 
     // 스토리지에서 authorization 제거
-    this.storageProvider.remove(this.getKey());
+    await this.storageProvider.remove(this.getKey());
   }
 }
 

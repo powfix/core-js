@@ -6,20 +6,20 @@ export interface SessionOptions {
 }
 export interface StorageProvider {
     key?: () => string;
-    set: (key: string, value: string) => void;
-    get: (key: string) => string | null;
-    remove: (key: string) => void;
-    clear?: () => void;
+    set: (key: string, value: string) => Promise<void> | void;
+    get: (key: string) => Promise<string | null> | (string | null);
+    remove: (key: string) => Promise<void> | void;
+    clear?: () => Promise<void> | void;
 }
 export declare class Session {
     protected api: AxiosInstance;
     protected storageProvider: StorageProvider;
     constructor(options: SessionOptions);
     private getKey;
-    hasAuthorization(): boolean;
-    getAuthorization(): string | null;
-    setAuthorization(authorization?: string | null): void;
-    removeAuthorization(): void;
+    hasAuthorization(): Promise<boolean>;
+    getAuthorization(): Promise<string | null>;
+    setAuthorization(authorization?: string | null): Promise<void>;
+    removeAuthorization(): Promise<void>;
 }
 export declare namespace Session {
     enum STORAGE_KEY {

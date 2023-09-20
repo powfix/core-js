@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Session = void 0;
 const jose = __importStar(require("jose"));
@@ -51,39 +60,47 @@ class Session {
         return Session.STORAGE_KEY.SESSION_AUTHORIZATION;
     }
     hasAuthorization() {
-        return !!this.getAuthorization();
+        return __awaiter(this, void 0, void 0, function* () {
+            return !!(yield this.getAuthorization());
+        });
     }
     getAuthorization() {
-        return this.storageProvider.get(this.getKey());
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.storageProvider.get(this.getKey());
+        });
     }
     setAuthorization(authorization) {
-        if (authorization === null) {
-            this.removeAuthorization();
-            return;
-        }
-        if (authorization === undefined) {
-            authorization = this.getAuthorization();
-        }
-        if (!authorization) {
-            console.log('authorization is null or undefined');
-            return;
-        }
-        authorization = authorization.replace(/^Bearer\s+/, '');
-        const decoded = jose.decodeJwt(authorization);
-        if (!decoded) {
-            throw new Error('failed to decode');
-        }
-        logWithTs('decode successfully', decoded);
-        // AsyncStorage 에 토큰 저장
-        this.storageProvider.set(this.getKey(), authorization);
-        // API Instance header 설정
-        this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
+        return __awaiter(this, void 0, void 0, function* () {
+            if (authorization === null) {
+                this.removeAuthorization();
+                return;
+            }
+            if (authorization === undefined) {
+                authorization = yield this.getAuthorization();
+            }
+            if (!authorization) {
+                console.log('authorization is null or undefined');
+                return;
+            }
+            authorization = authorization.replace(/^Bearer\s+/, '');
+            const decoded = jose.decodeJwt(authorization);
+            if (!decoded) {
+                throw new Error('failed to decode');
+            }
+            logWithTs('decode successfully', decoded);
+            // AsyncStorage 에 토큰 저장
+            yield this.storageProvider.set(this.getKey(), authorization);
+            // API Instance header 설정
+            this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
+        });
     }
     removeAuthorization() {
-        // API Instance header 에서 토큰 제거
-        delete this.api.defaults.headers.common.Authorization;
-        // 스토리지에서 authorization 제거
-        this.storageProvider.remove(this.getKey());
+        return __awaiter(this, void 0, void 0, function* () {
+            // API Instance header 에서 토큰 제거
+            delete this.api.defaults.headers.common.Authorization;
+            // 스토리지에서 authorization 제거
+            yield this.storageProvider.remove(this.getKey());
+        });
     }
 }
 exports.Session = Session;

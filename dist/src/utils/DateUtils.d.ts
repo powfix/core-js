@@ -1,5 +1,4 @@
-import {Moment, MomentInput} from "moment";
-
+import { Moment, MomentInput } from "moment";
 interface PrettyDateOptions {
     enableSeconds?: boolean;
     spacePrefixBeforeAfter?: boolean;

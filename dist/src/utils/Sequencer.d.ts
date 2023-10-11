@@ -1,6 +1,5 @@
 /// <reference types="node" />
 import EventEmitter from 'events';
-
 export interface Sequence {
     key: string;
     required?: boolean;

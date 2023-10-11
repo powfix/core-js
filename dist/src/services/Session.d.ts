@@ -1,5 +1,4 @@
-import {AxiosInstance} from "axios";
-
+import { AxiosInstance } from "axios";
 export interface SessionOptions {
     api: AxiosInstance;
     storageProvider: StorageProvider;

@@ -31,7 +31,7 @@ export class Session {
 
   public constructor(options: SessionOptions) {
     // Init service parameters
-    console.log('Session initialized', Date.now(), options.api, options.api.defaults);
+    console.log('Session initialized', Date.now(), options.api);
     this.api = options.api;
     this.storageProvider = options.storageProvider;
   }

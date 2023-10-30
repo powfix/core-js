@@ -45,7 +45,7 @@ class Session {
     // private emit = this.emitter.emit;
     constructor(options) {
         // Init service parameters
-        console.log('Session initialized', Date.now(), options.api, options.api.defaults);
+        console.log('Session initialized', Date.now(), options.api);
         this.api = options.api;
         this.storageProvider = options.storageProvider;
     }

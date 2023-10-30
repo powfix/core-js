@@ -45,6 +45,7 @@ class Session {
     // private emit = this.emitter.emit;
     constructor(options) {
         // Init service parameters
+        console.log('Session initialized', Date.now(), options.api, options.api.defaults);
         this.api = options.api;
         this.storageProvider = options.storageProvider;
     }
@@ -72,7 +73,7 @@ class Session {
     setAuthorization(authorization) {
         return __awaiter(this, void 0, void 0, function* () {
             if (authorization === null) {
-                this.removeAuthorization();
+                yield this.removeAuthorization();
                 return;
             }
             if (authorization === undefined) {

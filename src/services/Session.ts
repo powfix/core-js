@@ -57,7 +57,7 @@ export class Session {
 
   public async setAuthorization(authorization?: string | null): Promise<void> {
     if (authorization === null) {
-      this.removeAuthorization();
+      await this.removeAuthorization();
       return;
     }
 

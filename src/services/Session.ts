@@ -56,35 +56,48 @@ export class Session {
     return this.storageProvider.get(this.getKey());
   }
 
-  public async setAuthorization(authorization?: string | null): Promise<void> {
+  public async setAuthorization(authorization?: string | null): Promise<string | null> {
     if (authorization === null) {
       await this.removeAuthorization();
-      return;
+      return null;
     }
 
-    if (authorization === undefined) {
-      authorization = await this.getAuthorization();
+    let nextAuthorization = await (async () => {
+      if (authorization === undefined) {
+        return await this.getAuthorization();
+      }
+      return authorization;
+    })();
+
+    if (!nextAuthorization) {
+      console.log('nextAuthorization is null or undefined');
+      return null;
     }
 
-    if (!authorization) {
-      console.log('authorization is null or undefined');
-      return;
+    try {
+      // Replace Bearer prefix
+      nextAuthorization = nextAuthorization.replace(/^Bearer\s+/, '');
+
+      const decoded = jose.decodeJwt(nextAuthorization);
+      if (!decoded) {
+        console.warn('decode failed');
+        return null;
+      }
+
+      logWithTs('decode successfully', decoded);
+
+      // AsyncStorage 에 토큰 저장
+      await this.storageProvider.set(this.getKey(), nextAuthorization);
+
+      // API Instance header 설정
+      this.api.defaults.headers.common.Authorization = `Bearer ${nextAuthorization}`;
+
+      // Return
+      return nextAuthorization;
+    } catch (e) {
+      console.error(e);
     }
-
-    authorization = authorization.replace(/^Bearer\s+/, '');
-
-    const decoded = jose.decodeJwt(authorization);
-    if (!decoded) {
-      throw new Error('failed to decode');
-    }
-
-    logWithTs('decode successfully', decoded);
-
-    // AsyncStorage 에 토큰 저장
-    await this.storageProvider.set(this.getKey(), authorization);
-
-    // API Instance header 설정
-    this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
+    return null;
   }
 
   public async removeAuthorization() {

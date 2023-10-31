@@ -78,7 +78,9 @@ export class Session {
       // Replace Bearer prefix
       nextAuthorization = nextAuthorization.replace(/^Bearer\s+/, '');
 
+      console.log(`before jose.decodeJwt("${nextAuthorization}")`);
       const decoded = jose.decodeJwt(nextAuthorization);
+      console.log(`after jose.decodeJwt("${nextAuthorization}")`);
       if (!decoded) {
         console.warn('decode failed');
         return null;

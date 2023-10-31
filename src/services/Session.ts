@@ -1,4 +1,4 @@
-import * as jose from 'jose';
+import {jwtDecode} from "jwt-decode";
 import {AxiosInstance} from "axios";
 
 export interface SessionOptions {
@@ -79,7 +79,7 @@ export class Session {
       nextAuthorization = nextAuthorization.replace(/^Bearer\s+/, '');
 
       console.log(`before jose.decodeJwt("${nextAuthorization}")`);
-      const decoded = jose.decodeJwt(nextAuthorization);
+      const decoded = jwtDecode(nextAuthorization);
       console.log(`after jose.decodeJwt("${nextAuthorization}")`);
       if (!decoded) {
         console.warn('decode failed');

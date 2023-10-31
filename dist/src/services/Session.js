@@ -74,25 +74,38 @@ class Session {
         return __awaiter(this, void 0, void 0, function* () {
             if (authorization === null) {
                 yield this.removeAuthorization();
-                return;
+                return null;
             }
-            if (authorization === undefined) {
-                authorization = yield this.getAuthorization();
+            let nextAuthorization = yield (() => __awaiter(this, void 0, void 0, function* () {
+                if (authorization === undefined) {
+                    return yield this.getAuthorization();
+                }
+                return authorization;
+            }))();
+            if (!nextAuthorization) {
+                console.log('nextAuthorization is null or undefined');
+                return null;
             }
-            if (!authorization) {
-                console.log('authorization is null or undefined');
-                return;
+            try {
+                // Replace Bearer prefix
+                nextAuthorization = nextAuthorization.replace(/^Bearer\s+/, '');
+                const decoded = jose.decodeJwt(nextAuthorization);
+                if (!decoded) {
+                    console.warn('decode failed');
+                    return null;
+                }
+                logWithTs('decode successfully', decoded);
+                // AsyncStorage 에 토큰 저장
+                yield this.storageProvider.set(this.getKey(), nextAuthorization);
+                // API Instance header 설정
+                this.api.defaults.headers.common.Authorization = `Bearer ${nextAuthorization}`;
+                // Return
+                return nextAuthorization;
             }
-            authorization = authorization.replace(/^Bearer\s+/, '');
-            const decoded = jose.decodeJwt(authorization);
-            if (!decoded) {
-                throw new Error('failed to decode');
+            catch (e) {
+                console.error(e);
             }
-            logWithTs('decode successfully', decoded);
-            // AsyncStorage 에 토큰 저장
-            yield this.storageProvider.set(this.getKey(), authorization);
-            // API Instance header 설정
-            this.api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
+            return null;
         });
     }
     removeAuthorization() {

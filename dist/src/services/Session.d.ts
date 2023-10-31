@@ -1,4 +1,5 @@
-import { AxiosInstance } from "axios";
+import {AxiosInstance} from "axios";
+
 export interface SessionOptions {
     api: AxiosInstance;
     storageProvider: StorageProvider;
@@ -17,7 +18,7 @@ export declare class Session {
     private getKey;
     hasAuthorization(): Promise<boolean>;
     getAuthorization(): Promise<string | null>;
-    setAuthorization(authorization?: string | null): Promise<void>;
+    setAuthorization(authorization?: string | null): Promise<string | null>;
     removeAuthorization(): Promise<void>;
 }
 export declare namespace Session {

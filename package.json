@@ -23,6 +23,7 @@
   "dependencies": {
     "apisauce": "^3.0.1",
     "axios": "^1.4.0",
+    "base-64": "^1.0.0",
     "file-type": "^18.5.0",
     "jose": "^4.14.4",
     "jwt-decode": "^4.0.0",
@@ -30,6 +31,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/base-64": "^1.0.1",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "20.3.3",
     "@types/uuid": "9.0.2",

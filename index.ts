@@ -21,6 +21,7 @@ import {DateUtils} from "./src/utils/DateUtils";
 import {RandomUtils} from "./src/utils/RandomUtils";
 import {Sequence, Sequencer, SequencerEvent, SequencerOption, SequencerStatus} from "./src/utils/Sequencer";
 import {Validator} from './src/utils/Validator';
+import {base64Polyfill} from "./src/scripts/base64-polyfill";
 
 /** @constants */
 export {
@@ -64,3 +65,7 @@ export {
   SequencerEvent,
   Sequencer,
 }
+
+export {
+  base64Polyfill,
+};

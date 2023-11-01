@@ -66,14 +66,12 @@ class Session {
             try {
                 // Replace Bearer prefix
                 nextAuthorization = nextAuthorization.replace(/^Bearer\s+/, '');
-                console.log(`before jwtDecode("${nextAuthorization}")`);
                 const decoded = (0, jwt_decode_1.jwtDecode)(nextAuthorization);
-                console.log(`after jwtDecode("${nextAuthorization}")`);
                 if (!decoded) {
-                    console.warn('decode failed');
+                    console.warn('JWT decode failed');
                     return null;
                 }
-                logWithTs('decode successfully', decoded);
+                logWithTs('JWT decode successfully', decoded);
                 // AsyncStorage 에 토큰 저장
                 yield this.storageProvider.set(this.getKey(), nextAuthorization);
                 // API Instance header 설정

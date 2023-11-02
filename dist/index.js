@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.base64Polyfill = exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.between = exports.Session = exports.DURATION = exports.DISTANCE = void 0;
+exports.base64Polyfill = exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.JuminNumberUtils = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.between = exports.Session = exports.DURATION = exports.DISTANCE = void 0;
 /** @constants */
 const DURATION_1 = require("./src/constants/DURATION");
 Object.defineProperty(exports, "DURATION", { enumerable: true, get: function () { return DURATION_1.DURATION; } });
@@ -34,3 +34,5 @@ const Validator_1 = require("./src/utils/Validator");
 Object.defineProperty(exports, "Validator", { enumerable: true, get: function () { return Validator_1.Validator; } });
 const base64_polyfill_1 = require("./src/scripts/base64-polyfill");
 Object.defineProperty(exports, "base64Polyfill", { enumerable: true, get: function () { return base64_polyfill_1.base64Polyfill; } });
+const JuminNumberUtils_1 = require("./src/utils/JuminNumberUtils");
+Object.defineProperty(exports, "JuminNumberUtils", { enumerable: true, get: function () { return JuminNumberUtils_1.JuminNumberUtils; } });

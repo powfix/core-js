@@ -19,6 +19,7 @@ import {RandomUtils} from "./src/utils/RandomUtils";
 import {Sequence, Sequencer, SequencerEvent, SequencerOption, SequencerStatus} from "./src/utils/Sequencer";
 import {Validator} from './src/utils/Validator';
 import {base64Polyfill} from "./src/scripts/base64-polyfill";
+import {JuminNumberUtils} from "./src/utils/JuminNumberUtils";
 /** @constants */
 export { DISTANCE, DURATION, };
 /** @models */
@@ -26,5 +27,5 @@ export { Coordinate, CoordinateM, Point2, Point3, };
 /** @services */
 export { Session, SessionOptions, StorageProvider, };
 /** @Utils */
-export { between, UuidUtils, ArrayUtils, RandomUtils, DateUtils, StringUtils, CoordinateUtils, parseBoolean, Validator, Sequence, SequencerStatus, SequencerOption, SequencerEvent, Sequencer, };
+export { between, UuidUtils, ArrayUtils, RandomUtils, DateUtils, StringUtils, CoordinateUtils, parseBoolean, Validator, JuminNumberUtils, Sequence, SequencerStatus, SequencerOption, SequencerEvent, Sequencer, };
 export { base64Polyfill, };

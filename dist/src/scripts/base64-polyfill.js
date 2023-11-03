@@ -12,4 +12,3 @@ const base64Polyfill = () => {
     console.log('base64-polyfill initialized', Date.now());
 };
 exports.base64Polyfill = base64Polyfill;
-(0, exports.base64Polyfill)();

@@ -1,13 +1,10 @@
 import redis, {RedisClientType, RedisDefaultModules, RedisFunctions, RedisModules, RedisScripts} from 'redis';
 
-export interface RedisClientOptions {
-    redisOptions?: redis.RedisClientOptions;
-}
 export declare class RedisClient {
     private readonly options;
     private status;
     readonly client: RedisClientType<RedisDefaultModules & RedisModules, RedisFunctions, RedisScripts>;
-    constructor(options?: RedisClientOptions);
+    constructor(options?: RedisClient.RedisClientOptions);
     start(): Promise<RedisClient.Status>;
     stop(): Promise<RedisClient.Status>;
     private handleOnConnect;
@@ -17,5 +14,8 @@ export declare namespace RedisClient {
     enum Status {
         RUNNING = 0,
         STOPPED = 1
+    }
+    interface RedisClientOptions {
+        redisOptions?: redis.RedisClientOptions;
     }
 }

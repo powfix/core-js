@@ -16,6 +16,7 @@
   "homepage": "https://github.com/powfix/core-js",
   "license": "MIT",
   "main": "dist/index.js",
+  "browser": "dist/browser.js",
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn clean && tsc -p . && git add dist"

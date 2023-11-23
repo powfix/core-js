@@ -1,7 +1,7 @@
-import {RedisClient, RedisClientOptions} from "./RedisClient";
+import {RedisClient} from "./RedisClient";
 
 export class RedisPublisher extends RedisClient {
-  public constructor(options?: RedisClientOptions) {
+  public constructor(options?: RedisClient.RedisClientOptions) {
     super(options);
     console.log(Date.now(), "RedisPublisher", 'initialized');
   }

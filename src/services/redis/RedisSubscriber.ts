@@ -1,8 +1,8 @@
-import {RedisClient, RedisClientOptions} from "./RedisClient";
+import {RedisClient} from "./RedisClient";
 import {PubSubListener} from "@redis/client/dist/lib/client/pub-sub";
 
 export class RedisSubscriber extends RedisClient {
-  public constructor(options?: RedisClientOptions) {
+  public constructor(options?: RedisClient.RedisClientOptions) {
     super(options);
     console.log(Date.now(), 'Subscriber', 'initialized');
   }

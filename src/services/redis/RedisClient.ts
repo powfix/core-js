@@ -7,18 +7,14 @@ import redis, {
   RedisScripts
 } from 'redis';
 
-export interface RedisClientOptions {
-  redisOptions?: redis.RedisClientOptions;
-}
-
 const LOG_PREFIX = 'RedisClient';
 
 export class RedisClient {
-  private readonly options: RedisClientOptions = {};
+  private readonly options: RedisClient.RedisClientOptions = {};
   private status: RedisClient.Status = RedisClient.Status.STOPPED;
   public readonly client: RedisClientType<RedisDefaultModules & RedisModules, RedisFunctions, RedisScripts>;
 
-  public constructor(options?: RedisClientOptions) {
+  public constructor(options?: RedisClient.RedisClientOptions) {
     console.log(Date.now(), LOG_PREFIX, 'initialized');
 
     if (options) {
@@ -75,5 +71,9 @@ export namespace RedisClient {
   export enum Status {
     RUNNING,
     STOPPED,
+  }
+
+  export interface RedisClientOptions {
+    redisOptions?: redis.RedisClientOptions;
   }
 }

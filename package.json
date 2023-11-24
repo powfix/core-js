@@ -22,7 +22,6 @@
     "build": "yarn clean && tsc -p . && git add dist"
   },
   "dependencies": {
-    "apisauce": "^3.0.1",
     "axios": "^1.4.0",
     "base-64": "^1.0.0",
     "file-type": "^18.5.0",

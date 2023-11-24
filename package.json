@@ -29,7 +29,7 @@
     "jwt-decode": "^4.0.0",
     "moment": "^2.29.4",
     "redis": "^4.6.11",
-    "uuid": "^9.0.0"
+    "uuid": "9.0.1"
   },
   "devDependencies": {
     "@types/base-64": "^1.0.1",

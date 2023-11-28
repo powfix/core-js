@@ -10,6 +10,8 @@ import {Point3} from "./src/models/Point3";
 /** @service */
 import {Session, SessionOptions, StorageProvider} from "./src/services/Session";
 
+/** @types */
+import {IntRange} from "./src/types/IntRage";
 /** @utils */
 import {between} from "./src/utils/global/between";
 import {StringUtils} from "./src/utils/StringUtils";
@@ -23,6 +25,10 @@ import {Sequence, Sequencer, SequencerEvent, SequencerOption, SequencerStatus} f
 import {Validator} from './src/utils/Validator';
 import {base64Polyfill} from "./src/scripts/base64-polyfill";
 import {JuminNumberUtils} from "./src/utils/JuminNumberUtils";
+
+export {
+  IntRange,
+};
 
 /** @constants */
 export {

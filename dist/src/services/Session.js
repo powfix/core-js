@@ -8,9 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Session = void 0;
 const jwt_decode_1 = require("jwt-decode");
+const moment_1 = __importDefault(require("moment"));
 const logWithTs = (...p) => {
     console.log(Date.now(), ...p);
 };
@@ -71,7 +75,40 @@ class Session {
                     console.warn('JWT decode failed');
                     return null;
                 }
-                logWithTs('JWT decode successfully', decoded);
+                console.log('Session:JWT decoded');
+                (() => {
+                    console.log(' - User', decoded.uuid);
+                    console.log(' - IAT', ...(() => {
+                        if (!decoded.iat) {
+                            return [decoded.iat];
+                        }
+                        const iat = moment_1.default.unix(decoded.iat);
+                        if (!iat.isValid()) {
+                            return [decoded.iat];
+                        }
+                        return [decoded.iat, iat.format(), iat.diff(Date.now(), 'days'), 'days left'];
+                    })());
+                    console.log(' - NBF', ...(() => {
+                        if (!decoded.nbf) {
+                            return [decoded.nbf];
+                        }
+                        const nbf = moment_1.default.unix(decoded.nbf);
+                        if (!nbf.isValid()) {
+                            return [decoded.nbf];
+                        }
+                        return [decoded.nbf, nbf.format(), nbf.diff(Date.now(), 'days'), 'days left'];
+                    })());
+                    console.log(' - EXP', ...(() => {
+                        if (!decoded.exp) {
+                            return [decoded.exp];
+                        }
+                        const exp = moment_1.default.unix(decoded.exp);
+                        if (!exp.isValid()) {
+                            return [decoded.exp];
+                        }
+                        return [decoded.exp, exp.format(), exp.diff(Date.now(), 'days'), 'days left'];
+                    })());
+                })();
                 // AsyncStorage 에 토큰 저장
                 yield this.storageProvider.set(this.getKey(), nextAuthorization);
                 // API Instance header 설정

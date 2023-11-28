@@ -1,5 +1,4 @@
-import {RedisClient} from "./RedisClient";
-
+import { RedisClient } from "./RedisClient";
 export declare class RedisPublisher extends RedisClient {
     constructor(options?: RedisClient.RedisClientOptions);
     start(): Promise<RedisClient.Status>;

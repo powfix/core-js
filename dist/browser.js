@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.base64Polyfill = exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.JuminNumberUtils = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.between = exports.Session = exports.DURATION = exports.DISTANCE = void 0;
+exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.JuminNumberUtils = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.base64Polyfill = exports.between = exports.Session = exports.DURATION = exports.DISTANCE = void 0;
 /** @constants */
 const DURATION_1 = require("./src/constants/DURATION");
 Object.defineProperty(exports, "DURATION", { enumerable: true, get: function () { return DURATION_1.DURATION; } });
@@ -26,13 +26,13 @@ const DateUtils_1 = require("./src/utils/DateUtils");
 Object.defineProperty(exports, "DateUtils", { enumerable: true, get: function () { return DateUtils_1.DateUtils; } });
 const RandomUtils_1 = require("./src/utils/RandomUtils");
 Object.defineProperty(exports, "RandomUtils", { enumerable: true, get: function () { return RandomUtils_1.RandomUtils; } });
+const Validator_1 = require("./src/utils/Validator");
+Object.defineProperty(exports, "Validator", { enumerable: true, get: function () { return Validator_1.Validator; } });
+const JuminNumberUtils_1 = require("./src/utils/JuminNumberUtils");
+Object.defineProperty(exports, "JuminNumberUtils", { enumerable: true, get: function () { return JuminNumberUtils_1.JuminNumberUtils; } });
 const Sequencer_1 = require("./src/utils/Sequencer");
 Object.defineProperty(exports, "Sequencer", { enumerable: true, get: function () { return Sequencer_1.Sequencer; } });
 Object.defineProperty(exports, "SequencerEvent", { enumerable: true, get: function () { return Sequencer_1.SequencerEvent; } });
 Object.defineProperty(exports, "SequencerStatus", { enumerable: true, get: function () { return Sequencer_1.SequencerStatus; } });
-const Validator_1 = require("./src/utils/Validator");
-Object.defineProperty(exports, "Validator", { enumerable: true, get: function () { return Validator_1.Validator; } });
 const base64_polyfill_1 = require("./src/scripts/base64-polyfill");
 Object.defineProperty(exports, "base64Polyfill", { enumerable: true, get: function () { return base64_polyfill_1.base64Polyfill; } });
-const JuminNumberUtils_1 = require("./src/utils/JuminNumberUtils");
-Object.defineProperty(exports, "JuminNumberUtils", { enumerable: true, get: function () { return JuminNumberUtils_1.JuminNumberUtils; } });

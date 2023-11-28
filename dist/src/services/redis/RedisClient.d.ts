@@ -1,5 +1,4 @@
-import redis, {RedisClientType, RedisDefaultModules, RedisFunctions, RedisModules, RedisScripts} from 'redis';
-
+import redis, { RedisClientType, RedisDefaultModules, RedisFunctions, RedisModules, RedisScripts } from 'redis';
 export declare class RedisClient {
     private readonly options;
     private status;

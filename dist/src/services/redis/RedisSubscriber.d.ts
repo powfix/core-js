@@ -1,6 +1,5 @@
-import {RedisClient} from "./RedisClient";
-import {PubSubListener} from "@redis/client/dist/lib/client/pub-sub";
-
+import { RedisClient } from "./RedisClient";
+import { PubSubListener } from "@redis/client/dist/lib/client/pub-sub";
 export declare class RedisSubscriber extends RedisClient {
     constructor(options?: RedisClient.RedisClientOptions);
     subscribe: <T extends boolean = false>(channels: string | string[], listener: PubSubListener<T>, bufferMode?: T | undefined) => Promise<void>;

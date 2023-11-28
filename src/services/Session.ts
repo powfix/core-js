@@ -1,5 +1,6 @@
-import {jwtDecode} from "jwt-decode";
+import {jwtDecode, JwtPayload} from "jwt-decode";
 import {AxiosInstance} from "axios";
+import moment from "moment";
 
 export interface SessionOptions {
   api: AxiosInstance;
@@ -78,13 +79,37 @@ export class Session {
       // Replace Bearer prefix
       nextAuthorization = nextAuthorization.replace(/^Bearer\s+/, '');
 
-      const decoded = jwtDecode(nextAuthorization);
+      const decoded = jwtDecode(nextAuthorization) as JwtPayload & {uuid: string};
       if (!decoded) {
         console.warn('JWT decode failed');
         return null;
       }
 
-      logWithTs('JWT decode successfully', decoded);
+      console.log('Session:JWT decoded');
+      (() => {
+        console.log(' - User', decoded.uuid);
+
+        console.log(' - IAT', ...(() => {
+          if (!decoded.iat) {return [decoded.iat];}
+          const iat = moment.unix(decoded.iat);
+          if (!iat.isValid()) {return [decoded.iat];}
+          return [decoded.iat, iat.format(), iat.diff(Date.now(), 'days'), 'days left'];
+        })());
+
+        console.log(' - NBF', ...(() => {
+          if (!decoded.nbf) {return [decoded.nbf];}
+          const nbf = moment.unix(decoded.nbf);
+          if (!nbf.isValid()) {return [decoded.nbf];}
+          return [decoded.nbf, nbf.format(), nbf.diff(Date.now(), 'days'), 'days left'];
+        })());
+
+        console.log(' - EXP', ...(() => {
+          if (!decoded.exp) {return [decoded.exp];}
+          const exp = moment.unix(decoded.exp);
+          if (!exp.isValid()) {return [decoded.exp];}
+          return [decoded.exp, exp.format(), exp.diff(Date.now(), 'days'), 'days left'];
+        })());
+      })();
 
       // AsyncStorage 에 토큰 저장
       await this.storageProvider.set(this.getKey(), nextAuthorization);

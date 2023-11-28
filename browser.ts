@@ -1,15 +1,12 @@
 /** @constants */
 import {DURATION} from "./src/constants/DURATION";
 import {DISTANCE} from "./src/constants/DISTANCE";
-
 /** @model */
 import {Coordinate, CoordinateM} from "./src/models/Coordinate";
 import {Point2} from "./src/models/Point2";
 import {Point3} from "./src/models/Point3";
-
 /** @service */
 import {Session, SessionOptions, StorageProvider} from "./src/services/Session";
-
 /** @types */
 import {IntRange} from "./src/types/IntRage";
 /** @utils */
@@ -21,22 +18,16 @@ import {parseBoolean} from "./src/utils/BooleanUtils";
 import {CoordinateUtils} from "./src/utils/CoordinateUtils";
 import {DateUtils} from "./src/utils/DateUtils";
 import {RandomUtils} from "./src/utils/RandomUtils";
-import {Sequence, Sequencer, SequencerEvent, SequencerOption, SequencerStatus} from "./src/utils/Sequencer";
 import {Validator} from './src/utils/Validator';
-import {base64Polyfill} from "./src/scripts/base64-polyfill";
 import {JuminNumberUtils} from "./src/utils/JuminNumberUtils";
+import {Sequence, Sequencer, SequencerEvent, SequencerOption, SequencerStatus} from "./src/utils/Sequencer";
+import {base64Polyfill} from "./src/scripts/base64-polyfill";
 
-export {
-  IntRange,
-};
-
-/** @constants */
 export {
   DISTANCE,
   DURATION,
 };
 
-/** @models */
 export {
   Coordinate,
   CoordinateM,
@@ -44,18 +35,19 @@ export {
   Point3,
 };
 
-/** @services */
 export {
   Session,
   SessionOptions,
   StorageProvider,
 };
 
-/** @Utils */
 export {
-  // Global
-  between,
+  IntRange,
+};
 
+export {
+  between,
+  base64Polyfill,
   UuidUtils,
   ArrayUtils,
   RandomUtils,
@@ -65,15 +57,9 @@ export {
   parseBoolean,
   Validator,
   JuminNumberUtils,
-
-  // Sequencer
   Sequence,
   SequencerStatus,
   SequencerOption,
   SequencerEvent,
   Sequencer,
 }
-
-export {
-  base64Polyfill,
-};

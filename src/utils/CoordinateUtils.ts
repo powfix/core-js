@@ -17,19 +17,34 @@ export class CoordinateUtils {
     return this.isValidLatitudeLongitude(coordinate.latitude, coordinate.longitude);
   }
 
-  public static crowDistance(c1: Coordinate, c2: Coordinate): number {
-    const toRad = (value: number) => value * Math.PI / 180;
+  public static crowDistance(...coordinates: Coordinate[]): number {
+    if (coordinates.length <= 2) {
+      const toRad = (value: number) => value * Math.PI / 180;
 
-    const R = 6371e3;
-    const dLat = toRad(c2.latitude - c1.latitude);
-    const dLon = toRad(c2.longitude - c1.longitude);
-    const lat1 = toRad(c1.latitude);
-    const lat2 = toRad(c2.latitude);
+      const c1 = coordinates[0];
+      const c2 = coordinates[1];
+      if (!c1 || !c2) {
+        return 0;
+      }
 
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const R = 6371e3;
+      const dLat = toRad(c2.latitude - c1.latitude);
+      const dLon = toRad(c2.longitude - c1.longitude);
+      const lat1 = toRad(c1.latitude);
+      const lat2 = toRad(c2.latitude);
 
-    return R * c;
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+      return R * c;
+    }
+
+    let totalDistance: number = 0;
+    for (let i = 0; i < coordinates.length - 1; ++i) {
+      totalDistance += this.crowDistance(coordinates[i], coordinates[i + 1]);
+    }
+
+    return totalDistance;
   }
 }

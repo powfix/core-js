@@ -7,9 +7,9 @@ export {
 };
 
 /** @model */
-import {Coordinate, CoordinateM} from "./src/models/Coordinate";
-import {Point2} from "./src/models/Point2";
-import {Point3} from "./src/models/Point3";
+import {Coordinate, CoordinateM} from "./src/interfaces/Coordinate";
+import {Point2} from "./src/interfaces/Point2";
+import {Point3} from "./src/interfaces/Point3";
 export {
   Coordinate,
   CoordinateM,

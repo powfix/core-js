@@ -1,6 +1,8 @@
+import { Coordinate } from "../interfaces/Coordinate";
 export declare class CoordinateUtils {
-    static isValidLatitudeLongitude(latitude: number | string, longitude: number | string): boolean;
-    static isValidLatitude(latitude: number | string): boolean;
-    static isValidLongitude(longitude: number | string): boolean;
-    static crowDistance(latitude1: number, longitude1: number, latitude2: number, longitude2: number): number;
+    static isValidLatitude(latitude: Coordinate['latitude'] | string): boolean;
+    static isValidLongitude(longitude: Coordinate['longitude'] | string): boolean;
+    static isValidLatitudeLongitude(latitude: Coordinate['latitude'] | string, longitude: Coordinate['longitude'] | string): boolean;
+    static isValidCoordinate(coordinate: Coordinate): boolean;
+    static crowDistance(...coordinates: Coordinate[]): number;
 }

@@ -3,9 +3,9 @@ import { DURATION } from "./src/constants/DURATION";
 import { DISTANCE } from "./src/constants/DISTANCE";
 export { DISTANCE, DURATION, };
 /** @model */
-import { Coordinate, CoordinateM } from "./src/models/Coordinate";
-import { Point2 } from "./src/models/Point2";
-import { Point3 } from "./src/models/Point3";
+import { Coordinate, CoordinateM } from "./src/interfaces/Coordinate";
+import { Point2 } from "./src/interfaces/Point2";
+import { Point3 } from "./src/interfaces/Point3";
 export { Coordinate, CoordinateM, Point2, Point3, };
 /** @service */
 import { Session, SessionOptions, StorageProvider } from "./src/services/Session";

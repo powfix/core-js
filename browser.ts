@@ -33,6 +33,7 @@ export {
 
 /** @utils */
 import {between} from "./src/utils/global/between";
+import {sleep} from "./src/utils/global/sleep";
 import {StringUtils} from "./src/utils/StringUtils";
 import {UuidUtils} from "./src/utils/UuidUtils";
 import {ArrayUtils} from "./src/utils/ArrayUtils";
@@ -46,6 +47,8 @@ import {Sequence, Sequencer, SequencerEvent, SequencerOption, SequencerStatus} f
 import {base64Polyfill} from "./src/scripts/base64-polyfill";
 export {
   between,
+  sleep,
+
   base64Polyfill,
   UuidUtils,
   ArrayUtils,

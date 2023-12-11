@@ -2,11 +2,11 @@ import {Coordinate} from "../interfaces/Coordinate";
 
 export class CoordinateUtils {
   public static isValidLatitude(latitude: Coordinate['latitude'] | string) {
-    return /^-?([0-8]?[0-9]|90)(\.[0-9]{1,10})$/.test(latitude.toString());
+    return /^-?([0-8]?[0-9]|90)(\.[0-9]{1,15})$/.test(latitude.toString());
   }
 
   public static isValidLongitude(longitude: Coordinate['longitude'] | string) {
-    return /^-?([0-9]{1,2}|1[0-7][0-9]|180)(\.[0-9]{1,10})$/.test(longitude.toString());
+    return /^-?([0-9]{1,2}|1[0-7][0-9]|180)(\.[0-9]{1,14})$/.test(longitude.toString());
   }
 
   public static isValidLatitudeLongitude(latitude: Coordinate['latitude'] | string, longitude: Coordinate['longitude'] | string) {

@@ -15,6 +15,7 @@ import { IntRange } from "./src/types/IntRage";
 export { IntRange, };
 /** @utils */
 import { between } from "./src/utils/global/between";
+import { sleep } from "./src/utils/global/sleep";
 import { StringUtils } from "./src/utils/StringUtils";
 import { UuidUtils } from "./src/utils/UuidUtils";
 import { ArrayUtils } from "./src/utils/ArrayUtils";
@@ -26,4 +27,4 @@ import { Validator } from './src/utils/Validator';
 import { JuminNumberUtils } from "./src/utils/JuminNumberUtils";
 import { Sequence, Sequencer, SequencerEvent, SequencerOption, SequencerStatus } from "./src/utils/Sequencer";
 import { base64Polyfill } from "./src/scripts/base64-polyfill";
-export { between, base64Polyfill, UuidUtils, ArrayUtils, RandomUtils, DateUtils, StringUtils, CoordinateUtils, parseBoolean, Validator, JuminNumberUtils, Sequence, SequencerStatus, SequencerOption, SequencerEvent, Sequencer, };
+export { between, sleep, base64Polyfill, UuidUtils, ArrayUtils, RandomUtils, DateUtils, StringUtils, CoordinateUtils, parseBoolean, Validator, JuminNumberUtils, Sequence, SequencerStatus, SequencerOption, SequencerEvent, Sequencer, };

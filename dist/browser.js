@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.JuminNumberUtils = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.base64Polyfill = exports.between = exports.Session = exports.DURATION = exports.DISTANCE = void 0;
+exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.JuminNumberUtils = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.base64Polyfill = exports.sleep = exports.between = exports.Session = exports.DURATION = exports.DISTANCE = void 0;
 /** @constants */
 const DURATION_1 = require("./src/constants/DURATION");
 Object.defineProperty(exports, "DURATION", { enumerable: true, get: function () { return DURATION_1.DURATION; } });
@@ -12,6 +12,8 @@ Object.defineProperty(exports, "Session", { enumerable: true, get: function () {
 /** @utils */
 const between_1 = require("./src/utils/global/between");
 Object.defineProperty(exports, "between", { enumerable: true, get: function () { return between_1.between; } });
+const sleep_1 = require("./src/utils/global/sleep");
+Object.defineProperty(exports, "sleep", { enumerable: true, get: function () { return sleep_1.sleep; } });
 const StringUtils_1 = require("./src/utils/StringUtils");
 Object.defineProperty(exports, "StringUtils", { enumerable: true, get: function () { return StringUtils_1.StringUtils; } });
 const UuidUtils_1 = require("./src/utils/UuidUtils");

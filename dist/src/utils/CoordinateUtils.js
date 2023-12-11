@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CoordinateUtils = void 0;
 class CoordinateUtils {
     static isValidLatitude(latitude) {
-        return /^-?([0-8]?[0-9]|90)(\.[0-9]{1,10})$/.test(latitude.toString());
+        return /^-?([0-8]?[0-9]|90)(\.[0-9]{1,15})$/.test(latitude.toString());
     }
     static isValidLongitude(longitude) {
-        return /^-?([0-9]{1,2}|1[0-7][0-9]|180)(\.[0-9]{1,10})$/.test(longitude.toString());
+        return /^-?([0-9]{1,2}|1[0-7][0-9]|180)(\.[0-9]{1,14})$/.test(longitude.toString());
     }
     static isValidLatitudeLongitude(latitude, longitude) {
         return CoordinateUtils.isValidLatitude(latitude) && CoordinateUtils.isValidLongitude(longitude);

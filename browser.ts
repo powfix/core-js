@@ -35,6 +35,7 @@ export {
 import {between} from "./src/utils/global/between";
 import {sleep} from "./src/utils/global/sleep";
 import {StringUtils} from "./src/utils/StringUtils";
+import {NumberUtils} from "./src/utils/NumberUtils";
 import {UuidUtils} from "./src/utils/UuidUtils";
 import {ArrayUtils} from "./src/utils/ArrayUtils";
 import {parseBoolean} from "./src/utils/BooleanUtils";
@@ -55,6 +56,7 @@ export {
   RandomUtils,
   DateUtils,
   StringUtils,
+  NumberUtils,
   CoordinateUtils,
   parseBoolean,
   Validator,

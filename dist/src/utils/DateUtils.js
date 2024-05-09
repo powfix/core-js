@@ -41,8 +41,8 @@ DateUtils.getRelativeTimeSpec = (locale) => {
             hh: number => `${number}시간`,
             d: number => `${number}일`,
             dd: number => `${number}일`,
-            M: number => `${number}월`,
-            MM: number => `${number}월`,
+            M: number => `${number}개월`,
+            MM: number => `${number}개월`,
             y: number => `${number}년`,
             yy: number => `${number}년`
         },

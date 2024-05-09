@@ -86,16 +86,16 @@ export class DateUtils {
     let relativeTime: RelativeTimeSpec
     switch (locale) {
       case "en":
-        relativeTime = DateUtils.EN_RELATIVE_TIME_OPTIONS
+        relativeTime = DateUtils.RELATIVE_TIME_OPTIONS_EN
         break
       case "ko":
-        relativeTime = DateUtils.KO_RELATIVE_TIME_OPTIONS
+        relativeTime = DateUtils.RELATIVE_TIME_OPTIONS_KO
         break
       case "ja":
-        relativeTime = DateUtils.JA_RELATIVE_TIME_OPTIONS
+        relativeTime = DateUtils.RELATIVE_TIME_OPTIONS_JA
         break
       case "zh":
-        relativeTime = DateUtils.ZH_RELATIVE_TIME_OPTIONS
+        relativeTime = DateUtils.RELATIVE_TIME_OPTIONS_ZH
         break
     }
 
@@ -108,7 +108,7 @@ export class DateUtils {
 
 export namespace DateUtils {
   export type DateUtilsLocales = "ko" | "ja" | "zh" | "en"
-  export const KO_RELATIVE_TIME_OPTIONS: RelativeTimeSpec = {
+  export const RELATIVE_TIME_OPTIONS_KO: RelativeTimeSpec = {
     future: "%s 후",
     past: "%s 전",
     s: number => `${number}초`,
@@ -125,7 +125,7 @@ export namespace DateUtils {
     yy: number => `${number}년`
   }
 
-  export const EN_RELATIVE_TIME_OPTIONS: RelativeTimeSpec = {
+  export const RELATIVE_TIME_OPTIONS_EN: RelativeTimeSpec = {
     future: "in %s",
     past: "%s ago",
     s: number => number === 1 ? `${number}second`: `${number}seconds`,
@@ -142,7 +142,7 @@ export namespace DateUtils {
     yy: number => `${number}years`
   }
 
-  export const JA_RELATIVE_TIME_OPTIONS: RelativeTimeSpec = {
+  export const RELATIVE_TIME_OPTIONS_JA: RelativeTimeSpec = {
     future: "%s 後",
     past: "%s 前",
     s: number => `${number}秒`,
@@ -159,7 +159,7 @@ export namespace DateUtils {
     yy: number => `${number}年`
   }
 
-  export const ZH_RELATIVE_TIME_OPTIONS: RelativeTimeSpec = {
+  export const RELATIVE_TIME_OPTIONS_ZH: RelativeTimeSpec = {
     future: "%s 后",
     past: "%s 前",
     s: number => `${number}秒`,

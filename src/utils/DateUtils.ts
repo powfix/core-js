@@ -111,5 +111,21 @@ export namespace DateUtils {
       y: number => `${number} год`,
       yy: number => `${number} лет`
     } as RelativeTimeSpec,
+    uz: {
+      future: "%s keyin",
+      past: "%s avval",
+      s: number => `${number} soniya`,
+      ss: number => `${number} soniya`,
+      m: number => `${number} daqiqa`,
+      mm: number => `${number} daqiqa`,
+      h: number => `${number} soat`,
+      hh: number => `${number} soat`,
+      d: number => `${number} kun`,
+      dd: number => `${number} kun`,
+      M: number => `${number} oy`,
+      MM: number => `${number} oy`,
+      y: number => `${number} yil`,
+      yy: number => `${number} yil`
+    } as RelativeTimeSpec,
   };
 }

@@ -112,7 +112,7 @@ export namespace DateUtils {
       yy: number => `${number} лет`
     } as RelativeTimeSpec,
     uz: {
-      future: "%s keyin",
+      future: "%sdan keyin",
       past: "%s avval",
       s: number => `${number} soniya`,
       ss: number => `${number} soniya`,

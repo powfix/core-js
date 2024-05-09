@@ -63,7 +63,6 @@ export namespace DateUtils {
       y: number => number === 1 ? `${number} year`: `${number} years`,
       yy: number => `${number} years`
     } as RelativeTimeSpec,
-
     ja: {
       future: "%s 後",
       past: "%s 前",

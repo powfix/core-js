@@ -95,5 +95,21 @@ export namespace DateUtils {
       y: number => `${number}年`,
       yy: number => `${number}年`
     } as RelativeTimeSpec,
+    ru: {
+      future: "через %s",
+      past: "%s назад",
+      s: number => `${number} секунд`,
+      ss: number => `${number} секунд`,
+      m: number => `${number} минута`,
+      mm: number => `${number} минут`,
+      h: number => `${number} час`,
+      hh: number => `${number} часов`,
+      d: number => `${number} день`,
+      dd: number => `${number} дней`,
+      M: number => `${number} месяц`,
+      MM: number => `${number} месяцев`,
+      y: number => `${number} год`,
+      yy: number => `${number} лет`
+    } as RelativeTimeSpec,
   };
 }

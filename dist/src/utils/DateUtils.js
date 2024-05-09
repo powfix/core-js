@@ -63,10 +63,10 @@ DateUtils.getRelativeTimeSpec = (locale) => {
             yy: number => `${number} years`
         },
         ja: {
-            future: "%s 後",
-            past: "%s 前",
+            future: "%s後",
+            past: "%s前",
             s: number => `${number}秒`,
-            ss: number => `${number}초`,
+            ss: number => `${number}秒`,
             m: number => `${number}分`,
             mm: number => `${number}分`,
             h: number => `${number}時`,
@@ -79,8 +79,8 @@ DateUtils.getRelativeTimeSpec = (locale) => {
             yy: number => `${number}年`
         },
         zh: {
-            future: "%s 后",
-            past: "%s 前",
+            future: "%s后",
+            past: "%s前",
             s: number => `${number}秒`,
             ss: number => `${number}秒`,
             m: number => `${number}分钟`,

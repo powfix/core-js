@@ -50,19 +50,20 @@ export namespace DateUtils {
     en: {
       future: "in %s",
       past: "%s ago",
-      s: number => number === 1 ? `${number}second`: `${number}seconds`,
-      ss: number => `${number}seconds`,
-      m: number => number === 1 ? `${number}minute`: `${number}minutes`,
-      mm: number => `${number}minutes`,
-      h: number => number === 1 ? `${number}hour`: `${number}hours`,
-      hh: number => `${number}hours`,
-      d: number => number === 1 ? `${number}day`: `${number}days`,
-      dd: number => `${number}days`,
-      M: number => number === 1 ? `${number}month`: `${number}months`,
-      MM: number => `${number}months`,
-      y: number => number === 1 ? `${number}year`: `${number}years`,
-      yy: number => `${number}years`
+      s: number => number === 1 ? `${number} second`: `${number} seconds`,
+      ss: number => `${number} seconds`,
+      m: number => number === 1 ? `${number} minute`: `${number} minutes`,
+      mm: number => `${number} minutes`,
+      h: number => number === 1 ? `${number} hour`: `${number} hours`,
+      hh: number => `${number} hours`,
+      d: number => number === 1 ? `${number} day`: `${number} days`,
+      dd: number => `${number} days`,
+      M: number => number === 1 ? `${number} month`: `${number} months`,
+      MM: number => `${number} months`,
+      y: number => number === 1 ? `${number} year`: `${number} years`,
+      yy: number => `${number} years`
     } as RelativeTimeSpec,
+
     ja: {
       future: "%s 後",
       past: "%s 前",

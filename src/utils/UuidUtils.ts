@@ -34,12 +34,7 @@ export class UuidUtils {
 	}
 
 	/** (UUID: string) to (UUID: Buffer) */
-	static toBuffer(uuid: string): Buffer | undefined {
-		if (!uuid) return;
-		if (typeof uuid !== 'string') {
-			console.warn('UuidUtils.toBuffer() uuid is not string type', uuid);
-		}
-
+	static toBuffer(uuid: string): Buffer {
 		return Buffer.from(uuid.replace(/-/g, ''), 'hex');
 	}
 

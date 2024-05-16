@@ -9,6 +9,6 @@ export declare class UuidUtils {
      */
     static toString(binary?: Buffer): string | null;
     /** (UUID: string) to (UUID: Buffer) */
-    static toBuffer(uuid: string): Buffer | undefined;
+    static toBuffer(uuid: string): Buffer;
     static isValidUUID(uuid: string): boolean;
 }

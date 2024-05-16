@@ -36,11 +36,6 @@ class UuidUtils {
     }
     /** (UUID: string) to (UUID: Buffer) */
     static toBuffer(uuid) {
-        if (!uuid)
-            return;
-        if (typeof uuid !== 'string') {
-            console.warn('UuidUtils.toBuffer() uuid is not string type', uuid);
-        }
         return Buffer.from(uuid.replace(/-/g, ''), 'hex');
     }
     static isValidUUID(uuid) {

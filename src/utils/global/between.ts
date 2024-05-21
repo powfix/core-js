@@ -1,3 +1,3 @@
-export const between = (n: number, min: number, max: number) => {
-  return n >= min && n <= max;
+export const between = (value: number, from: number, to: number): boolean => {
+  return value >= from && value <= to;
 };

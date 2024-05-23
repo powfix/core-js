@@ -1,6 +1,6 @@
-export const sleep = async (time: number, callback?: (...args: any) => void, ...args: any): Promise<any[]> => new Promise((resolve) => {
+export const sleep = async (delayInMilliseconds: number, callback?: (...args: any) => void, ...args: any): Promise<any[]> => new Promise((resolve) => {
   setTimeout(() => {
     callback?.(...args);
     resolve(args);
-  }, time);
+  }, delayInMilliseconds);
 });

@@ -1,1 +1,6 @@
-export const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
+export const sleep = async (time: number, callback?: (...args: any) => void, ...args: any): Promise<any[]> => new Promise((resolve) => {
+  setTimeout(() => {
+    callback?.(...args);
+    resolve(args);
+  }, time);
+});

@@ -1,1 +1,1 @@
-export declare const between: (n: number, min: number, max: number) => boolean;
+export declare const between: (value: number, from: number, to: number) => boolean;

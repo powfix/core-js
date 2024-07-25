@@ -103,11 +103,11 @@ class TimeService {
     getTime() {
         return this.getServerTime() || this.getClientTime();
     }
-    fetchSeverNTPResult() {
+    fetchSeverNTPResult(t1) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (typeof this.option.serverTimeProvider === 'function') {
-                    return yield this.option.serverTimeProvider();
+                    return yield this.option.serverTimeProvider(t1);
                 }
             }
             catch (e) {
@@ -151,7 +151,7 @@ class TimeService {
                 // T1 (Client Request Time)
                 const requestedAt = Date.now();
                 // Fetch server time from server
-                const serverNtpResult = yield this.fetchSeverNTPResult();
+                const serverNtpResult = yield this.fetchSeverNTPResult(requestedAt);
                 // Check is null
                 if (serverNtpResult === null) {
                     console.warn(LOG_TAG, 'Failed to get server time');

@@ -24,7 +24,7 @@ export declare class TimeService {
     getClientTime(defaultValue?: TimeService.TimeStamp): TimeService.TimeStamp;
     getServerTime(): TimeService.TimeStamp | null;
     getTime(): number;
-    fetchSeverNTPResult(): Promise<TimeService.ServerNTPResult | null>;
+    fetchSeverNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null>;
     getStatus(): TimeService.Status;
     start(): void;
     stop(): void;
@@ -49,10 +49,8 @@ export declare namespace TimeService {
     }
     interface ServerNTPResult extends Pick<NTPResult, 't2' | 't3'> {
     }
-    type Provider<R> = () => R;
-    type ProviderAsync<R> = () => Promise<R>;
-    type ClientTimeProvider = Provider<TimeStamp>;
-    type ServerTimeProvider = Provider<ServerNTPResult> | ProviderAsync<ServerNTPResult>;
+    type ClientTimeProvider = () => TimeStamp;
+    type ServerTimeProvider = (t1: NTPResult['t1']) => ServerNTPResult | Promise<ServerNTPResult>;
     interface Option {
         autoStart?: boolean;
         syncInterval?: number | null | undefined;

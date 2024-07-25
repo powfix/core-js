@@ -1,7 +1,7 @@
 import moment, {Moment, MomentInput, RelativeTimeSpec} from "moment";
 
 export class DateUtils {
-  public static relativeDate = (input: MomentInput, from: Moment = moment()): string => {
+  public static relativeDate = (input: MomentInput, from: MomentInput = Date.now()): string => {
     // Create new moment instance to apply new locale
     const datetime = moment.isMoment(input) ? moment(input.toDate()) : moment(input);
 

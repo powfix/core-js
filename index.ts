@@ -10,3 +10,5 @@ export {
   RedisPublisher,
   RedisSubscriber,
 }
+
+export * from './src';

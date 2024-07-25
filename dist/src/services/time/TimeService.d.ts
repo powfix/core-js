@@ -24,7 +24,7 @@ export declare class TimeService {
     getClientTime(defaultValue?: TimeService.TimeStamp): TimeService.TimeStamp;
     getServerTime(): TimeService.TimeStamp | null;
     getTime(): number;
-    fetchSeverNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null>;
+    private readonly fetchServerNTPResult;
     getStatus(): TimeService.Status;
     start(): void;
     stop(): void;

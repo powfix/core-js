@@ -27,10 +27,23 @@ class TimeService {
         this.on = this.emitter.on;
         this.off = this.emitter.off;
         this.emit = this.emitter.emit;
+        this.fetchServerNTPResult = (t1) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (typeof this.option.serverTimeProvider === 'function') {
+                    return yield this.option.serverTimeProvider(t1);
+                }
+            }
+            catch (e) {
+                console.error(e);
+            }
+            return null;
+        });
         this.option = option;
         if (option.autoStart) {
             this.start();
         }
+        // Binding
+        this.sync = this.sync.bind(this);
     }
     getOption() {
         return this.option;
@@ -103,19 +116,6 @@ class TimeService {
     getTime() {
         return this.getServerTime() || this.getClientTime();
     }
-    fetchSeverNTPResult(t1) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (typeof this.option.serverTimeProvider === 'function') {
-                    return yield this.option.serverTimeProvider(t1);
-                }
-            }
-            catch (e) {
-                console.error(e);
-            }
-            return null;
-        });
-    }
     getStatus() {
         return this.status;
     }
@@ -151,7 +151,7 @@ class TimeService {
                 // T1 (Client Request Time)
                 const requestedAt = Date.now();
                 // Fetch server time from server
-                const serverNtpResult = yield this.fetchSeverNTPResult(requestedAt);
+                const serverNtpResult = yield this.fetchServerNTPResult(requestedAt);
                 // Check is null
                 if (serverNtpResult === null) {
                     console.warn(LOG_TAG, 'Failed to get server time');

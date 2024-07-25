@@ -281,7 +281,7 @@ export namespace TimeService {
 
   export type ClientTimeProvider = () => TimeStamp;
   // export type ServerTimeProvider = ((t1: NTPResult['t1']) => ServerNTPResult) | ((t1: NTPResult['t1']) => Promise<ServerNTPResult>);
-  export type ServerTimeProvider = (t1: NTPResult['t1']) => ServerNTPResult | Promise<ServerNTPResult>;
+  export type ServerTimeProvider = (t1: NTPResult['t1']) => (ServerNTPResult | null) | (Promise<ServerNTPResult | null>);
 
   export interface Option {
     autoStart?: boolean;

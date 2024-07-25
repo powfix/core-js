@@ -119,7 +119,7 @@ export class TimeService {
     return this.getServerTime() || this.getClientTime();
   }
 
-  public async fetchSeverNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> {
+  public async fetchServerNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> {
     try {
       if (typeof this.option.serverTimeProvider === 'function') {
         return await this.option.serverTimeProvider(t1);
@@ -175,7 +175,7 @@ export class TimeService {
       const requestedAt: number = Date.now();
 
       // Fetch server time from server
-      const serverNtpResult = await this.fetchSeverNTPResult(requestedAt);
+      const serverNtpResult = await this.fetchServerNTPResult(requestedAt);
 
       // Check is null
       if (serverNtpResult === null) {

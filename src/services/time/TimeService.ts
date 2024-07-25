@@ -25,6 +25,9 @@ export class TimeService {
     if (option.autoStart) {
       this.start();
     }
+
+    // Binding
+    this.sync = this.sync.bind(this);
   }
 
   public getOption(): TimeService.Option {
@@ -119,7 +122,7 @@ export class TimeService {
     return this.getServerTime() || this.getClientTime();
   }
 
-  public async fetchServerNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> {
+  private readonly fetchServerNTPResult = async (t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> => {
     try {
       if (typeof this.option.serverTimeProvider === 'function') {
         return await this.option.serverTimeProvider(t1);

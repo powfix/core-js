@@ -27,7 +27,11 @@ export class TimeService {
     }
 
     // Binding
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
     this.sync = this.sync.bind(this);
+    this.getOption = this.getOption.bind(this);
+    this.setOption = this.setOption.bind(this);
   }
 
   public getOption(): TimeService.Option {

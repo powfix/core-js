@@ -50,7 +50,7 @@ export declare namespace TimeService {
     interface ServerNTPResult extends Pick<NTPResult, 't2' | 't3'> {
     }
     type ClientTimeProvider = () => TimeStamp;
-    type ServerTimeProvider = (t1: NTPResult['t1']) => ServerNTPResult | Promise<ServerNTPResult>;
+    type ServerTimeProvider = (t1: NTPResult['t1']) => (ServerNTPResult | null) | (Promise<ServerNTPResult | null>);
     interface Option {
         autoStart?: boolean;
         syncInterval?: number | null | undefined;

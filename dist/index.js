@@ -24,3 +24,4 @@ const RedisPublisher_1 = require("./src/services/redis/RedisPublisher");
 Object.defineProperty(exports, "RedisPublisher", { enumerable: true, get: function () { return RedisPublisher_1.RedisPublisher; } });
 const RedisSubscriber_1 = require("./src/services/redis/RedisSubscriber");
 Object.defineProperty(exports, "RedisSubscriber", { enumerable: true, get: function () { return RedisSubscriber_1.RedisSubscriber; } });
+__exportStar(require("./src"), exports);

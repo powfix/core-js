@@ -1,4 +1,18 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = exports.JuminNumberUtils = exports.Validator = exports.parseBoolean = exports.CoordinateUtils = exports.NumberUtils = exports.StringUtils = exports.DateUtils = exports.RandomUtils = exports.ArrayUtils = exports.UuidUtils = exports.base64Polyfill = exports.sleep = exports.between = exports.Session = exports.DURATION = exports.DISTANCE = void 0;
 /** @constants */
@@ -40,3 +54,5 @@ Object.defineProperty(exports, "SequencerEvent", { enumerable: true, get: functi
 Object.defineProperty(exports, "SequencerStatus", { enumerable: true, get: function () { return Sequencer_1.SequencerStatus; } });
 const base64_polyfill_1 = require("./src/scripts/base64-polyfill");
 Object.defineProperty(exports, "base64Polyfill", { enumerable: true, get: function () { return base64_polyfill_1.base64Polyfill; } });
+// Directories
+__exportStar(require("./src/services/browser"), exports);

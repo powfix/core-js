@@ -29,3 +29,4 @@ import { JuminNumberUtils } from "./src/utils/JuminNumberUtils";
 import { Sequence, Sequencer, SequencerEvent, SequencerOption, SequencerStatus } from "./src/utils/Sequencer";
 import { base64Polyfill } from "./src/scripts/base64-polyfill";
 export { between, sleep, base64Polyfill, UuidUtils, ArrayUtils, RandomUtils, DateUtils, StringUtils, NumberUtils, CoordinateUtils, parseBoolean, Validator, JuminNumberUtils, Sequence, SequencerStatus, SequencerOption, SequencerEvent, Sequencer, };
+export * from './src/services/browser';

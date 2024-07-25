@@ -8,7 +8,7 @@ const moment_1 = __importDefault(require("moment"));
 class DateUtils {
 }
 exports.DateUtils = DateUtils;
-DateUtils.relativeDate = (input, from = (0, moment_1.default)()) => {
+DateUtils.relativeDate = (input, from = Date.now()) => {
     // Create new moment instance to apply new locale
     const datetime = moment_1.default.isMoment(input) ? (0, moment_1.default)(input.toDate()) : (0, moment_1.default)(input);
     if (!datetime.isValid()) {

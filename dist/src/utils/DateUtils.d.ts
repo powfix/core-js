@@ -1,6 +1,6 @@
-import { Moment, MomentInput, RelativeTimeSpec } from "moment";
+import { MomentInput, RelativeTimeSpec } from "moment";
 export declare class DateUtils {
-    static relativeDate: (input: MomentInput, from?: Moment) => string;
+    static relativeDate: (input: MomentInput, from?: MomentInput) => string;
     static setLocale: (language: DateUtils.Locale) => void;
     private static getRelativeTimeSpec;
 }

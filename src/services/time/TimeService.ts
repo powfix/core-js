@@ -119,10 +119,10 @@ export class TimeService {
     return this.getServerTime() || this.getClientTime();
   }
 
-  public async fetchSeverNTPResult(): Promise<TimeService.ServerNTPResult | null> {
+  public async fetchSeverNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> {
     try {
       if (typeof this.option.serverTimeProvider === 'function') {
-        return await this.option.serverTimeProvider();
+        return await this.option.serverTimeProvider(t1);
       }
     } catch (e) {
       console.error(e);
@@ -175,7 +175,7 @@ export class TimeService {
       const requestedAt: number = Date.now();
 
       // Fetch server time from server
-      const serverNtpResult = await this.fetchSeverNTPResult();
+      const serverNtpResult = await this.fetchSeverNTPResult(requestedAt);
 
       // Check is null
       if (serverNtpResult === null) {
@@ -279,11 +279,9 @@ export namespace TimeService {
 
   export interface ServerNTPResult extends Pick<NTPResult, 't2' | 't3'> {}
 
-  export type Provider<R> = () => R;
-  export type ProviderAsync<R> = () => Promise<R>;
-
-  export type ClientTimeProvider = Provider<TimeStamp>;
-  export type ServerTimeProvider = Provider<ServerNTPResult> | ProviderAsync<ServerNTPResult>;
+  export type ClientTimeProvider = () => TimeStamp;
+  // export type ServerTimeProvider = ((t1: NTPResult['t1']) => ServerNTPResult) | ((t1: NTPResult['t1']) => Promise<ServerNTPResult>);
+  export type ServerTimeProvider = (t1: NTPResult['t1']) => ServerNTPResult | Promise<ServerNTPResult>;
 
   export interface Option {
     autoStart?: boolean;

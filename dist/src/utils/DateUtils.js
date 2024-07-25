@@ -8,14 +8,14 @@ const moment_1 = __importDefault(require("moment"));
 class DateUtils {
 }
 exports.DateUtils = DateUtils;
-DateUtils.relativeDate = (input) => {
+DateUtils.relativeDate = (input, from = (0, moment_1.default)()) => {
     // Create new moment instance to apply new locale
     const datetime = moment_1.default.isMoment(input) ? (0, moment_1.default)(input.toDate()) : (0, moment_1.default)(input);
     if (!datetime.isValid()) {
         console.error('core-js:DateUtils.relativeDate() datetime is invalid', datetime);
         return '<INVALID DATE>';
     }
-    return datetime.fromNow();
+    return datetime.from(from);
 };
 DateUtils.setLocale = (language) => {
     moment_1.default.updateLocale(language, {

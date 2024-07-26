@@ -14,9 +14,10 @@ export class DateUtils {
   };
 
   public static setLocale = (language: DateUtils.Locale) => {
-    moment.updateLocale(language as string, {
-      relativeTime: DateUtils.getRelativeTimeSpec(language),
-    });
+    const relativeTime = DateUtils.getRelativeTimeSpec(language);
+    if (relativeTime !== undefined) {
+      moment.updateLocale(language as string, {relativeTime});
+    }
   };
 
   private static getRelativeTimeSpec = (locale: DateUtils.Locale): RelativeTimeSpec | undefined => {

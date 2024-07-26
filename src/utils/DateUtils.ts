@@ -16,8 +16,9 @@ export class DateUtils {
   public static setLocale = (language: DateUtils.Locale) => {
     const relativeTime = DateUtils.getRelativeTimeSpec(language);
     if (relativeTime !== undefined) {
-      moment.updateLocale(language as string, {relativeTime});
+      moment.updateLocale(language, {relativeTime});
     }
+    moment.locale(language);
   };
 
   private static getRelativeTimeSpec = (locale: DateUtils.Locale): RelativeTimeSpec | undefined => {
@@ -29,9 +30,9 @@ export class DateUtils {
 }
 
 export namespace DateUtils {
-  export type Locale = keyof typeof DateUtils.relativeTimeSpecs | string
+  export type Locale = string;
 
-  export const relativeTimeSpecs: {[key: string]: RelativeTimeSpec} = {
+  export const relativeTimeSpecs: {[key: Locale]: RelativeTimeSpec} = {
     ko: {
       future: "%s 후",
       past: "%s 전",

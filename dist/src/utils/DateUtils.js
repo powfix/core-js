@@ -18,9 +18,10 @@ DateUtils.relativeDate = (input, from = Date.now()) => {
     return datetime.from(from);
 };
 DateUtils.setLocale = (language) => {
-    moment_1.default.updateLocale(language, {
-        relativeTime: DateUtils.getRelativeTimeSpec(language),
-    });
+    const relativeTime = DateUtils.getRelativeTimeSpec(language);
+    if (relativeTime !== undefined) {
+        moment_1.default.updateLocale(language, { relativeTime });
+    }
 };
 DateUtils.getRelativeTimeSpec = (locale) => {
     if (locale in DateUtils.relativeTimeSpecs) {

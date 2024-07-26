@@ -5,8 +5,8 @@ export declare class DateUtils {
     private static getRelativeTimeSpec;
 }
 export declare namespace DateUtils {
-    type Locale = keyof typeof DateUtils.relativeTimeSpecs | string;
+    type Locale = string;
     const relativeTimeSpecs: {
-        [key: string]: RelativeTimeSpec;
+        [key: Locale]: RelativeTimeSpec;
     };
 }

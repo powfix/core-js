@@ -22,6 +22,7 @@ DateUtils.setLocale = (language) => {
     if (relativeTime !== undefined) {
         moment_1.default.updateLocale(language, { relativeTime });
     }
+    moment_1.default.locale(language);
 };
 DateUtils.getRelativeTimeSpec = (locale) => {
     if (locale in DateUtils.relativeTimeSpecs) {

@@ -14,10 +14,23 @@ const RedisClient_1 = require("./RedisClient");
 class RedisPublisher extends RedisClient_1.RedisClient {
     constructor(options) {
         super(options);
+        this.logging = 'length';
         // Make public method
         this.publish = (channel, data) => __awaiter(this, void 0, void 0, function* () {
             const stringifyData = typeof data !== 'string' ? JSON.stringify(data) : data;
-            console.log(Date.now(), 'Redis <--- Server', channel, stringifyData);
+            switch (this.logging) {
+                case "none": {
+                    break;
+                }
+                case "length": {
+                    console.log(Date.now(), 'Server ---> Redis', channel, stringifyData.length);
+                    break;
+                }
+                case "data": {
+                    console.log(Date.now(), 'Server ---> Redis', channel, stringifyData);
+                    break;
+                }
+            }
             yield this.client.publish(channel, stringifyData);
         });
         console.log(Date.now(), "RedisPublisher", 'initialized');
@@ -37,6 +50,12 @@ class RedisPublisher extends RedisClient_1.RedisClient {
         return __awaiter(this, void 0, void 0, function* () {
             return yield _super.stop.call(this);
         });
+    }
+    setLogging(logging) {
+        this.logging = logging;
+    }
+    getLogging() {
+        return this.logging;
     }
 }
 exports.RedisPublisher = RedisPublisher;

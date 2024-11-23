@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TimeService = void 0;
-const events_1 = __importDefault(require("events"));
+const eventemitter3_1 = __importDefault(require("eventemitter3"));
 const LOG_TAG = 'TimeService';
 class TimeService {
     static calculateNTPResultOffset(ntpResult) {
@@ -23,7 +23,7 @@ class TimeService {
     constructor(option) {
         this.status = TimeService.Status.STOPPED;
         // Emitter
-        this.emitter = new events_1.default({});
+        this.emitter = new eventemitter3_1.default();
         this.on = this.emitter.on;
         this.off = this.emitter.off;
         this.emit = this.emitter.emit;

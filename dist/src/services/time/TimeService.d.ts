@@ -1,13 +1,12 @@
-/// <reference types="node" />
-import EventEmitter from "events";
+import EventEmitter3 from 'eventemitter3';
 export declare class TimeService {
     protected status: TimeService.Status;
     private offset?;
     private option;
     private syncedAt?;
     private emitter;
-    readonly on: (eventName: string | symbol, listener: (...args: any[]) => void) => EventEmitter;
-    readonly off: (eventName: string | symbol, listener: (...args: any[]) => void) => EventEmitter;
+    readonly on: <T extends string | symbol>(event: T, fn: (...args: any[]) => void, context?: any) => EventEmitter3<string | symbol, any>;
+    readonly off: <T extends string | symbol>(event: T, fn?: ((...args: any[]) => void) | undefined, context?: any, once?: boolean | undefined) => EventEmitter3<string | symbol, any>;
     private readonly emit;
     static calculateNTPResultOffset(ntpResult: TimeService.NTPResult): TimeService.Offset;
     constructor(option: TimeService.Option);

@@ -1,4 +1,4 @@
-import EventEmitter from "events";
+import EventEmitter3 from 'eventemitter3';
 
 const LOG_TAG: string = 'TimeService';
 
@@ -9,7 +9,7 @@ export class TimeService {
   private syncedAt?: TimeService.TimeStamp | undefined;
 
   // Emitter
-  private emitter = new EventEmitter({});
+  private emitter = new EventEmitter3();
   public readonly on = this.emitter.on;
   public readonly off = this.emitter.off;
   private readonly emit = this.emitter.emit;

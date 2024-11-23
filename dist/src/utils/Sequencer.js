@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sequencer = exports.SequencerEvent = exports.SequencerStatus = void 0;
 const moment_1 = __importDefault(require("moment/moment"));
-const events_1 = __importDefault(require("events"));
+const eventemitter3_1 = __importDefault(require("eventemitter3"));
 var SequencerStatus;
 (function (SequencerStatus) {
     SequencerStatus[SequencerStatus["IDLE"] = 0] = "IDLE";
@@ -39,7 +39,7 @@ class Sequencer {
         this.startTimestamp = null;
         this.endTimestamp = null;
         // Emitter
-        this.eventEmitter = new events_1.default();
+        this.eventEmitter = new eventemitter3_1.default();
         this.pushSequence = (sequence) => {
             this.sequences.push(sequence);
         };

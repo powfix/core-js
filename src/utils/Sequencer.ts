@@ -1,5 +1,5 @@
 import moment from "moment/moment";
-import EventEmitter from 'events';
+import EventEmitter3 from 'eventemitter3';
 
 export interface Sequence {
   key: string;                          // 고유키값
@@ -40,7 +40,7 @@ export class Sequencer {
   endTimestamp: number | null = null;
 
   // Emitter
-  eventEmitter = new EventEmitter();
+  eventEmitter = new EventEmitter3();
 
   constructor(option?: SequencerOption) {
     if (option?.sequences) {

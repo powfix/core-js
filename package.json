@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "base-64": "^1.0.0",
+    "eventemitter3": "^5.0.1",
     "jwt-decode": "^4.0.0",
     "redis": "^4.6.11",
     "uuid": "9.0.1"

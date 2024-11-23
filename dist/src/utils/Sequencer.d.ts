@@ -1,5 +1,4 @@
-/// <reference types="node" />
-import EventEmitter from 'events';
+import EventEmitter3 from 'eventemitter3';
 export interface Sequence {
     key: string;
     required?: boolean;
@@ -30,7 +29,7 @@ export declare class Sequencer {
     currentSequence: Sequence | null;
     startTimestamp: number | null;
     endTimestamp: number | null;
-    eventEmitter: EventEmitter;
+    eventEmitter: EventEmitter3<string | symbol, any>;
     constructor(option?: SequencerOption);
     get getCurrentTimeStamp(): number;
     get executionTime(): number | null;

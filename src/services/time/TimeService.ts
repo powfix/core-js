@@ -2,8 +2,20 @@ import EventEmitter3 from 'eventemitter3';
 
 const LOG_TAG: string = 'TimeService';
 
+export enum TimeServiceStatus {
+  STOPPED = 0,
+  RUNNING = 1,
+}
+
+export enum TimeServiceEvent {
+  SYNCED = 'SYNCED',
+  SYNC_INTERVAL_CHANGED = 'SYNC_INTERVAL_CHANGED',
+}
+
 export class TimeService {
-  protected status: TimeService.Status = TimeService.Status.STOPPED;
+  private static readonly DEFAULT_SYNC_INTERVAL: number = 60000;
+
+  protected status: TimeServiceStatus = TimeServiceStatus.STOPPED;
   private offset?: TimeService.Offset | undefined;
   private option: TimeService.Option;
   private syncedAt?: TimeService.TimeStamp | undefined;
@@ -68,7 +80,7 @@ export class TimeService {
     this.syncedAt = syncedAt;
 
     // Emit
-    this.emit(TimeService.EVENT.SYNCED, syncedAt);
+    this.emit(TimeServiceEvent.SYNCED, syncedAt);
 
     return syncedAt;
   }
@@ -91,9 +103,9 @@ export class TimeService {
     this.option.syncInterval = interval;
 
     // Emit
-    this.emit(TimeService.EVENT.SYNC_INTERVAL_CHANGED, interval);
+    this.emit(TimeServiceEvent.SYNC_INTERVAL_CHANGED, interval);
 
-    if (this.status === TimeService.Status.RUNNING) {
+    if (this.status === TimeServiceStatus.RUNNING) {
       if (this.syncHandler !== undefined) {
         this.stopSync();
         this.startSync();
@@ -137,18 +149,18 @@ export class TimeService {
     return null;
   }
 
-  public getStatus(): TimeService.Status {
+  public getStatus(): TimeServiceStatus {
     return this.status;
   }
 
   public start() {
-    if (this.status !== TimeService.Status.STOPPED) {
+    if (this.status !== TimeServiceStatus.STOPPED) {
       console.warn(LOG_TAG, 'service is not stopped');
       return;
     }
 
     // Change status
-    this.status = TimeService.Status.RUNNING;
+    this.status = TimeServiceStatus.RUNNING;
 
     // Sync immediately
     this.sync().finally(() => {});
@@ -158,13 +170,13 @@ export class TimeService {
   }
 
   public stop() {
-    if (this.status !== TimeService.Status.RUNNING) {
+    if (this.status !== TimeServiceStatus.RUNNING) {
       console.warn(LOG_TAG, 'service is not running');
       return;
     }
 
     // Change status
-    this.status = TimeService.Status.RUNNING;
+    this.status = TimeServiceStatus.RUNNING;
 
     // Stop sync
     this.stopSync();
@@ -260,13 +272,6 @@ export class TimeService {
 }
 
 export namespace TimeService {
-  export const DEFAULT_SYNC_INTERVAL: number = 60000;
-
-  export enum Status {
-    STOPPED = 0,
-    RUNNING = 1,
-  }
-
   export type Offset = number;
   export type TimeStamp = number;
 
@@ -295,10 +300,5 @@ export namespace TimeService {
     syncInterval?: number | null | undefined;                            // Sync interval in milliseconds
     clientTimeProvider?: ClientTimeProvider | undefined;
     serverTimeProvider?: ServerTimeProvider | undefined;
-  }
-
-  export enum EVENT {
-    SYNCED = 'SYNCED',
-    SYNC_INTERVAL_CHANGED = 'SYNC_INTERVAL_CHANGED',
   }
 }

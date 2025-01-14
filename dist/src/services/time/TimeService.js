@@ -12,16 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TimeService = void 0;
+exports.TimeService = exports.TimeServiceEvent = exports.TimeServiceStatus = void 0;
 const eventemitter3_1 = __importDefault(require("eventemitter3"));
 const LOG_TAG = 'TimeService';
+var TimeServiceStatus;
+(function (TimeServiceStatus) {
+    TimeServiceStatus[TimeServiceStatus["STOPPED"] = 0] = "STOPPED";
+    TimeServiceStatus[TimeServiceStatus["RUNNING"] = 1] = "RUNNING";
+})(TimeServiceStatus || (exports.TimeServiceStatus = TimeServiceStatus = {}));
+var TimeServiceEvent;
+(function (TimeServiceEvent) {
+    TimeServiceEvent["SYNCED"] = "SYNCED";
+    TimeServiceEvent["SYNC_INTERVAL_CHANGED"] = "SYNC_INTERVAL_CHANGED";
+})(TimeServiceEvent || (exports.TimeServiceEvent = TimeServiceEvent = {}));
 class TimeService {
     static calculateNTPResultOffset(ntpResult) {
         const { t1, t2, t3, t4 } = ntpResult;
         return ((t2 - t1) + (t3 - t4)) / 2;
     }
     constructor(option) {
-        this.status = TimeService.Status.STOPPED;
+        this.status = TimeServiceStatus.STOPPED;
         // Emitter
         this.emitter = new eventemitter3_1.default();
         this.on = this.emitter.on;
@@ -73,7 +83,7 @@ class TimeService {
     setSyncedAt(syncedAt) {
         this.syncedAt = syncedAt;
         // Emit
-        this.emit(TimeService.EVENT.SYNCED, syncedAt);
+        this.emit(TimeServiceEvent.SYNCED, syncedAt);
         return syncedAt;
     }
     getSyncInterval() {
@@ -90,8 +100,8 @@ class TimeService {
     setSyncInterval(interval) {
         this.option.syncInterval = interval;
         // Emit
-        this.emit(TimeService.EVENT.SYNC_INTERVAL_CHANGED, interval);
-        if (this.status === TimeService.Status.RUNNING) {
+        this.emit(TimeServiceEvent.SYNC_INTERVAL_CHANGED, interval);
+        if (this.status === TimeServiceStatus.RUNNING) {
             if (this.syncHandler !== undefined) {
                 this.stopSync();
                 this.startSync();
@@ -124,24 +134,24 @@ class TimeService {
         return this.status;
     }
     start() {
-        if (this.status !== TimeService.Status.STOPPED) {
+        if (this.status !== TimeServiceStatus.STOPPED) {
             console.warn(LOG_TAG, 'service is not stopped');
             return;
         }
         // Change status
-        this.status = TimeService.Status.RUNNING;
+        this.status = TimeServiceStatus.RUNNING;
         // Sync immediately
         this.sync().finally(() => { });
         // Start sync
         this.startSync();
     }
     stop() {
-        if (this.status !== TimeService.Status.RUNNING) {
+        if (this.status !== TimeServiceStatus.RUNNING) {
             console.warn(LOG_TAG, 'service is not running');
             return;
         }
         // Change status
-        this.status = TimeService.Status.RUNNING;
+        this.status = TimeServiceStatus.RUNNING;
         // Stop sync
         this.stopSync();
         // Reset offset
@@ -220,16 +230,4 @@ class TimeService {
     ;
 }
 exports.TimeService = TimeService;
-(function (TimeService) {
-    TimeService.DEFAULT_SYNC_INTERVAL = 60000;
-    let Status;
-    (function (Status) {
-        Status[Status["STOPPED"] = 0] = "STOPPED";
-        Status[Status["RUNNING"] = 1] = "RUNNING";
-    })(Status = TimeService.Status || (TimeService.Status = {}));
-    let EVENT;
-    (function (EVENT) {
-        EVENT["SYNCED"] = "SYNCED";
-        EVENT["SYNC_INTERVAL_CHANGED"] = "SYNC_INTERVAL_CHANGED";
-    })(EVENT = TimeService.EVENT || (TimeService.EVENT = {}));
-})(TimeService || (exports.TimeService = TimeService = {}));
+TimeService.DEFAULT_SYNC_INTERVAL = 60000;

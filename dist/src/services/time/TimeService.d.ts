@@ -1,6 +1,15 @@
 import EventEmitter3 from 'eventemitter3';
+export declare enum TimeServiceStatus {
+    STOPPED = 0,
+    RUNNING = 1
+}
+export declare enum TimeServiceEvent {
+    SYNCED = "SYNCED",
+    SYNC_INTERVAL_CHANGED = "SYNC_INTERVAL_CHANGED"
+}
 export declare class TimeService {
-    protected status: TimeService.Status;
+    private static readonly DEFAULT_SYNC_INTERVAL;
+    protected status: TimeServiceStatus;
     private offset?;
     private option;
     private syncedAt?;
@@ -24,7 +33,7 @@ export declare class TimeService {
     getServerTime(): TimeService.TimeStamp | null;
     getTime(): number;
     private readonly fetchServerNTPResult;
-    getStatus(): TimeService.Status;
+    getStatus(): TimeServiceStatus;
     start(): void;
     stop(): void;
     sync(): Promise<TimeService.Offset | null>;
@@ -33,11 +42,6 @@ export declare class TimeService {
     private stopSync;
 }
 export declare namespace TimeService {
-    const DEFAULT_SYNC_INTERVAL: number;
-    enum Status {
-        STOPPED = 0,
-        RUNNING = 1
-    }
     type Offset = number;
     type TimeStamp = number;
     interface NTPResult {
@@ -55,9 +59,5 @@ export declare namespace TimeService {
         syncInterval?: number | null | undefined;
         clientTimeProvider?: ClientTimeProvider | undefined;
         serverTimeProvider?: ServerTimeProvider | undefined;
-    }
-    enum EVENT {
-        SYNCED = "SYNCED",
-        SYNC_INTERVAL_CHANGED = "SYNC_INTERVAL_CHANGED"
     }
 }

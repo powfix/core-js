@@ -32,15 +32,6 @@ export class TimeService {
     if (option.autoStart) {
       this.start();
     }
-
-    // Binding
-    // this.emit = this.emit.bind(this);
-    // this.start = this.start.bind(this);
-    // this.stop = this.stop.bind(this);
-    // this.sync = this.sync.bind(this);
-    // this.getOption = this.getOption.bind(this);
-    // this.setOption = this.setOption.bind(this);
-    // this.setSyncedAt = this.setSyncedAt.bind(this);
   }
 
   public getOption = (): TimeService.Option => {

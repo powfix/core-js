@@ -17,9 +17,9 @@ export class TimeService {
 
   // Emitter
   private emitter = new EventEmitter3<TimeService.Event>();
-  public readonly on = this.emitter.on;
-  public readonly off = this.emitter.off;
-  private readonly emit = this.emitter.emit;
+  public readonly on = this.emitter.on.bind(this.emitter);
+  public readonly off = this.emitter.off.bind(this.emitter);
+  private readonly emit = this.emitter.emit.bind(this.emitter);
 
   public static calculateNTPResultOffset(ntpResult: TimeService.NTPResult): TimeService.Offset {
     const {t1, t2, t3, t4} = ntpResult;

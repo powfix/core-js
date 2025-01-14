@@ -7,11 +7,6 @@ export enum TimeServiceStatus {
   RUNNING = 1,
 }
 
-export enum TimeServiceEvent {
-  SYNCED = 'SYNCED',
-  SYNC_INTERVAL_CHANGED = 'SYNC_INTERVAL_CHANGED',
-}
-
 export class TimeService {
   private static readonly DEFAULT_SYNC_INTERVAL: number = 60000;
 
@@ -21,7 +16,7 @@ export class TimeService {
   private syncedAt?: TimeService.TimeStamp | undefined;
 
   // Emitter
-  private emitter = new EventEmitter3();
+  private emitter = new EventEmitter3<TimeService.Event>();
   public readonly on = this.emitter.on;
   public readonly off = this.emitter.off;
   private readonly emit = this.emitter.emit;
@@ -80,7 +75,7 @@ export class TimeService {
     this.syncedAt = syncedAt;
 
     // Emit
-    this.emit(TimeServiceEvent.SYNCED, syncedAt);
+    this.emit('SYNCED', syncedAt);
 
     return syncedAt;
   }
@@ -103,7 +98,7 @@ export class TimeService {
     this.option.syncInterval = interval;
 
     // Emit
-    this.emit(TimeServiceEvent.SYNC_INTERVAL_CHANGED, interval);
+    this.emit('SYNC_INTERVAL_CHANGED', interval);
 
     if (this.status === TimeServiceStatus.RUNNING) {
       if (this.syncHandler !== undefined) {
@@ -288,6 +283,8 @@ export namespace TimeService {
     // T4 (Client Receive Time)
     t4: TimeStamp;
   }
+
+  export type Event = 'SYNCED' | 'SYNC_INTERVAL_CHANGED';
 
   export interface ServerNTPResult extends Pick<NTPResult, 't2' | 't3'> {}
 

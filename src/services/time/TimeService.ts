@@ -34,6 +34,7 @@ export class TimeService {
     }
 
     // Binding
+    this.emit = this.emit.bind(this);
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
     this.sync = this.sync.bind(this);

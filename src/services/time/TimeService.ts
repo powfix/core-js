@@ -43,11 +43,11 @@ export class TimeService {
     this.setSyncedAt = this.setSyncedAt.bind(this);
   }
 
-  public getOption(): TimeService.Option {
+  public getOption = (): TimeService.Option => {
     return this.option;
   }
 
-  public setOption(option: TimeService.Option): TimeService.Option {
+  public setOption = (option: TimeService.Option): TimeService.Option => {
     return this.option = option;
   }
 
@@ -150,7 +150,7 @@ export class TimeService {
     return this.status;
   }
 
-  public start() {
+  public start = () => {
     if (this.status !== TimeServiceStatus.STOPPED) {
       console.warn(LOG_TAG, 'service is not stopped');
       return;
@@ -166,7 +166,7 @@ export class TimeService {
     this.startSync();
   }
 
-  public stop() {
+  public stop = () => {
     if (this.status !== TimeServiceStatus.RUNNING) {
       console.warn(LOG_TAG, 'service is not running');
       return;
@@ -185,7 +185,7 @@ export class TimeService {
     this.setSyncedAt(undefined);
   }
 
-  public async sync(): Promise<TimeService.Offset | null> {
+  public sync = async (): Promise<TimeService.Offset | null> => {
     try {
       // T1 (Client Request Time)
       const requestedAt: number = Date.now();

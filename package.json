@@ -21,6 +21,9 @@
     "clean": "rm -rf dist",
     "build": "yarn clean && tsc -p . && git add dist"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "base-64": "^1.0.0",
     "eventemitter3": "^5.0.1",

@@ -19,7 +19,7 @@
   "browser": "dist/browser.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "yarn clean && tsc -p . && git add dist"
+    "build": "yarn clean; tsc -p ."
   },
   "files": [
     "dist"

@@ -64,7 +64,7 @@ export class TimeService {
     return this.syncedAt;
   }
 
-  private setSyncedAt = (syncedAt: TimeService.TimeStamp | undefined): TimeService.TimeStamp | undefined => {
+  private setSyncedAt(syncedAt: TimeService.TimeStamp | undefined): TimeService.TimeStamp | undefined {
     this.syncedAt = syncedAt;
 
     // Emit

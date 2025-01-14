@@ -40,6 +40,7 @@ export class TimeService {
     this.sync = this.sync.bind(this);
     this.getOption = this.getOption.bind(this);
     this.setOption = this.setOption.bind(this);
+    this.setSyncedAt = this.setSyncedAt.bind(this);
   }
 
   public getOption(): TimeService.Option {

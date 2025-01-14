@@ -34,13 +34,13 @@ export class TimeService {
     }
 
     // Binding
-    this.emit = this.emit.bind(this);
-    this.start = this.start.bind(this);
-    this.stop = this.stop.bind(this);
-    this.sync = this.sync.bind(this);
-    this.getOption = this.getOption.bind(this);
-    this.setOption = this.setOption.bind(this);
-    this.setSyncedAt = this.setSyncedAt.bind(this);
+    // this.emit = this.emit.bind(this);
+    // this.start = this.start.bind(this);
+    // this.stop = this.stop.bind(this);
+    // this.sync = this.sync.bind(this);
+    // this.getOption = this.getOption.bind(this);
+    // this.setOption = this.setOption.bind(this);
+    // this.setSyncedAt = this.setSyncedAt.bind(this);
   }
 
   public getOption = (): TimeService.Option => {
@@ -73,7 +73,7 @@ export class TimeService {
     return this.syncedAt;
   }
 
-  private setSyncedAt(syncedAt: TimeService.TimeStamp | undefined): TimeService.TimeStamp | undefined {
+  private setSyncedAt = (syncedAt: TimeService.TimeStamp | undefined): TimeService.TimeStamp | undefined => {
     this.syncedAt = syncedAt;
 
     // Emit

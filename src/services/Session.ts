@@ -2,18 +2,11 @@ import {jwtDecode, JwtPayload} from "jwt-decode";
 import {AxiosInstance} from "axios";
 import moment from "moment";
 import {StorageProvider} from "../interfaces/StorageProvider";
+import EventEmitter3 from 'eventemitter3';
 
 export interface SessionOptions {
   api: AxiosInstance;
   storageProvider: StorageProvider;
-}
-
-export interface StorageProvider {
-  key?: () => string;
-  set: (key: string, value: string) => Promise<void> | void;
-  get: (key: string) => Promise<string | null> | (string | null);
-  remove: (key: string) => Promise<void> | void;
-  clear?: () => Promise<void> | void;
 }
 
 const logWithTs = (...p: any) => {
@@ -26,10 +19,10 @@ export class Session {
   protected storageProvider: StorageProvider;
 
   // Emitter
-  // private emitter = new EventEmitter({});
-  // public on = this.emitter.on;
-  // public off = this.emitter.off;
-  // private emit = this.emitter.emit;
+  private emitter = new EventEmitter3<Session.Event>();
+  public readonly on = this.emitter.on.bind(this.emitter);
+  public readonly off = this.emitter.off.bind(this.emitter);
+  protected readonly emit = this.emitter.emit.bind(this.emitter);
 
   public constructor(options: SessionOptions) {
     // Init service parameters
@@ -118,6 +111,9 @@ export class Session {
       // API Instance header 설정
       this.api.defaults.headers.common.Authorization = `Bearer ${nextAuthorization}`;
 
+      // Emit
+      this.emit('AUTHORIZATION_CHANGED', nextAuthorization);
+
       // Return
       return nextAuthorization;
     } catch (e) {
@@ -132,6 +128,9 @@ export class Session {
 
     // 스토리지에서 authorization 제거
     await this.storageProvider.remove(this.getKey());
+
+    // Emit
+    this.emit('AUTHORIZATION_CHANGED', null);
   }
 }
 
@@ -139,4 +138,8 @@ export namespace Session {
   export enum STORAGE_KEY {
     SESSION_AUTHORIZATION = 'SESSION_AUTHORIZATION',
   }
+
+  export type Event = {
+    AUTHORIZATION_CHANGED: (authorization: string | null) => void;
+  };
 }

@@ -4,11 +4,6 @@ import moment from "moment";
 import {StorageProvider} from "../interfaces/StorageProvider";
 import EventEmitter3 from 'eventemitter3';
 
-export interface SessionOptions {
-  api: AxiosInstance;
-  storageProvider: StorageProvider;
-}
-
 export class Session {
   // Service parameters
   protected api: AxiosInstance;
@@ -20,7 +15,7 @@ export class Session {
   public readonly off = this.emitter.off.bind(this.emitter);
   protected readonly emit = this.emitter.emit.bind(this.emitter);
 
-  public constructor(options: SessionOptions) {
+  public constructor(options: Session.Options) {
     // Init service parameters
     console.log('Session initialized', Date.now(), options.api);
     this.api = options.api;
@@ -133,6 +128,11 @@ export class Session {
 export namespace Session {
   export enum STORAGE_KEY {
     SESSION_AUTHORIZATION = 'SESSION_AUTHORIZATION',
+  }
+
+  export interface Options {
+    api: AxiosInstance;
+    storageProvider: StorageProvider;
   }
 
   export type Event = {

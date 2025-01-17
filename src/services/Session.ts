@@ -9,10 +9,6 @@ export interface SessionOptions {
   storageProvider: StorageProvider;
 }
 
-const logWithTs = (...p: any) => {
-  console.log(Date.now(), ...p);
-}
-
 export class Session {
   // Service parameters
   protected api: AxiosInstance;

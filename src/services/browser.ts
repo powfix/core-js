@@ -2,4 +2,4 @@
 export * from './time';
 
 // Files
-export * from './Session';
+export * from './SessionService';

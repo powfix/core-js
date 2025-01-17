@@ -18,9 +18,9 @@ export {
 };
 
 /** @service */
-import {Session, SessionOptions, StorageProvider} from "./src/services/Session";
+import {SessionService, SessionOptions, StorageProvider} from "./src/services/SessionService";
 export {
-  Session,
+  SessionService,
   SessionOptions,
   StorageProvider,
 };

@@ -4,7 +4,7 @@ import moment from "moment";
 import {StorageProvider} from "../interfaces/StorageProvider";
 import EventEmitter3 from 'eventemitter3';
 
-export class Session {
+export class SessionService {
   private static readonly DEFAULT_AUTHORIZATION_STORAGE_KEY: string = 'AUTHORIZATION';
 
   // Service parameters
@@ -12,12 +12,12 @@ export class Session {
   protected storageProvider: StorageProvider;
 
   // Emitter
-  private emitter = new EventEmitter3<Session.Event>();
+  private emitter = new EventEmitter3<SessionService.Event>();
   public readonly on = this.emitter.on.bind(this.emitter);
   public readonly off = this.emitter.off.bind(this.emitter);
   protected readonly emit = this.emitter.emit.bind(this.emitter);
 
-  public constructor(options: Session.Options) {
+  public constructor(options: SessionService.Options) {
     // Init service parameters
     console.log('Session initialized', Date.now(), options.api);
     this.api = options.api;
@@ -33,7 +33,7 @@ export class Session {
       console.error(e);
     }
 
-    return Session.DEFAULT_AUTHORIZATION_STORAGE_KEY;
+    return SessionService.DEFAULT_AUTHORIZATION_STORAGE_KEY;
   }
 
   public async hasAuthorization(): Promise<boolean> {
@@ -127,7 +127,7 @@ export class Session {
   }
 }
 
-export namespace Session {
+export namespace SessionService {
   export interface Options {
     api: AxiosInstance;
     storageProvider: StorageProvider;

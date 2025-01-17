@@ -5,6 +5,8 @@ import {StorageProvider} from "../interfaces/StorageProvider";
 import EventEmitter3 from 'eventemitter3';
 
 export class Session {
+  private static readonly DEFAULT_AUTHORIZATION_STORAGE_KEY: string = 'AUTHORIZATION';
+
   // Service parameters
   protected api: AxiosInstance;
   protected storageProvider: StorageProvider;
@@ -31,7 +33,7 @@ export class Session {
       console.error(e);
     }
 
-    return Session.STORAGE_KEY.SESSION_AUTHORIZATION;
+    return Session.DEFAULT_AUTHORIZATION_STORAGE_KEY;
   }
 
   public async hasAuthorization(): Promise<boolean> {
@@ -126,10 +128,6 @@ export class Session {
 }
 
 export namespace Session {
-  export enum STORAGE_KEY {
-    SESSION_AUTHORIZATION = 'SESSION_AUTHORIZATION',
-  }
-
   export interface Options {
     api: AxiosInstance;
     storageProvider: StorageProvider;

@@ -39,7 +39,9 @@ export class RedisClient {
     this.client.on('connect', this.handleOnConnect);
     this.client.on('error', this.handleOnError);
 
+    console.log('before connect');
     await this.client.connect();
+    console.log('after connect');
 
     this.status = RedisClient.Status.RUNNING;
     console.log(LOG_PREFIX, 'now started');

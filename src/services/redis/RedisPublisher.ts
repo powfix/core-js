@@ -9,11 +9,11 @@ export class RedisPublisher extends RedisClient {
   }
 
   public async start(): Promise<RedisClient.Status> {
-    return await super.start();
+    return super.start();
   }
 
   public async stop(): Promise<RedisClient.Status> {
-    return await super.stop();
+    return super.stop();
   }
 
   public setLogging(logging: RedisPublisher.LOGGING) {

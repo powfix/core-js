@@ -25,7 +25,7 @@ export class RedisPublisher extends RedisClient {
   }
 
   // Make public method
-  public publish = async (channel: string, data: string | object) => {
+  public async publish(channel: string, data: string | object) {
     const stringifyData = typeof data !== 'string' ? JSON.stringify(data) : data;
 
     switch (this.logging) {

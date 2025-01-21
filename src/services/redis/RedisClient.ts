@@ -28,6 +28,10 @@ export class RedisClient {
     }
   }
 
+  public getStatus(): RedisClient.Status {
+    return this.status;
+  }
+
   public async start(): Promise<RedisClient.Status> {
     console.log(LOG_PREFIX, 'trying to start');
 

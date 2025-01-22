@@ -35,7 +35,9 @@ export class UuidUtils {
 	}
 
 	/** (UUID: string) to (UUID: Buffer) */
-	static toBuffer(uuid: string): Buffer {
+	static toBuffer(uuid: string): Buffer
+	static toBuffer(uuid: string | null | undefined): Buffer | null {
+		if (!uuid) {return null;}
 		return Buffer.from(uuid.replace(/-/g, ''), 'hex');
 	}
 

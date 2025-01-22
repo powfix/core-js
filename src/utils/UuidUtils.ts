@@ -28,6 +28,7 @@ export class UuidUtils {
 	 * @param binary UUID
 	 * @returns {string|null} When binary not exists return null
 	 */
+	static toString(binary: Buffer): string
 	static toString(binary?: Buffer): string | null {
 		if (!binary) return null;
 		return UuidUtils.format(binaryToString(binary));

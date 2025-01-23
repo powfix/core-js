@@ -126,7 +126,7 @@ export class TimeService {
     return this.getServerTime() || this.getClientTime();
   }
 
-  private readonly fetchServerNTPResult = async (t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> => {
+  private async fetchServerNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> {
     try {
       if (typeof this.option.serverTimeProvider === 'function') {
         return await this.option.serverTimeProvider(t1);

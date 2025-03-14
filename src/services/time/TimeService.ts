@@ -32,6 +32,12 @@ export class TimeService {
     if (option.autoStart) {
       this.start();
     }
+
+    // Bind
+    this.sync = this.sync.bind(this);
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
+    this.fetchServerNTPResult = this.fetchServerNTPResult.bind(this);
   }
 
   public getOption(): TimeService.Option {

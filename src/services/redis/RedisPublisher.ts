@@ -1,5 +1,7 @@
 import {RedisClient} from "./RedisClient";
 
+const LOG_TAG: string = '[REDIS-PUB]';
+
 export class RedisPublisher extends RedisClient {
   private logging: RedisPublisher.LOGGING = 'length';
 
@@ -31,11 +33,11 @@ export class RedisPublisher extends RedisClient {
     switch (this.logging) {
       case "none": {break;}
       case "length": {
-        console.log(new Date().toISOString(), 'Server ---> Redis', channel, stringifyData.length);
+        console.log(new Date().toISOString(), LOG_TAG, channel, `[len=${stringifyData.length}]`);
         break;
       }
       case "data": {
-        console.log(new Date().toISOString(), 'Server ---> Redis', channel, stringifyData);
+        console.log(new Date().toISOString(), LOG_TAG, channel, stringifyData);
         break;
       }
     }

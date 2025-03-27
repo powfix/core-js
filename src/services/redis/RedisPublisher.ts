@@ -31,11 +31,11 @@ export class RedisPublisher extends RedisClient {
     switch (this.logging) {
       case "none": {break;}
       case "length": {
-        console.log(Date.now(), 'Server ---> Redis', channel, stringifyData.length);
+        console.log(new Date().toISOString(), 'Server ---> Redis', channel, stringifyData.length);
         break;
       }
       case "data": {
-        console.log(Date.now(), 'Server ---> Redis', channel, stringifyData);
+        console.log(new Date().toISOString(), 'Server ---> Redis', channel, stringifyData);
         break;
       }
     }

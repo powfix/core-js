@@ -20,7 +20,7 @@ class TransactionManager {
   private readonly emitter = new EventEmitter<TransactionManagerEventTypes>();
 
   public constructor() {
-    if (this.logLevel >= TransactionManagerLogLevel.VERBOSE) {
+    if (this.logLevel <= TransactionManagerLogLevel.VERBOSE) {
       console.log(LOG_TAG, 'TransactionManager instance initialized');
     }
   }
@@ -37,7 +37,7 @@ class TransactionManager {
   public setLogLevel(logLevel: TransactionManagerLogLevel): void {
     this.logLevel = logLevel;
 
-    if (this.logLevel >= TransactionManagerLogLevel.VERBOSE) {
+    if (this.logLevel <= TransactionManagerLogLevel.VERBOSE) {
       console.log(LOG_TAG, 'log level changed to', logLevel);
     }
   }
@@ -52,7 +52,7 @@ class TransactionManager {
 
   public add(transaction: Transaction, option?: TransactionManagerAddOption) {
     if (this.transactionTimeoutMap.has(transaction)) {
-      if (this.logLevel >= TransactionManagerLogLevel.ERROR) {
+      if (this.logLevel <= TransactionManagerLogLevel.ERROR) {
         console.error(LOG_TAG, 'transaction already exists');
       }
       return;
@@ -76,7 +76,7 @@ class TransactionManager {
       clearTimeout(transactionTimeout.handler);
       this.transactionTimeoutMap.delete(transaction);
 
-      if (this.logLevel >= TransactionManagerLogLevel.VERBOSE) {
+      if (this.logLevel <= TransactionManagerLogLevel.VERBOSE) {
         console.log(LOG_TAG, this.getTransactionLogArg(transaction), 'removed');
       }
     }
@@ -100,7 +100,7 @@ class TransactionManager {
 
     const finished: unknown = (transaction as any)?.finished;
     if (finished != null) {
-      if (this.logLevel >= TransactionManagerLogLevel.VERBOSE) {
+      if (this.logLevel <= TransactionManagerLogLevel.VERBOSE) {
         console.log(LOG_TAG, this.getTransactionLogArg(transaction), `is already handled(${finished}) after`, reason);
       }
       this.remove(transaction);
@@ -121,7 +121,7 @@ class TransactionManager {
           break;
         }
         default: {
-          if (this.logLevel >= TransactionManagerLogLevel.ERROR) {
+          if (this.logLevel <= TransactionManagerLogLevel.ERROR) {
             console.error(LOG_TAG, `unknown action`, action);
           }
           break;
@@ -130,11 +130,11 @@ class TransactionManager {
 
       handled = finished != null;
       if (finished != null) {
-        if (this.logLevel >= TransactionManagerLogLevel.ERROR) {
+        if (this.logLevel <= TransactionManagerLogLevel.ERROR) {
           console.error(LOG_TAG, this.getTransactionLogArg(transaction), `handled(${finished}) after`, reason);
         }
       } else {
-        if (this.logLevel >= TransactionManagerLogLevel.ERROR) {
+        if (this.logLevel <= TransactionManagerLogLevel.ERROR) {
           console.error(LOG_TAG, this.getTransactionLogArg(transaction), `not handled 🚫`);
         }
       }

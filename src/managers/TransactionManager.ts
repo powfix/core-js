@@ -5,7 +5,7 @@ import {TransactionManagerAddOption, TransactionManagerEventTypes} from "./Trans
 
 const LOG_TAG: string = '[TransactionManager]';
 
-class TransactionManager {
+export class TransactionManager {
   public static DEFAULT_TIMEOUT: number = 60 * 1000;
   public static DEFAULT_ACTION: TransactionManagerTimeoutAction = TransactionManagerTimeoutAction.ROLLBACK;
 
@@ -156,5 +156,3 @@ class TransactionManager {
     this.remove(transaction);
   }
 }
-
-export default TransactionManager;

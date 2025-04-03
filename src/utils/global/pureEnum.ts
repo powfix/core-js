@@ -8,3 +8,10 @@ export function pureEnum<E extends object>(e: E) {
   return Object.entries(e).filter(([key, value]) => !/^\d+$/g.test(key) && typeof value !== 'function') as PureEnumReturnType<E>;
 }
 
+export function pureEnumKeys<E extends object>(e: E) {
+  return pureEnum<E>(e).map(([key]) => key)
+}
+
+export function pureEnumValues<E extends object>(e: E) {
+  return pureEnum<E>(e).map(([, value]) => value)
+}

@@ -1,6 +1,10 @@
 import {ModelAttributeColumnOptions} from "sequelize";
 import {UuidUtils} from "../../UuidUtils";
 
+interface UuidColumnOptions extends Omit<ModelAttributeColumnOptions, 'type'>{
+  columnName: string,
+}
+
 export class SequelizeUtils {
   public static decimal2Number(value: any): number | null | undefined {
     if (value === null || value === undefined) {
@@ -63,14 +67,10 @@ export class SequelizeUtils {
     }
   }
 
-  public static getUuidColumn = ({columnName, allowNull}: {
-    columnName: string,
-    allowNull: boolean
-  }): Partial<ModelAttributeColumnOptions> => {
-    if (allowNull) {
+  public static getUuidColumn = ({columnName, ...overrideOptions}: UuidColumnOptions): Partial<ModelAttributeColumnOptions> => {
+    if (overrideOptions.allowNull) {
       return {
         type: "binary(16)",
-        allowNull,
         get() {
           const value = this.getDataValue(columnName)
 
@@ -82,18 +82,19 @@ export class SequelizeUtils {
         },
         set(uuid: string | null) {
           this.setDataValue(columnName, uuid === null ? null : UuidUtils.toBuffer(uuid));
-        }
+        },
+        ...overrideOptions
       }
     } else {
       return {
         type: "binary(16)",
-        allowNull,
         get() {
           return UuidUtils.toString(this.getDataValue(columnName));
         },
         set(uuid: string) {
           this.setDataValue(columnName, UuidUtils.toBuffer(uuid));
-        }
+        },
+        ...overrideOptions
       }
     }
   }

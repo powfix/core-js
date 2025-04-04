@@ -22,4 +22,9 @@ export class ArrayUtils {
       ))
     ))
   }
+
+  public static allValuesEqual<T>(...values: T[]): boolean {
+    if (values.length === 0) {return true;}
+    return values.every((value) => value === values[0]);
+  }
 }

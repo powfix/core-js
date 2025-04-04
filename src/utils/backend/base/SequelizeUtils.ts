@@ -63,4 +63,39 @@ export class SequelizeUtils {
     }
   }
 
+  public static getUuidColumn = ({columnName, allowNull}: {
+    columnName: string,
+    allowNull: boolean
+  }): Partial<ModelAttributeColumnOptions> => {
+    if (allowNull) {
+      return {
+        type: "binary(16)",
+        allowNull,
+        get() {
+          const value = this.getDataValue(columnName)
+
+          if (value === null) {
+            return value
+          }
+
+          return UuidUtils.toString(this.getDataValue(columnName));
+        },
+        set(uuid: string | null) {
+          this.setDataValue(columnName, uuid === null ? null : UuidUtils.toBuffer(uuid));
+        }
+      }
+    } else {
+      return {
+        type: "binary(16)",
+        allowNull,
+        get() {
+          return UuidUtils.toString(this.getDataValue(columnName));
+        },
+        set(uuid: string) {
+          this.setDataValue(columnName, UuidUtils.toBuffer(uuid));
+        }
+      }
+    }
+  }
+
 }

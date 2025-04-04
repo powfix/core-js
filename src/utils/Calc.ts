@@ -1,4 +1,4 @@
-class Calc {
+export class Calc {
   public static average(...values: number[]): number {
     const length = values.length;
     if (length === 0) {

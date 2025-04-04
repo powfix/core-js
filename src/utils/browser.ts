@@ -5,6 +5,7 @@ export * from './AxiosUtils';
 export * from './StringUtils';
 export * from './UuidUtils';
 export * from './BooleanUtils';
+export * from './Calc';
 export * from './CoordinateUtils';
 export * from './DateUtils';
 export * from './NumberUtils';

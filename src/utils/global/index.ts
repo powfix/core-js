@@ -1,4 +1,5 @@
 export * from './between';
+export * from './circularDistance';
 export * from './sleep';
 export * from './fallbackIfEqual';
 export * from './fallbackIfNull';

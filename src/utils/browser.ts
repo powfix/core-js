@@ -15,3 +15,4 @@ export * from './RandomUtils';
 export * from './Validator';
 export * from './JuminNumberUtils';
 export * from './Sequencer';
+export * from './try-catch';

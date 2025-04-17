@@ -1,6 +1,75 @@
 import moment, {MomentInput, RelativeTimeSpec} from "moment";
+import {DATE} from "../constants/DATE";
 
 export class DateUtils {
+  public static isPositiveInteger(value: unknown, strict?: boolean): boolean {
+    if (strict) {
+      if (typeof value !== 'number') {
+        return false;
+      }
+    }
+
+    if (typeof value === 'bigint') {
+      return value >= 0 && value <= Number.MAX_SAFE_INTEGER;
+    }
+
+    if (typeof value === 'number') {
+      if (!Number.isSafeInteger(value)) {
+        return false;
+      }
+      return value >= 0 && value <= Number.MAX_SAFE_INTEGER;
+    }
+
+    if (typeof value === 'string') {
+      if (!/^(0|[1-9]\d*)$/g.test(value)) {
+        return false;
+      }
+      return DateUtils.isPositiveInteger(Number(value), strict);
+    }
+
+    return false;
+  }
+
+  public static isMilliseconds(value: unknown, strict?: boolean): boolean {
+    return DateUtils.isPositiveInteger(value, strict);
+  }
+
+  public static isSeconds(value: unknown, strict?: boolean): boolean {
+    return DateUtils.isPositiveInteger(value, strict);
+  }
+
+  public static isUnix(value: unknown, strict?: boolean): boolean {
+    return DateUtils.isSeconds(value, strict);
+  }
+
+  public static isISO8601(value: unknown): boolean {
+    if (typeof value !== 'string') {
+      return false;
+    }
+
+    if (!/(Z)|(\+\d{2}:\d{2})$/g.test(value)) {
+      return false;
+    }
+
+    return !Number.isNaN((new Date(value)).getTime());
+  }
+
+  public static isValid(value: unknown, format?: DATE.FORMAT, strict?: boolean): boolean {
+    if (format === undefined) {
+      return DateUtils.isSeconds(value, strict) || DateUtils.isMilliseconds(value, strict) || DateUtils.isISO8601(value);
+    } else {
+      switch (format) {
+        case DATE.FORMAT.UNIX: return DateUtils.isUnix(value, strict);
+        case DATE.FORMAT.SECONDS: return DateUtils.isSeconds(value, strict);
+        case DATE.FORMAT.MILLISECONDS: return DateUtils.isMilliseconds(value, strict);
+        case DATE.FORMAT.ISO_8601: return DateUtils.isISO8601(value);
+        default: {
+          throw new Error(`unknown format: ${format}(${DATE.FORMAT.toString(format) ?? 'unknown'})`);
+        }
+      }
+    }
+  }
+
   public static relativeDate = (input: MomentInput, base: MomentInput = Date.now()): string => {
     // Create new moment instance to apply new locale
     const datetime = moment.isMoment(input) ? moment(input.toDate()) : moment(input);

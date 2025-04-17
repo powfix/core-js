@@ -1,8 +1,6 @@
 import moment, {MomentInput, RelativeTimeSpec} from "moment";
 import {DATE} from "../constants/DATE";
 
-export type DateUtilsFrom = number | bigint | string | Date;
-
 export class DateUtils {
   public static isPositiveInteger(value: unknown, strict?: boolean): boolean {
     if (strict) {
@@ -72,7 +70,7 @@ export class DateUtils {
     }
   }
 
-  public static from(value: DateUtilsFrom, format?: DATE.FORMAT, strict?: boolean): Date {
+  public static from(value: unknown, format?: DATE.FORMAT, strict?: boolean): Date {
     if (value instanceof Date) {
       return value;
     }
@@ -104,15 +102,15 @@ export class DateUtils {
     }
   }
 
-  public static fromUnix(value: DateUtilsFrom, strict?: boolean) {
+  public static fromUnix(value: unknown, strict?: boolean) {
     return DateUtils.from(value, DATE.FORMAT.UNIX, strict);
   }
 
-  public static fromSeconds(value: DateUtilsFrom, strict?: boolean) {
+  public static fromSeconds(value: unknown, strict?: boolean) {
     return DateUtils.from(value, DATE.FORMAT.SECONDS, strict);
   }
 
-  public static fromMilliseconds(value: DateUtilsFrom, strict?: boolean) {
+  public static fromMilliseconds(value: unknown, strict?: boolean) {
     return DateUtils.from(value, DATE.FORMAT.MILLISECONDS, strict);
   }
 

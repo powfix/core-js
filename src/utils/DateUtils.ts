@@ -92,9 +92,9 @@ export class DateUtils {
     }
 
     switch (format) {
-      case DATE.FORMAT.UNIX: return new Date(value as number * 1000);
-      case DATE.FORMAT.SECONDS: return new Date(value as number * 1000);
-      case DATE.FORMAT.MILLISECONDS: return new Date(value as number);
+      case DATE.FORMAT.UNIX: return new Date(Number(value) * 1000);
+      case DATE.FORMAT.SECONDS: return new Date(Number(value) * 1000);
+      case DATE.FORMAT.MILLISECONDS: return new Date(Number(value));
       case DATE.FORMAT.ISO_8601: return new Date(value as string);
       default: {
         throw new Error(`unknown format: ${format}(${DATE.FORMAT.toString(format) ?? 'unknown'})`);

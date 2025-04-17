@@ -70,6 +70,47 @@ export class DateUtils {
     }
   }
 
+  public static toDate(value: number | string | Date, format?: DATE.FORMAT, strict?: boolean): Date {
+    if (value instanceof Date) {
+      return value;
+    }
+
+    if (!DateUtils.isValid(value, format, strict)) {
+      throw new Error('invalid date');
+    }
+
+    if (format === undefined) {
+      if (DateUtils.isUnix(value, strict)) {
+        return DateUtils.toDate(value, DATE.FORMAT.UNIX);
+      }
+
+      if (DateUtils.isSeconds(value, strict)) {
+        return DateUtils.toDate(value, DATE.FORMAT.SECONDS);
+      }
+
+      if (DateUtils.isMilliseconds(value, strict)) {
+        return DateUtils.toDate(value, DATE.FORMAT.MILLISECONDS);
+      }
+
+      if (DateUtils.isISO8601(value)) {
+        return DateUtils.toDate(value, DATE.FORMAT.ISO_8601);
+      }
+
+      throw new Error(`no option to convert value to date`);
+    } else {
+      switch (format) {
+        case DATE.FORMAT.UNIX: return new Date(value as number * 1000);
+        case DATE.FORMAT.SECONDS: return new Date(value as number * 1000);
+        case DATE.FORMAT.MILLISECONDS: return new Date(value as number);
+        case DATE.FORMAT.ISO_8601: return new Date(value as string);
+        default: {
+          throw new Error(`unknown format: ${format}(${DATE.FORMAT.toString(format) ?? 'unknown'})`);
+        }
+      }
+    }
+
+  }
+
   public static relativeDate = (input: MomentInput, base: MomentInput = Date.now()): string => {
     // Create new moment instance to apply new locale
     const datetime = moment.isMoment(input) ? moment(input.toDate()) : moment(input);

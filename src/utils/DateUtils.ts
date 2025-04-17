@@ -1,6 +1,8 @@
 import moment, {MomentInput, RelativeTimeSpec} from "moment";
 import {DATE} from "../constants/DATE";
 
+export type DateUtilsFrom = number | bigint | string | Date;
+
 export class DateUtils {
   public static isPositiveInteger(value: unknown, strict?: boolean): boolean {
     if (strict) {
@@ -70,7 +72,7 @@ export class DateUtils {
     }
   }
 
-  public static toDate(value: number | string | Date, format?: DATE.FORMAT, strict?: boolean): Date {
+  public static from(value: DateUtilsFrom, format?: DATE.FORMAT, strict?: boolean): Date {
     if (value instanceof Date) {
       return value;
     }
@@ -80,35 +82,42 @@ export class DateUtils {
     }
 
     if (format === undefined) {
-      if (DateUtils.isUnix(value, strict)) {
-        return DateUtils.toDate(value, DATE.FORMAT.UNIX);
-      }
-
-      if (DateUtils.isSeconds(value, strict)) {
-        return DateUtils.toDate(value, DATE.FORMAT.SECONDS);
-      }
-
       if (DateUtils.isMilliseconds(value, strict)) {
-        return DateUtils.toDate(value, DATE.FORMAT.MILLISECONDS);
+        return DateUtils.from(value, DATE.FORMAT.MILLISECONDS);
       }
 
       if (DateUtils.isISO8601(value)) {
-        return DateUtils.toDate(value, DATE.FORMAT.ISO_8601);
+        return DateUtils.from(value, DATE.FORMAT.ISO_8601);
       }
 
       throw new Error(`no option to convert value to date`);
-    } else {
-      switch (format) {
-        case DATE.FORMAT.UNIX: return new Date(value as number * 1000);
-        case DATE.FORMAT.SECONDS: return new Date(value as number * 1000);
-        case DATE.FORMAT.MILLISECONDS: return new Date(value as number);
-        case DATE.FORMAT.ISO_8601: return new Date(value as string);
-        default: {
-          throw new Error(`unknown format: ${format}(${DATE.FORMAT.toString(format) ?? 'unknown'})`);
-        }
-      }
     }
 
+    switch (format) {
+      case DATE.FORMAT.UNIX: return new Date(value as number * 1000);
+      case DATE.FORMAT.SECONDS: return new Date(value as number * 1000);
+      case DATE.FORMAT.MILLISECONDS: return new Date(value as number);
+      case DATE.FORMAT.ISO_8601: return new Date(value as string);
+      default: {
+        throw new Error(`unknown format: ${format}(${DATE.FORMAT.toString(format) ?? 'unknown'})`);
+      }
+    }
+  }
+
+  public static fromUnix(value: DateUtilsFrom, strict?: boolean) {
+    return DateUtils.from(value, DATE.FORMAT.UNIX, strict);
+  }
+
+  public static fromSeconds(value: DateUtilsFrom, strict?: boolean) {
+    return DateUtils.from(value, DATE.FORMAT.SECONDS, strict);
+  }
+
+  public static fromMilliseconds(value: DateUtilsFrom, strict?: boolean) {
+    return DateUtils.from(value, DATE.FORMAT.MILLISECONDS, strict);
+  }
+
+  public static fromISO8601(value: string) {
+    return DateUtils.from(value, DATE.FORMAT.ISO_8601);
   }
 
   public static relativeDate = (input: MomentInput, base: MomentInput = Date.now()): string => {

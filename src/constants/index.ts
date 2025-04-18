@@ -1,3 +1,3 @@
-export * from './transactionManager';
+export * from './backend';
 
 export * from './browser';

@@ -1,5 +1,6 @@
 import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
 import {UuidUtils} from "../../UuidUtils";
+import {NOT_NULL} from "../../../constants";
 
 interface UuidColumnOptions extends Omit<ModelAttributeColumnOptions, 'type'>{
   columnName: string,
@@ -129,8 +130,12 @@ export class SequelizeUtils {
   public static getNullableArrayFilter<T=undefined>(arr: (null | any)[]) {
     return {
       [Op.or]: arr.map(value => {
-        return {
-          [value === null? Op.is: Op.eq]: value
+        if (value === null) {
+          return {[Op.is]: value}
+        } else if (value === NOT_NULL) {
+          return {[Op.not]: null}
+        } else {
+          return {[Op.eq]: value}
         }
       })
     } as WhereOptions<T>

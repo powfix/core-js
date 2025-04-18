@@ -1,1 +1,1 @@
-export * from './IntRage';
+export * from './index.browser';

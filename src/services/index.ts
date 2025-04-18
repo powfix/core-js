@@ -1,4 +1,3 @@
-export * from './browser';
+export * from './index.browser';
 
-// Directories
 export * from './redis';

@@ -1,3 +1,2 @@
-export * from './base';
-
 export * from './HookUtils'
+export * from './SequelizeUtils';

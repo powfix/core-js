@@ -2,6 +2,5 @@
 export * from './browser';
 export * from './src/constants';
 export * from './src/managers';
-
-// services
+export * from './src/utils';
 export * from './src/services';

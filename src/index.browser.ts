@@ -1,5 +1,5 @@
 export * from './constants/index.browser';
-export * from './interfaces';
+export * from './interfaces/index.browser';
 export * from './scripts';
 export * from './services/browser';
 export * from './types';

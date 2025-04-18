@@ -1,3 +1,3 @@
-export * from './browser';
+export * from './index.browser';
 
 export * from './db';

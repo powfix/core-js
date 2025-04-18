@@ -128,7 +128,7 @@ export class SequelizeUtils {
 
   public static getNullableArrayFilter<T=undefined>(arr: (null | any)[]) {
     return {
-      [Op.and]: arr.map(value => {
+      [Op.or]: arr.map(value => {
         if (value === null) {
           return {
             [Op.is]: null

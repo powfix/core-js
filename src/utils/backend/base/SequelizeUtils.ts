@@ -127,14 +127,16 @@ export class SequelizeUtils {
   }
 
   public static getNullableArrayFilter<T=undefined>(arr: (null | any)[]) {
-    return arr.map(value => {
-      if (value === null) {
-        return {
-          [Op.is]: null
+    return {
+      [Op.and]: arr.map(value => {
+        if (value === null) {
+          return {
+            [Op.is]: null
+          }
         }
-      }
 
-      return value
-    }) as WhereOptions<T>
+        return value
+      })
+    } as WhereOptions<T>
   }
 }

@@ -1,4 +1,4 @@
-import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
+import {ModelAttributeColumnOptions, WhereOptions} from "sequelize";
 import {UuidUtils} from "../UuidUtils";
 import {NOT_NULL} from "../../constants";
 
@@ -125,19 +125,5 @@ export class SequelizeUtils {
         ...overrideOptions
       }
     }
-  }
-
-  public static getNullableArrayFilter<T=undefined>(arr: (null | any)[]) {
-    return {
-      [Op.or]: arr.map(value => {
-        if (value === null) {
-          return {[Op.is]: value}
-        } else if (value === NOT_NULL) {
-          return {[Op.not]: null}
-        } else {
-          return {[Op.eq]: value}
-        }
-      })
-    } as WhereOptions<T>
   }
 }

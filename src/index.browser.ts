@@ -1,4 +1,4 @@
-export * from './constants/browser';
+export * from './constants/index.browser';
 export * from './interfaces';
 export * from './scripts';
 export * from './services/browser';

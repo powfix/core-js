@@ -1,3 +1,3 @@
 export * from './backend';
 
-export * from './browser';
+export * from './index.browser';

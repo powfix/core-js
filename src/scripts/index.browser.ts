@@ -1,1 +1,1 @@
-export * from './base64-polyfill';
+export * from './base64Polyfill';

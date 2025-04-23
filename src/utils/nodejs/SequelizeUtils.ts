@@ -2,7 +2,7 @@ import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
 import {UuidUtils} from "../UuidUtils";
 import {NOT_NULL} from "../../constants";
 
-interface UuidColumnOptions<Model = undefined> extends Omit<ModelAttributeColumnOptions, 'type'>{
+interface UuidColumnOptions<Model> extends Omit<ModelAttributeColumnOptions, 'type'>{
   columnName: Model extends undefined? string: UuidKeys<Model>,
 }
 
@@ -95,7 +95,7 @@ export class SequelizeUtils {
     }
   }
 
-  public static getUuidColumn = ({columnName, ...overrideOptions}: UuidColumnOptions): Partial<ModelAttributeColumnOptions> => {
+  public static getUuidColumn = <Model = undefined>({columnName, ...overrideOptions}: UuidColumnOptions<Model>): Partial<ModelAttributeColumnOptions> => {
     if (overrideOptions.allowNull) {
       return {
         type: "binary(16)",

@@ -58,6 +58,7 @@ export class SequelizeUtils {
   })
 
   public static getUuidColumn<T extends Record<string, any>>(options: UuidColumnOptionsForModel<T>): Partial<ModelAttributeColumnOptions>
+  public static getUuidColumn(options: UuidColumnOptionsBase ): Partial<ModelAttributeColumnOptions>
   public static getUuidColumn(options: UuidColumnOptionsBase ): Partial<ModelAttributeColumnOptions> {
     const {columnName, ...overrideOptions} = options
     if (overrideOptions.allowNull) {

@@ -2,8 +2,8 @@ import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
 import {UuidUtils} from "../UuidUtils";
 import {NOT_NULL} from "../../constants";
 
-interface UuidColumnOptions extends Omit<ModelAttributeColumnOptions, 'type'>{
-  columnName: string,
+interface UuidColumnOptions<Model = undefined> extends Omit<ModelAttributeColumnOptions, 'type'>{
+  columnName: Model extends undefined? string: UuidKeys<Model>,
 }
 
 

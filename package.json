@@ -1,6 +1,6 @@
 {
   "name": "@powfix/core-js",
-  "version": "0.13.28",
+  "version": "0.13.29",
   "description": "core package",
   "author": "Kwon Kyung-Min <powfix@gmail.com>",
   "private": false,

@@ -1,5 +1,6 @@
 import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
 import {UuidUtils} from "../UuidUtils";
+import {NOT_NULL} from "../../constants";
 
 type Model = Record<string, any> | undefined;
 

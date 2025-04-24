@@ -1,1 +1,1 @@
-export const NOT_NULL = Symbol('NOT_NULL');
+export const NOT_NULL = Symbol('!null');

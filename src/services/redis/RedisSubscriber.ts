@@ -1,5 +1,6 @@
 import {RedisClient} from "./RedisClient";
 import {PubSubListener} from "@redis/client/dist/lib/client/pub-sub";
+import {castArray} from "../../utils";
 
 export class RedisSubscriber extends RedisClient {
   public constructor(options?: RedisClient.RedisClientOptions) {
@@ -8,7 +9,7 @@ export class RedisSubscriber extends RedisClient {
   }
 
   public async subscribe<T extends boolean = false>(channels: string | string[], listener: PubSubListener<T>, bufferMode?: T | undefined) {
-    for (const channel of Array.isArray(channels) ? channels : [channels]) {
+    for (const channel of castArray(channels)) {
       if ((/\*/g).test(channel)) {
         await this.client.pSubscribe(channel, listener, bufferMode);
       } else {
@@ -18,7 +19,7 @@ export class RedisSubscriber extends RedisClient {
   }
 
   public async unsubscribe<T extends boolean = false>(channels: string | string[], listener?: PubSubListener<T> | undefined, bufferMode?: T | undefined): Promise<void> {
-    for (const channel of Array.isArray(channels) ? channels : [channels]) {
+    for (const channel of castArray(channels)) {
       if ((/\*/g).test(channel)) {
         await this.client.pUnsubscribe(channel, listener, bufferMode);
       } else {

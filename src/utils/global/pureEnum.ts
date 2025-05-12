@@ -5,7 +5,7 @@ type NonFunction<T, Type extends "keys" | "values"> = {
 type PureEnumReturnType<E extends object> = [NonFunction<E, "keys">, NonFunction<E, "values">][];
 
 export function pureEnum<E extends object>(e: E) {
-  return Object.entries(e).filter(([key, value]) => !/^\d+$/g.test(key) && typeof value !== 'function') as PureEnumReturnType<E>;
+  return Object.entries(e).filter(([key, value]) => !/^-?\d+$/g.test(key) && typeof value !== 'function') as PureEnumReturnType<E>;
 }
 
 export function pureEnumKeys<E extends object>(e: E) {

@@ -1,4 +1,5 @@
 export * from './between';
+export * from './castArray';
 export * from './circularDistance';
 export * from './sleep';
 export * from './fallbackIfEqual';

@@ -1,4 +1,9 @@
+import {castArray} from "./global";
+
 export class ArrayUtils {
+  static castArray<T>(value: T | T[]): T[] {
+    return castArray(value);
+  }
 
   /**
    * 객체를 요소로 가지는 배열에서 가장 큰 값(Property)를 가지는 객체를 반환한다

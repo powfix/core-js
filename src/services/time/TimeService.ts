@@ -10,8 +10,15 @@ export enum TimeServiceStatus {
 export class TimeService extends EventEmitter<TimeService.Event> {
   private static readonly DEFAULT_SYNC_INTERVAL: number = 60 * 1000;
 
+  private static DEFAULT_CLIENT_TIME_PROVIDER(): TimeService.TimeStamp {
+    return Date.now();
+  }
+
+  private syncHandler?: ReturnType<typeof setInterval>;
+  private syncInterval?: number;
+  private clientTimeProvider?: TimeService.ClientTimeProvider | null;
+  private serverTimeProvider?: TimeService.ServerTimeProvider | null;
   private offset?: TimeService.Offset | undefined;
-  private option: TimeService.Option;
   private syncedAt?: TimeService.TimeStamp | undefined;
 
   public static calculateNTPResultOffset(ntpResult: TimeService.NTPResult): TimeService.Offset {
@@ -21,23 +28,19 @@ export class TimeService extends EventEmitter<TimeService.Event> {
 
   constructor(option: TimeService.Option) {
     super();
-    this.option = option;
+
+    // Options
+    this.syncInterval = option.syncInterval;
+    this.clientTimeProvider = option.clientTimeProvider;
+    this.serverTimeProvider = option.serverTimeProvider;
 
     // Bind
     this.sync = this.sync.bind(this);
     this.fetchServerNTPResult = this.fetchServerNTPResult.bind(this);
   }
-
-  public getOption(): TimeService.Option {
-    return this.option;
-  }
-
-  public setOption(option: TimeService.Option): TimeService.Option {
-    return this.option = option;
-  }
-
   public getOffset(defaultValue: TimeService.Offset): TimeService.Offset;
   public getOffset(): TimeService.Offset | undefined;
+
   public getOffset(defaultValue?: TimeService.Offset): TimeService.Offset | undefined {
     if (this.offset !== undefined) {
       return this.offset;
@@ -47,9 +50,9 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     }
     return undefined;
   }
-
   public setOffset(offset: TimeService.Offset): TimeService.Offset
   public setOffset(offset: TimeService.Offset | undefined): TimeService.Offset
+
   public setOffset(offset?: TimeService.Offset): TimeService.Offset | undefined {
     return this.offset = offset;
   }
@@ -67,22 +70,12 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     return syncedAt;
   }
 
-  public getSyncInterval(): number | null {
-    if (this.option.syncInterval === undefined) {
-      // If option is undefined using default value
-      return TimeService.DEFAULT_SYNC_INTERVAL;
-    }
-
-    if (this.option.syncInterval === null || this.option.syncInterval === -1) {
-      // If option is null, do not sync automatically
-      return null;
-    }
-
-    return this.option.syncInterval;
+  public getSyncInterval(): number {
+    return this.syncInterval ?? TimeService.DEFAULT_SYNC_INTERVAL;
   }
 
   public setSyncInterval(interval: TimeService.Option['syncInterval']) {
-    this.option.syncInterval = interval;
+    this.syncInterval = interval;
 
     // Emit
     this.emit('SYNC_INTERVAL_CHANGED', interval);
@@ -93,17 +86,29 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     }
   }
 
-  private static DEFAULT_CLIENT_TIME_PROVIDER(): TimeService.TimeStamp {
-    return Date.now();
+  public getClientTimeProvider(): TimeService.ClientTimeProvider {
+    return this.clientTimeProvider ?? TimeService.DEFAULT_CLIENT_TIME_PROVIDER;
+  }
+
+  public setClientTimeProvider(provider: TimeService.ClientTimeProvider) {
+    this.clientTimeProvider = provider;
   }
 
   public getClientTime(defaultValue: TimeService.TimeStamp = Date.now()): TimeService.TimeStamp {
-    return (this.option.clientTimeProvider ?? TimeService.DEFAULT_CLIENT_TIME_PROVIDER)();
+    return this.getClientTimeProvider()();
+  }
+
+  public getServerTimeProvider() {
+    return this.serverTimeProvider;
+  }
+
+  public setServerTimeProvider(provider: TimeService.ServerTimeProvider) {
+    this.serverTimeProvider = provider;
   }
 
   public getServerTime(): TimeService.TimeStamp | null {
     const offset = this.getOffset();
-    if (offset === undefined) {
+    if (offset == null) {
       return null;
     }
 
@@ -117,8 +122,9 @@ export class TimeService extends EventEmitter<TimeService.Event> {
 
   private async fetchServerNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> {
     try {
-      if (typeof this.option.serverTimeProvider === 'function') {
-        return await this.option.serverTimeProvider(t1);
+      const provider = this.getServerTimeProvider();
+      if (typeof provider === 'function') {
+        return await provider(t1);
       }
     } catch (e) {
       console.error(e);
@@ -185,27 +191,26 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     return null;
   }
 
-  private syncHandler?: ReturnType<typeof setInterval> | undefined;
   private startSync() {
-    if (this.syncHandler !== undefined) {
-      console.warn('sync handler is not undefined', this.syncHandler);
+    if (this.syncHandler != null) {
+      console.warn('sync is already started');
       return;
     }
 
     const syncInterval = this.getSyncInterval();
-    if (syncInterval === null) {
+    if (syncInterval == null || syncInterval <= 0) {
+      console.warn('sync is not started', 'syncInterval', syncInterval);
       return;
     }
 
-    this.syncHandler = setInterval(this.sync, syncInterval);
+    this.syncHandler = setInterval(this.sync.bind(this), syncInterval);
   };
 
   private stopSync() {
-    if (this.syncHandler === undefined) {
-      return;
+    if (this.syncHandler != null) {
+      clearInterval(this.syncHandler);
+      this.syncHandler = undefined;
     }
-    clearInterval(this.syncHandler);
-    this.syncHandler = undefined;
   };
 }
 
@@ -236,7 +241,7 @@ export namespace TimeService {
   export type ServerTimeProvider = (t1: NTPResult['t1']) => (ServerNTPResult | null) | (Promise<ServerNTPResult | null>);
 
   export interface Option {
-    syncInterval?: number | null;                            // Sync interval in milliseconds
+    syncInterval?: number;                            // Sync interval in milliseconds
     clientTimeProvider?: ClientTimeProvider;
     serverTimeProvider?: ServerTimeProvider;
   }

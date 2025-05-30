@@ -1,2 +1,2 @@
 export * from './HookUtils'
-export * from './SequelizeUtils';
+export {SequelizeUtils} from './sequelize-utils';

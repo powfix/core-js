@@ -93,12 +93,12 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     }
   }
 
-  private static getClientTime(): TimeService.TimeStamp {
+  private static DEFAULT_CLIENT_TIME_PROVIDER(): TimeService.TimeStamp {
     return Date.now();
   }
 
   public getClientTime(defaultValue: TimeService.TimeStamp = Date.now()): TimeService.TimeStamp {
-    return (this.option.getClientTime ?? TimeService.getClientTime)();
+    return (this.option.getClientTime ?? TimeService.DEFAULT_CLIENT_TIME_PROVIDER)();
   }
 
   public getServerTime(): TimeService.TimeStamp | null {

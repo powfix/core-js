@@ -43,6 +43,7 @@
     "typescript": "5.8.3"
   },
   "peerDependencies": {
-    "moment": ">=2.0.0"
+    "moment": ">=2.0.0",
+    "eventemitter3": ">=5"
   }
 }

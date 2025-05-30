@@ -95,8 +95,8 @@ export class TimeService extends EventEmitter<TimeService.Event> {
 
   public getClientTime(defaultValue: TimeService.TimeStamp = Date.now()): TimeService.TimeStamp {
     try {
-      if (typeof this.option.clientTimeProvider === 'function') {
-        return this.option.clientTimeProvider();
+      if (typeof this.option.getClientTime === 'function') {
+        return this.option.getClientTime();
       }
     } catch (e) {
       console.error(e);
@@ -120,8 +120,8 @@ export class TimeService extends EventEmitter<TimeService.Event> {
 
   private async fetchServerNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> {
     try {
-      if (typeof this.option.serverTimeProvider === 'function') {
-        return await this.option.serverTimeProvider(t1);
+      if (typeof this.option.getServerTime === 'function') {
+        return await this.option.getServerTime(t1);
       }
     } catch (e) {
       console.error(e);
@@ -240,7 +240,7 @@ export namespace TimeService {
 
   export interface Option {
     syncInterval?: number | null | undefined;                            // Sync interval in milliseconds
-    clientTimeProvider?: ClientTimeProvider | undefined;
-    serverTimeProvider?: ServerTimeProvider | undefined;
+    getClientTime?: ClientTimeProvider | undefined;
+    getServerTime?: ServerTimeProvider | undefined;
   }
 }

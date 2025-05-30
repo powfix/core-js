@@ -10,7 +10,6 @@ export enum TimeServiceStatus {
 export class TimeService extends EventEmitter<TimeService.Event> {
   private static readonly DEFAULT_SYNC_INTERVAL: number = 60 * 1000;
 
-  protected status: TimeServiceStatus = TimeServiceStatus.STOPPED;
   private offset?: TimeService.Offset | undefined;
   private option: TimeService.Option;
   private syncedAt?: TimeService.TimeStamp | undefined;
@@ -24,14 +23,8 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     super();
     this.option = option;
 
-    if (option.autoStart) {
-      this.start();
-    }
-
     // Bind
     this.sync = this.sync.bind(this);
-    this.start = this.start.bind(this);
-    this.stop = this.stop.bind(this);
     this.fetchServerNTPResult = this.fetchServerNTPResult.bind(this);
   }
 
@@ -94,11 +87,9 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     // Emit
     this.emit('SYNC_INTERVAL_CHANGED', interval);
 
-    if (this.status === TimeServiceStatus.RUNNING) {
-      if (this.syncHandler !== undefined) {
-        this.stopSync();
-        this.startSync();
-      }
+    if (this.syncHandler !== undefined) {
+      this.stopSync();
+      this.startSync();
     }
   }
 
@@ -136,45 +127,6 @@ export class TimeService extends EventEmitter<TimeService.Event> {
       console.error(e);
     }
     return null;
-  }
-
-  public getStatus(): TimeServiceStatus {
-    return this.status;
-  }
-
-  public start() {
-    if (this.status !== TimeServiceStatus.STOPPED) {
-      console.warn(LOG_TAG, 'service is not stopped');
-      return;
-    }
-
-    // Change status
-    this.status = TimeServiceStatus.RUNNING;
-
-    // Sync immediately
-    this.sync().finally(() => {});
-
-    // Start sync
-    this.startSync();
-  }
-
-  public stop() {
-    if (this.status !== TimeServiceStatus.RUNNING) {
-      console.warn(LOG_TAG, 'service is not running');
-      return;
-    }
-
-    // Change status
-    this.status = TimeServiceStatus.RUNNING;
-
-    // Stop sync
-    this.stopSync();
-
-    // Reset offset
-    this.setOffset(undefined);
-
-    // Reset synced at
-    this.setSyncedAt(undefined);
   }
 
   public async sync(): Promise<TimeService.Offset | null> {
@@ -287,7 +239,6 @@ export namespace TimeService {
   export type ServerTimeProvider = (t1: NTPResult['t1']) => (ServerNTPResult | null) | (Promise<ServerNTPResult | null>);
 
   export interface Option {
-    autoStart?: boolean;
     syncInterval?: number | null | undefined;                            // Sync interval in milliseconds
     clientTimeProvider?: ClientTimeProvider | undefined;
     serverTimeProvider?: ServerTimeProvider | undefined;

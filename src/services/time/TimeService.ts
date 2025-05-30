@@ -2,24 +2,16 @@ import EventEmitter from 'eventemitter3';
 
 const LOG_TAG: string = 'TimeService';
 
-export enum TimeServiceStatus {
-  STOPPED = 0,
-  RUNNING = 1,
-}
-
 export class TimeService extends EventEmitter<TimeService.Event> {
-  private static readonly DEFAULT_SYNC_INTERVAL: number = 60 * 1000;
-
-  private static DEFAULT_CLIENT_TIME_PROVIDER(): TimeService.TimeStamp {
-    return Date.now();
-  }
-
+  // Internal
   private syncHandler?: ReturnType<typeof setInterval>;
-  private syncInterval?: number;
-  private clientTimeProvider?: TimeService.ClientTimeProvider | null;
-  private serverTimeProvider?: TimeService.ServerTimeProvider | null;
-  private offset?: TimeService.Offset | undefined;
-  private syncedAt?: TimeService.TimeStamp | undefined;
+  private offset?: TimeService.Offset;
+  private syncedAt?: TimeService.TimeStamp;
+
+  // Members
+  protected syncInterval?: number | null;
+  protected clientTimeProvider?: TimeService.ClientTimeProvider;
+  protected serverTimeProvider?: TimeService.ServerTimeProvider;
 
   public static calculateNTPResultOffset(ntpResult: TimeService.NTPResult): TimeService.Offset {
     const {t1, t2, t3, t4} = ntpResult;
@@ -38,9 +30,9 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     this.sync = this.sync.bind(this);
     this.fetchServerNTPResult = this.fetchServerNTPResult.bind(this);
   }
+
   public getOffset(defaultValue: TimeService.Offset): TimeService.Offset;
   public getOffset(): TimeService.Offset | undefined;
-
   public getOffset(defaultValue?: TimeService.Offset): TimeService.Offset | undefined {
     if (this.offset !== undefined) {
       return this.offset;
@@ -50,9 +42,9 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     }
     return undefined;
   }
-  public setOffset(offset: TimeService.Offset): TimeService.Offset
-  public setOffset(offset: TimeService.Offset | undefined): TimeService.Offset
 
+  public setOffset(offset: TimeService.Offset): TimeService.Offset;
+  public setOffset(offset: TimeService.Offset | undefined): TimeService.Offset;
   public setOffset(offset?: TimeService.Offset): TimeService.Offset | undefined {
     return this.offset = offset;
   }
@@ -62,16 +54,11 @@ export class TimeService extends EventEmitter<TimeService.Event> {
   }
 
   private setSyncedAt(syncedAt: TimeService.TimeStamp | undefined): TimeService.TimeStamp | undefined {
-    this.syncedAt = syncedAt;
-
-    // Emit
-    this.emit('SYNCED', syncedAt);
-
-    return syncedAt;
+    return (this.syncedAt = syncedAt);
   }
 
-  public getSyncInterval(): number {
-    return this.syncInterval ?? TimeService.DEFAULT_SYNC_INTERVAL;
+  public getSyncInterval() {
+    return this.syncInterval;
   }
 
   public setSyncInterval(interval: TimeService.Option['syncInterval']) {
@@ -86,38 +73,42 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     }
   }
 
-  public getClientTimeProvider(): TimeService.ClientTimeProvider {
-    return this.clientTimeProvider ?? TimeService.DEFAULT_CLIENT_TIME_PROVIDER;
+  public getClientTimeProvider() {
+    return this.clientTimeProvider;
   }
 
-  public setClientTimeProvider(provider: TimeService.ClientTimeProvider) {
-    this.clientTimeProvider = provider;
+  public setClientTimeProvider(provider: TimeService.ClientTimeProvider | null | undefined) {
+    this.clientTimeProvider = provider ?? undefined;
   }
 
-  public getClientTime(defaultValue: TimeService.TimeStamp = Date.now()): TimeService.TimeStamp {
-    return this.getClientTimeProvider()();
+  public getClientTime() {
+    return this.getClientTimeProvider()?.();
   }
 
   public getServerTimeProvider() {
     return this.serverTimeProvider;
   }
 
-  public setServerTimeProvider(provider: TimeService.ServerTimeProvider) {
-    this.serverTimeProvider = provider;
+  public setServerTimeProvider(provider: TimeService.ServerTimeProvider | null | undefined) {
+    this.serverTimeProvider = provider ?? undefined;
   }
 
-  public getServerTime(): TimeService.TimeStamp | null {
+  public getServerTime() {
     const offset = this.getOffset();
     if (offset == null) {
-      return null;
+      return offset;
     }
 
     const clientTime = this.getClientTime();
+    if (clientTime == null) {
+      return clientTime;
+    }
+
     return clientTime + offset;
   }
 
   public getTime(): number {
-    return this.getServerTime() || this.getClientTime();
+    return this.getServerTime() ?? this.getClientTime() ?? Date.now();
   }
 
   private async fetchServerNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> {
@@ -183,7 +174,9 @@ export class TimeService extends EventEmitter<TimeService.Event> {
       this.setOffset(offset);
 
       // Mark synced timestamp
-      this.setSyncedAt(Date.now());
+      const syncedAt = Date.now();
+      this.setSyncedAt(syncedAt);
+      this.emit('SYNCED', syncedAt);
     } catch (e) {
       console.error(e);
     }

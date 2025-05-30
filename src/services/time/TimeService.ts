@@ -194,7 +194,7 @@ export class TimeService extends EventEmitter<TimeServiceEvent> {
     return null;
   }
 
-  private startSync() {
+  public startSync() {
     if (this.syncHandler != null) {
       console.warn('sync is already started');
       return;
@@ -209,7 +209,7 @@ export class TimeService extends EventEmitter<TimeServiceEvent> {
     this.syncHandler = setInterval(this.sync.bind(this), syncInterval);
   };
 
-  private stopSync() {
+  public stopSync() {
     if (this.syncHandler != null) {
       clearInterval(this.syncHandler);
       this.syncHandler = undefined;

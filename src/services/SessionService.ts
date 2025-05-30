@@ -2,7 +2,7 @@ import {jwtDecode, JwtPayload} from "jwt-decode";
 import {AxiosInstance} from "axios";
 import moment from "moment";
 import {StorageProvider} from "../interfaces/StorageProvider";
-import EventEmitter3 from 'eventemitter3';
+import EventEmitter from 'eventemitter3';
 
 export class SessionService {
   private static readonly DEFAULT_AUTHORIZATION_STORAGE_KEY: string = 'AUTHORIZATION';
@@ -12,7 +12,7 @@ export class SessionService {
   protected storageProvider: StorageProvider;
 
   // Emitter
-  private emitter = new EventEmitter3<SessionService.Event>();
+  private emitter = new EventEmitter<SessionService.Event>();
   public readonly on = this.emitter.on.bind(this.emitter);
   public readonly off = this.emitter.off.bind(this.emitter);
   protected readonly emit = this.emitter.emit.bind(this.emitter);

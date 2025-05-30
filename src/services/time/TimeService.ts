@@ -236,8 +236,8 @@ export namespace TimeService {
   export type ServerTimeProvider = (t1: NTPResult['t1']) => (ServerNTPResult | null) | (Promise<ServerNTPResult | null>);
 
   export interface Option {
-    syncInterval?: number | null | undefined;                            // Sync interval in milliseconds
-    clientTimeProvider?: ClientTimeProvider | undefined;
-    serverTimeProvider?: ServerTimeProvider | undefined;
+    syncInterval?: number | null;                            // Sync interval in milliseconds
+    clientTimeProvider?: ClientTimeProvider;
+    serverTimeProvider?: ServerTimeProvider;
   }
 }

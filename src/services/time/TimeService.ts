@@ -28,13 +28,13 @@ export class TimeService extends EventEmitter<TimeServiceEvent> {
     return ((t2 - t1) + (t3 - t4)) / 2;
   }
 
-  constructor(option?: TimeServiceOptions) {
+  constructor(options?: TimeServiceOptions) {
     super();
 
     // Options
-    this.syncInterval = option?.syncInterval;
-    this.clientTimeProvider = option?.clientTimeProvider;
-    this.serverTimeProvider = option?.serverTimeProvider;
+    this.syncInterval = options?.syncInterval;
+    this.clientTimeProvider = options?.clientTimeProvider;
+    this.serverTimeProvider = options?.serverTimeProvider;
 
     // Bind
     this.sync = this.sync.bind(this);

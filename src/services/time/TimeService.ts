@@ -8,7 +8,7 @@ export enum TimeServiceStatus {
 }
 
 export class TimeService extends EventEmitter<TimeService.Event> {
-  private static readonly DEFAULT_SYNC_INTERVAL: number = 60000;
+  private static readonly DEFAULT_SYNC_INTERVAL: number = 60 * 1000;
 
   protected status: TimeServiceStatus = TimeServiceStatus.STOPPED;
   private offset?: TimeService.Offset | undefined;

@@ -1,4 +1,4 @@
-import EventEmitter3 from 'eventemitter3';
+import EventEmitter from 'eventemitter3';
 
 const LOG_TAG: string = 'TimeService';
 
@@ -7,7 +7,7 @@ export enum TimeServiceStatus {
   RUNNING = 1,
 }
 
-export class TimeService {
+export class TimeService extends EventEmitter<TimeService.Event> {
   private static readonly DEFAULT_SYNC_INTERVAL: number = 60000;
 
   protected status: TimeServiceStatus = TimeServiceStatus.STOPPED;
@@ -15,18 +15,13 @@ export class TimeService {
   private option: TimeService.Option;
   private syncedAt?: TimeService.TimeStamp | undefined;
 
-  // Emitter
-  private emitter = new EventEmitter3<TimeService.Event>();
-  public readonly on = this.emitter.on.bind(this.emitter);
-  public readonly off = this.emitter.off.bind(this.emitter);
-  private readonly emit = this.emitter.emit.bind(this.emitter);
-
   public static calculateNTPResultOffset(ntpResult: TimeService.NTPResult): TimeService.Offset {
     const {t1, t2, t3, t4} = ntpResult;
     return ((t2 - t1) + (t3 - t4)) / 2;
   }
 
   constructor(option: TimeService.Option) {
+    super();
     this.option = option;
 
     if (option.autoStart) {

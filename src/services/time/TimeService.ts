@@ -1,24 +1,34 @@
 import EventEmitter from 'eventemitter3';
+import type {
+  TimeServiceClientTimeProvider,
+  TimeServiceEvent,
+  TimeServiceNtpResult,
+  TimeServiceOffset,
+  TimeServiceOptions,
+  TimeServiceServerNtpResult,
+  TimeServiceServerTimeProvider,
+  TimeServiceTimeStamp
+} from "./TimeService.type";
 
 const LOG_TAG: string = 'TimeService';
 
-export class TimeService extends EventEmitter<TimeService.Event> {
+export class TimeService extends EventEmitter<TimeServiceEvent> {
   // Internal
   private syncHandler?: ReturnType<typeof setInterval>;
-  private offset?: TimeService.Offset;
-  private syncedAt?: TimeService.TimeStamp;
+  private offset?: TimeServiceOffset;
+  private syncedAt?: TimeServiceTimeStamp;
 
   // Members
   protected syncInterval?: number | null;
-  protected clientTimeProvider?: TimeService.ClientTimeProvider;
-  protected serverTimeProvider?: TimeService.ServerTimeProvider;
+  protected clientTimeProvider?: TimeServiceClientTimeProvider;
+  protected serverTimeProvider?: TimeServiceServerTimeProvider;
 
-  public static calculateNTPResultOffset(ntpResult: TimeService.NTPResult): TimeService.Offset {
+  public static calculateNTPResultOffset(ntpResult: TimeServiceNtpResult): TimeServiceOffset {
     const {t1, t2, t3, t4} = ntpResult;
     return ((t2 - t1) + (t3 - t4)) / 2;
   }
 
-  constructor(option: TimeService.Option) {
+  constructor(option: TimeServiceOptions) {
     super();
 
     // Options
@@ -31,9 +41,9 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     this.fetchServerNTPResult = this.fetchServerNTPResult.bind(this);
   }
 
-  public getOffset(defaultValue: TimeService.Offset): TimeService.Offset;
-  public getOffset(): TimeService.Offset | undefined;
-  public getOffset(defaultValue?: TimeService.Offset): TimeService.Offset | undefined {
+  public getOffset(defaultValue: TimeServiceOffset): TimeServiceOffset;
+  public getOffset(): TimeServiceOffset | undefined;
+  public getOffset(defaultValue?: TimeServiceOffset): TimeServiceOffset | undefined {
     if (this.offset !== undefined) {
       return this.offset;
     }
@@ -43,17 +53,17 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     return undefined;
   }
 
-  public setOffset(offset: TimeService.Offset): TimeService.Offset;
-  public setOffset(offset: TimeService.Offset | undefined): TimeService.Offset;
-  public setOffset(offset?: TimeService.Offset): TimeService.Offset | undefined {
+  public setOffset(offset: TimeServiceOffset): TimeServiceOffset;
+  public setOffset(offset: TimeServiceOffset | undefined): TimeServiceOffset;
+  public setOffset(offset?: TimeServiceOffset): TimeServiceOffset | undefined {
     return this.offset = offset;
   }
 
-  public getSyncedAt(): TimeService.TimeStamp | undefined {
+  public getSyncedAt(): TimeServiceTimeStamp | undefined {
     return this.syncedAt;
   }
 
-  private setSyncedAt(syncedAt: TimeService.TimeStamp | undefined): TimeService.TimeStamp | undefined {
+  private setSyncedAt(syncedAt: TimeServiceTimeStamp | undefined): TimeServiceTimeStamp | undefined {
     return (this.syncedAt = syncedAt);
   }
 
@@ -61,7 +71,7 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     return this.syncInterval;
   }
 
-  public setSyncInterval(interval: TimeService.Option['syncInterval']) {
+  public setSyncInterval(interval: TimeServiceOptions['syncInterval']) {
     this.syncInterval = interval;
 
     // Emit
@@ -77,7 +87,7 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     return this.clientTimeProvider;
   }
 
-  public setClientTimeProvider(provider: TimeService.ClientTimeProvider | null | undefined) {
+  public setClientTimeProvider(provider: TimeServiceClientTimeProvider | null | undefined) {
     this.clientTimeProvider = provider ?? undefined;
   }
 
@@ -89,7 +99,7 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     return this.serverTimeProvider;
   }
 
-  public setServerTimeProvider(provider: TimeService.ServerTimeProvider | null | undefined) {
+  public setServerTimeProvider(provider: TimeServiceServerTimeProvider | null | undefined) {
     this.serverTimeProvider = provider ?? undefined;
   }
 
@@ -111,7 +121,7 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     return this.getServerTime() ?? this.getClientTime() ?? Date.now();
   }
 
-  private async fetchServerNTPResult(t1: TimeService.NTPResult['t1']): Promise<TimeService.ServerNTPResult | null> {
+  private async fetchServerNTPResult(t1: TimeServiceNtpResult['t1']): Promise<TimeServiceServerNtpResult | null> {
     try {
       const provider = this.getServerTimeProvider();
       if (typeof provider === 'function') {
@@ -123,7 +133,7 @@ export class TimeService extends EventEmitter<TimeService.Event> {
     return null;
   }
 
-  public async sync(): Promise<TimeService.Offset | null> {
+  public async sync(): Promise<TimeServiceOffset | null> {
     try {
       // T1 (Client Request Time)
       const requestedAt: number = Date.now();
@@ -160,7 +170,7 @@ export class TimeService extends EventEmitter<TimeService.Event> {
       // T4 (Client Receive Time)
       const receivedAt: number = Date.now();
 
-      const ntpResult: TimeService.NTPResult = {
+      const ntpResult: TimeServiceNtpResult = {
         t1: requestedAt,
         t2: t2,
         t3: t3,
@@ -176,7 +186,7 @@ export class TimeService extends EventEmitter<TimeService.Event> {
       // Mark synced timestamp
       const syncedAt = Date.now();
       this.setSyncedAt(syncedAt);
-      this.emit('SYNCED', syncedAt);
+      this.emit('SYNCED', offset, syncedAt);
     } catch (e) {
       console.error(e);
     }
@@ -205,37 +215,4 @@ export class TimeService extends EventEmitter<TimeService.Event> {
       this.syncHandler = undefined;
     }
   };
-}
-
-export namespace TimeService {
-  export type Offset = number;
-  export type TimeStamp = number;
-
-  export interface NTPResult {
-    // T1 (Client Request Time)
-    t1: TimeStamp;
-
-    // T2 (Server Receive Time)
-    t2: TimeStamp;
-
-    // T3 (Server Transmit Time)
-    t3: TimeStamp;
-
-    // T4 (Client Receive Time)
-    t4: TimeStamp;
-  }
-
-  export type Event = 'SYNCED' | 'SYNC_INTERVAL_CHANGED';
-
-  export interface ServerNTPResult extends Pick<NTPResult, 't2' | 't3'> {}
-
-  export type ClientTimeProvider = () => TimeStamp;
-  // export type ServerTimeProvider = ((t1: NTPResult['t1']) => ServerNTPResult) | ((t1: NTPResult['t1']) => Promise<ServerNTPResult>);
-  export type ServerTimeProvider = (t1: NTPResult['t1']) => (ServerNTPResult | null) | (Promise<ServerNTPResult | null>);
-
-  export interface Option {
-    syncInterval?: number;                            // Sync interval in milliseconds
-    clientTimeProvider?: ClientTimeProvider;
-    serverTimeProvider?: ServerTimeProvider;
-  }
 }

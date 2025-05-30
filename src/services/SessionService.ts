@@ -4,20 +4,16 @@ import moment from "moment";
 import {StorageProvider} from "../interfaces/StorageProvider";
 import EventEmitter from 'eventemitter3';
 
-export class SessionService {
+export class SessionService extends EventEmitter<SessionService.Event> {
   private static readonly DEFAULT_AUTHORIZATION_STORAGE_KEY: string = 'AUTHORIZATION';
 
   // Service parameters
   protected api: AxiosInstance;
   protected storageProvider: StorageProvider;
 
-  // Emitter
-  private emitter = new EventEmitter<SessionService.Event>();
-  public readonly on = this.emitter.on.bind(this.emitter);
-  public readonly off = this.emitter.off.bind(this.emitter);
-  protected readonly emit = this.emitter.emit.bind(this.emitter);
-
   public constructor(options: SessionService.Options) {
+    super();
+
     // Init service parameters
     console.log('Session initialized', Date.now(), options.api);
     this.api = options.api;

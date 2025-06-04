@@ -3,7 +3,7 @@ import {AxiosInstance} from "axios";
 import moment from "moment";
 import {StorageProvider} from "../interfaces";
 import EventEmitter from 'eventemitter3';
-import {SessionServiceEvent} from "./SessionService.type";
+import {SessionServiceEvent, SessionServiceOptions} from "./SessionService.type";
 
 export class SessionService extends EventEmitter<SessionServiceEvent> {
   private static readonly DEFAULT_AUTHORIZATION_STORAGE_KEY: string = 'AUTHORIZATION';
@@ -12,7 +12,7 @@ export class SessionService extends EventEmitter<SessionServiceEvent> {
   protected api: AxiosInstance;
   protected storageProvider: StorageProvider;
 
-  public constructor(options: SessionService.Options) {
+  public constructor(options: SessionServiceOptions) {
     super();
 
     // Init service parameters
@@ -121,12 +121,5 @@ export class SessionService extends EventEmitter<SessionServiceEvent> {
 
     // Emit
     this.emit('AUTHORIZATION_CHANGED', null);
-  }
-}
-
-export namespace SessionService {
-  export interface Options {
-    api: AxiosInstance;
-    storageProvider: StorageProvider;
   }
 }

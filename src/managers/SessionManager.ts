@@ -16,9 +16,11 @@ export class SessionManager extends EventEmitter<SessionManagerEvent> {
     super();
 
     // Init service parameters
-    console.log('Session initialized', Date.now(), options.api);
     this.api = options.api;
     this.storageProvider = options.storageProvider;
+
+    // Logging
+    console.log('SessionManager initialized', Date.now(), options.api);
   }
 
   private get key(): string {

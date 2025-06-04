@@ -3,16 +3,16 @@ import {AxiosInstance} from "axios";
 import moment from "moment";
 import {StorageProvider} from "../interfaces";
 import EventEmitter from 'eventemitter3';
-import {SessionServiceEvent, SessionServiceOptions} from "./SessionService.type";
+import {SessionManagerEvent, SessionManagerOptions} from "./SessionManager.type";
 
-export class SessionService extends EventEmitter<SessionServiceEvent> {
+export class SessionManager extends EventEmitter<SessionManagerEvent> {
   private static readonly DEFAULT_AUTHORIZATION_STORAGE_KEY: string = 'AUTHORIZATION';
 
   // Service parameters
   protected api: AxiosInstance;
   protected storageProvider: StorageProvider;
 
-  public constructor(options: SessionServiceOptions) {
+  public constructor(options: SessionManagerOptions) {
     super();
 
     // Init service parameters
@@ -30,7 +30,7 @@ export class SessionService extends EventEmitter<SessionServiceEvent> {
       console.error(e);
     }
 
-    return SessionService.DEFAULT_AUTHORIZATION_STORAGE_KEY;
+    return SessionManager.DEFAULT_AUTHORIZATION_STORAGE_KEY;
   }
 
   public async hasAuthorization(): Promise<boolean> {

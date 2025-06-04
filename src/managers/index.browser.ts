@@ -1,2 +1,2 @@
-export * from './SessionService';
-export * from './SessionService.type';
+export * from './SessionManager';
+export * from './SessionManager.type';

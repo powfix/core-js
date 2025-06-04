@@ -1,7 +1,7 @@
 import {jwtDecode, JwtPayload} from "jwt-decode";
 import {AxiosInstance} from "axios";
 import moment from "moment";
-import {StorageProvider} from "../interfaces/StorageProvider";
+import {StorageProvider} from "../interfaces";
 import EventEmitter from 'eventemitter3';
 import {SessionServiceEvent} from "./SessionService.type";
 

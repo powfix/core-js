@@ -18,8 +18,13 @@
   "main": "dist/index.js",
   "browser": "dist/index.browser.js",
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "yarn clean; tsc -p ."
+    "clean": "rm -rf dist | wc -l",
+    "prebuild": "yarn clean",
+    "build": "tsc -p .",
+    "deploy": "yarn deploy:patch",
+    "deploy:patch": "yarn build && npm version patch && npm publish",
+    "deploy:minor": "yarn build && npm version minor && npm publish",
+    "deploy:major": "yarn build && npm version major && npm publish"
   },
   "files": [
     "dist"

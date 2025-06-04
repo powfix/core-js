@@ -3,8 +3,9 @@ import {AxiosInstance} from "axios";
 import moment from "moment";
 import {StorageProvider} from "../interfaces/StorageProvider";
 import EventEmitter from 'eventemitter3';
+import {SessionServiceEvent} from "./SessionService.type";
 
-export class SessionService extends EventEmitter<SessionService.Event> {
+export class SessionService extends EventEmitter<SessionServiceEvent> {
   private static readonly DEFAULT_AUTHORIZATION_STORAGE_KEY: string = 'AUTHORIZATION';
 
   // Service parameters
@@ -128,8 +129,4 @@ export namespace SessionService {
     api: AxiosInstance;
     storageProvider: StorageProvider;
   }
-
-  export type Event = {
-    AUTHORIZATION_CHANGED: (authorization: string | null) => void;
-  };
 }

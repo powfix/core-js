@@ -1,8 +1,11 @@
 {
+  "extends": [
+    "./tsconfig.json"
+  ],
   "compilerOptions": {
-    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "module": "commonjs",                                /* Specify what module code is generated. */
     "declaration": true,                                 /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "outDir": "./dist/client",                           /* Specify an output folder for all emitted files. */
     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */

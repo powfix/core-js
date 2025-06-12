@@ -8,7 +8,7 @@ import type {
   TimeServiceServerNtpResult,
   TimeServiceServerTimeProvider,
   TimeServiceTimeStamp
-} from "./TimeService.type";
+} from "./TimeService.type.js";
 
 const LOG_TAG: string = 'TimeService';
 

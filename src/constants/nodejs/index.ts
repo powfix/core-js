@@ -1,2 +1,2 @@
-export * from './TransactionManagerLogLevel';
-export * from './TransactionManagerTimeoutAction';
+export * from './TransactionManagerLogLevel.js';
+export * from './TransactionManagerTimeoutAction.js';

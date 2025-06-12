@@ -1,5 +1,5 @@
 import {AxiosInstance} from "axios";
-import {StorageProvider} from "../interfaces";
+import {StorageProvider} from "../interfaces/StorageProvider.js";
 
 export interface SessionManagerOptions {
   api: AxiosInstance;

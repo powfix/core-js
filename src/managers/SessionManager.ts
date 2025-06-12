@@ -1,9 +1,9 @@
 import {jwtDecode, JwtPayload} from "jwt-decode";
 import {AxiosInstance} from "axios";
 import moment from "moment";
-import {StorageProvider} from "../interfaces";
+import {StorageProvider} from "../interfaces/StorageProvider.js";
 import EventEmitter from 'eventemitter3';
-import {SessionManagerEvent, SessionManagerOptions} from "./SessionManager.type";
+import {SessionManagerEvent, SessionManagerOptions} from "./SessionManager.type.js";
 
 export class SessionManager extends EventEmitter<SessionManagerEvent> {
   private static readonly DEFAULT_AUTHORIZATION_STORAGE_KEY: string = 'AUTHORIZATION';

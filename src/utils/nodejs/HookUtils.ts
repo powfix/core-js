@@ -1,4 +1,4 @@
-import {Hook, HookFn} from "../../interfaces";
+import {Hook, HookFn} from "../../interfaces/index.js";
 import {ModelCtor} from "sequelize-typescript";
 
 export class HookUtils {

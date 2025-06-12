@@ -1,1 +1,1 @@
-export * from "./TryCatch"
+export * from "./TryCatch.js"

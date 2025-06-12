@@ -1,3 +1,3 @@
-export * from './index.browser';
+export * from './index.browser.js';
 
-export * from './redis';
+export * from './redis/index.js';

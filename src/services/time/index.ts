@@ -1,2 +1,2 @@
-export * from "./TimeService";
-export * from "./TimeService.type";
+export * from "./TimeService.js";
+export * from "./TimeService.type.js";

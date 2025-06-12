@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+import uuid from "uuid";
 
 function binaryToString(binary: Buffer): string {
 	return Buffer.from(binary).toString('hex');

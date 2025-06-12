@@ -1,4 +1,4 @@
-import {between} from "./global/between";
+import {between} from "./global/between.js";
 
 export class JuminNumberUtils {
   public static calculateX(juminNumber: string): number {

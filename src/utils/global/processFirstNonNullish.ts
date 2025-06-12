@@ -1,4 +1,4 @@
-import {firstNonNullish} from "./firstNonNullish";
+import {firstNonNullish} from "./firstNonNullish.js";
 
 export function processFirstNonNullish<T, R>(processor: (nonNullish: NonNullable<T>) => R, ...args: T[]): R | undefined {
   const fallback = firstNonNullish(...args);

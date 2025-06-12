@@ -1,4 +1,4 @@
-import {TransactionManagerTimeoutAction} from "../constants";
+import {TransactionManagerTimeoutAction} from "../constants/index.js";
 import {Transaction} from "sequelize";
 
 export interface TransactionManagerAddOption {

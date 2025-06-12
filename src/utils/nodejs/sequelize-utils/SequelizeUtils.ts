@@ -1,7 +1,7 @@
 import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
-import {UuidUtils} from "../../UuidUtils";
-import {NOT_NULL} from "../../../constants";
-import {Model, NonKnownUuidStringKeys, UuidColumnOptionsBase, UuidColumnOptionsForModel} from "./types";
+import {UuidUtils} from "../../UuidUtils.js";
+import {NOT_NULL} from "../../../constants/index.js";
+import {Model, NonKnownUuidStringKeys, UuidColumnOptionsBase, UuidColumnOptionsForModel} from "./types.js";
 
 export class SequelizeUtils {
   public static decimal2Number(value: any): number | null | undefined {

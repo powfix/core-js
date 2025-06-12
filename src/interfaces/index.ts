@@ -1,3 +1,3 @@
-export * from './index.browser';
+export * from './index.browser.js';
 
-export * from './nodejs';
+export * from './nodejs/index.js';

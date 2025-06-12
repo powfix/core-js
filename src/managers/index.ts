@@ -1,2 +1,2 @@
-export * from './TransactionManager';
-export * from './TransactionManager.types';
+export * from './TransactionManager.js';
+export * from './TransactionManager.types.js';

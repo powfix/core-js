@@ -1,7 +1,7 @@
 import {Transaction} from "sequelize";
 import EventEmitter from 'eventemitter3';
-import {TransactionManagerLogLevel, TransactionManagerTimeoutAction} from "../constants";
-import {TransactionManagerAddOption, TransactionManagerEventTypes} from "./TransactionManager.types";
+import {TransactionManagerLogLevel, TransactionManagerTimeoutAction} from "../constants/index.js";
+import {TransactionManagerAddOption, TransactionManagerEventTypes} from "./TransactionManager.types.js";
 
 const LOG_TAG: string = '[TransactionManager]';
 

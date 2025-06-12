@@ -1,4 +1,4 @@
-import {RedisClient} from "./RedisClient";
+import {RedisClient} from "./RedisClient.js";
 
 const LOG_TAG: string = '[REDIS-PUB]';
 

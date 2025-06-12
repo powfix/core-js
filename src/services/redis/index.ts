@@ -1,4 +1,4 @@
 // Files
-export * from './RedisClient';
-export * from './RedisPublisher';
-export * from './RedisSubscriber';
+export * from './RedisClient.js';
+export * from './RedisPublisher.js';
+export * from './RedisSubscriber.js';

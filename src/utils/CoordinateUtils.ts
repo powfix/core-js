@@ -1,4 +1,4 @@
-import {Coordinate} from "../interfaces/Coordinate";
+import {Coordinate} from "../interfaces/Coordinate.js";
 
 export class CoordinateUtils {
   public static isValidLatitude(latitude: Coordinate['latitude'] | string) {

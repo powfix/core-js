@@ -1,2 +1,2 @@
-export * from './index.browser';
-export * from './UpsertResult';
+export * from './index.browser.js';
+export * from './UpsertResult.js';

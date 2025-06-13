@@ -13,30 +13,26 @@
 	"license": "MIT",
 	"exports": {
 		"./browser": {
-			"require": "./dist/browser/cjs/index.browser.js",
-			"import": "./dist/browser/esm/index.browser.js",
-			"default": "./dist/browser/cjs/index.browser.js",
+			"require": "./dist/browser/cjs/index.browser.cjs",
+			"import": "./dist/browser/esm/index.browser.mjs",
+			"default": "./dist/browser/cjs/index.browser.cjs",
 			"types": "./dist/browser/types/index.browser.d.ts"
 		},
 		"./node": {
 			"require": "./dist/node/cjs/index.js",
-			"import": "./dist/node/esm/index.js",
+			"import": "./dist/node/esm/index.mjs",
 			"default": "./dist/node/cjs/index.js",
 			"types": "./dist/node/types/index.d.ts"
 		}
 	},
-	"type": "module",
 	"scripts": {
 		"clean": "rm -rf dist | wc -l",
+		"esmfix": "tsc-esm-fix --ext='.mjs'",
 		"prebuild": "yarn clean",
-		"build:browser": "tsc -p tsconfig.browser.cjs.json & tsc -p tsconfig.browser.esm.json & tsc -p tsconfig.browser.types.json",
-		"build:node": "tsc -p tsconfig.node.cjs.json & tsc -p tsconfig.node.esm.json & tsc -p tsconfig.node.types.json",
-		"build": "yarn build:browser & yarn build:node",
-		"cjsfix:browser": "find ./dist/browser/cjs/ ./dist/browser/cjs -type f -name '*.js' -exec bash -c 'mv \"$0\" \"${0%.js}.cjs\"' {} \\;",
-		"cjsfix:node": "find ./dist/node/cjs/ ./dist/node/cjs -type f -name '*.js' -exec bash -c 'mv \"$0\" \"${0%.js}.cjs\"' {} \\;",
-		"cjsfix": "yarn cjsfix:browser & yarn cjsfix:node",
-		"esmfix": "tsc-esm-fix",
-		"postbuild": "yarn cjsfix && yarn esmfix",
+		"build:esm": "tsc -p tsconfig.browser.esm.json && tsc -p tsconfig.node.esm.json && yarn esmfix",
+		"build:cjs": "tsc -p tsconfig.browser.cjs.json && tsc -p tsconfig.node.cjs.json",
+		"build:types": "tsc -p tsconfig.browser.types.json && tsc -p tsconfig.node.types.json",
+		"build": "yarn build:esm && yarn build:cjs && yarn build:types",
 		"deploy": "yarn deploy:patch",
 		"deploy:patch": "yarn build && npm version patch && npm publish",
 		"deploy:minor": "yarn build && npm version minor && npm publish",

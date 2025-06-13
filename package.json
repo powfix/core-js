@@ -13,9 +13,9 @@
 	"license": "MIT",
 	"exports": {
 		"./browser": {
-			"require": "./dist/browser/cjs/index.browser.cjs",
+			"require": "./dist/browser/cjs/index.browser.js",
 			"import": "./dist/browser/esm/index.browser.mjs",
-			"default": "./dist/browser/cjs/index.browser.cjs",
+			"default": "./dist/browser/cjs/index.browser.js",
 			"types": "./dist/browser/types/index.browser.d.ts"
 		},
 		"./node": {

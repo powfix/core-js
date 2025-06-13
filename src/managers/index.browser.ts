@@ -1,2 +1,2 @@
-export * from './SessionManager.js';
-export * from './SessionManager.type.js';
+export * from './SessionManager';
+export * from './SessionManager.type';

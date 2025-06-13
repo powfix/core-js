@@ -1,4 +1,4 @@
-import moment from "moment/moment.js";
+import moment from "moment";
 import EventEmitter3 from 'eventemitter3';
 
 export interface Sequence {

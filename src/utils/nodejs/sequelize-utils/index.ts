@@ -1,1 +1,1 @@
-export {SequelizeUtils} from './SequelizeUtils.js';
+export {SequelizeUtils} from './SequelizeUtils';

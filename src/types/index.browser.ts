@@ -1,2 +1,2 @@
-export * from './IntRage.js';
-export * from './PartialExcept.js';
+export * from './IntRage';
+export * from './PartialExcept';

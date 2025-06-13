@@ -1,4 +1,4 @@
-import {castArray} from "./global/index.js";
+import {castArray} from "./global";
 
 export class ArrayUtils {
   static castArray<T>(value: T | T[]): T[] {

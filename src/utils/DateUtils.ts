@@ -1,5 +1,5 @@
 import moment, {MomentInput, RelativeTimeSpec} from "moment";
-import {DATE} from "../constants/DATE.js";
+import {DATE} from "../constants/DATE";
 
 export class DateUtils {
   public static isPositiveInteger(value: unknown, strict?: boolean): boolean {

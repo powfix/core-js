@@ -1,4 +1,4 @@
-import {UuidUtils} from "./UuidUtils.js";
+import {UuidUtils} from "./UuidUtils";
 
 export class ObjectIdUtils {
   public static toUuid(objectId: string, pad: 'start' | 'end' = 'start'): string {

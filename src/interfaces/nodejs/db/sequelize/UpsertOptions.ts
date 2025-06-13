@@ -1,4 +1,4 @@
-import {ReloadOption} from "./ReloadOption.js";
-import {TransactionOption} from "./TransactionOption.js";
+import {ReloadOption} from "./ReloadOption";
+import {TransactionOption} from "./TransactionOption";
 
 export interface UpsertOptions extends ReloadOption, TransactionOption {}

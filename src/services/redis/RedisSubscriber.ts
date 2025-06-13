@@ -1,6 +1,6 @@
-import {RedisClient} from "./RedisClient.js";
-import {PubSubListener} from "@redis/client/dist/lib/client/pub-sub.js";
-import {castArray} from "../../utils/index.js";
+import {RedisClient} from "./RedisClient";
+import {PubSubListener} from "@redis/client/dist/lib/client/pub-sub";
+import {castArray} from "../../utils";
 
 export class RedisSubscriber extends RedisClient {
   public constructor(options?: RedisClient.RedisClientOptions) {

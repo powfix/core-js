@@ -1,1 +1,1 @@
-export * from './time/index.js';
+export * from './time';

@@ -12,21 +12,31 @@
 	"homepage": "https://github.com/powfix/core-js",
 	"license": "MIT",
 	"exports": {
-		"./client": {
-			"default": "./dist/client/index.browser.js",
-			"types": "./dist/client/index.browser.d.ts"
+		"./browser": {
+			"require": "./dist/browser/cjs/index.browser.js",
+			"import": "./dist/browser/esm/index.browser.js",
+			"default": "./dist/browser/cjs/index.browser.js",
+			"types": "./dist/browser/types/index.browser.d.ts"
 		},
-		"./server": {
-			"default": "./dist/server/index.js",
-			"types": "./dist/server/index.d.ts"
+		"./node": {
+			"require": "./dist/node/cjs/index.js",
+			"import": "./dist/node/esm/index.js",
+			"default": "./dist/node/cjs/index.js",
+			"types": "./dist/node/types/index.d.ts"
 		}
 	},
+	"type": "module",
 	"scripts": {
 		"clean": "rm -rf dist | wc -l",
 		"prebuild": "yarn clean",
-		"build:client": "tsc -p tsconfig.client.json",
-		"build:server": "tsc -p tsconfig.server.json",
-		"build": "yarn build:client && yarn build:server",
+		"build:browser": "tsc -p tsconfig.browser.cjs.json & tsc -p tsconfig.browser.esm.json & tsc -p tsconfig.browser.types.json",
+		"build:node": "tsc -p tsconfig.node.cjs.json & tsc -p tsconfig.node.esm.json & tsc -p tsconfig.node.types.json",
+		"build": "yarn build:browser & yarn build:node",
+		"cjsfix:browser": "find ./dist/browser/cjs/ ./dist/browser/cjs -type f -name '*.js' -exec bash -c 'mv \"$0\" \"${0%.js}.cjs\"' {} \\;",
+		"cjsfix:node": "find ./dist/node/cjs/ ./dist/node/cjs -type f -name '*.js' -exec bash -c 'mv \"$0\" \"${0%.js}.cjs\"' {} \\;",
+		"cjsfix": "yarn cjsfix:browser & yarn cjsfix:node",
+		"esmfix": "tsc-esm-fix",
+		"postbuild": "yarn cjsfix && yarn esmfix",
 		"deploy": "yarn deploy:patch",
 		"deploy:patch": "yarn build && npm version patch && npm publish",
 		"deploy:minor": "yarn build && npm version minor && npm publish",

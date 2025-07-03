@@ -1,6 +1,6 @@
 {
 	"name": "@powfix/core-js",
-	"version": "0.15.0-beta-7",
+	"version": "0.15.0",
 	"description": "core package",
 	"author": "Kwon Kyung-Min <powfix@gmail.com>",
 	"private": false,
@@ -8,7 +8,11 @@
 		"type": "git",
 		"url": "https://github.com/powfix/core-js"
 	},
-	"keywords": ["javascript", "core", "util"],
+	"keywords": [
+		"javascript",
+		"core",
+		"util"
+	],
 	"homepage": "https://github.com/powfix/core-js",
 	"license": "MIT",
 	"exports": {
@@ -38,7 +42,9 @@
 		"deploy:minor": "yarn build && npm version minor && npm publish",
 		"deploy:major": "yarn build && npm version major && npm publish"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"dependencies": {
 		"base-64": "^1.0.0",
 		"eventemitter3": "^5.0.1",

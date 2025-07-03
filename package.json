@@ -47,7 +47,6 @@
 	],
 	"dependencies": {
 		"base-64": "^1.0.0",
-		"brace-expansion": "^1.1.12",
 		"eventemitter3": "^5.0.1",
 		"jwt-decode": "^4.0.0",
 		"redis": "4.7.0",

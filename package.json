@@ -38,9 +38,9 @@
 		"build:types": "tsc -p tsconfig.browser.types.json && tsc -p tsconfig.node.types.json",
 		"build": "yarn build:esm && yarn build:cjs && yarn build:types",
 		"deploy": "yarn deploy:patch",
-		"deploy:patch": "yarn build && npm version patch && npm publish",
-		"deploy:minor": "yarn build && npm version minor && npm publish",
-		"deploy:major": "yarn build && npm version major && npm publish"
+		"deploy:patch": "npm version patch && npm publish",
+		"deploy:minor": "npm version minor && npm publish",
+		"deploy:major": "npm version major && npm publish"
 	},
 	"files": [
 		"dist"

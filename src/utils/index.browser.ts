@@ -8,6 +8,7 @@ export * from './BooleanUtils';
 export * from './Calc';
 export * from './CoordinateUtils';
 export * from './DateUtils';
+export * from './I18nUtils';
 export * from './NumberUtils';
 export * from './ObjectIdUtils';
 export * from './Point3Utils';

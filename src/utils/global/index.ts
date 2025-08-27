@@ -1,4 +1,7 @@
+export * from './atob';
+export * from './base64';
 export * from './between';
+export * from './btoa';
 export * from './castArray';
 export * from './circularDistance';
 export * from './sleep';

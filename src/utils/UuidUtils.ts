@@ -1,8 +1,5 @@
 import * as uuid from "uuid";
-
-function binaryToString(binary: Buffer): string {
-	return Buffer.from(binary).toString('hex');
-}
+import {Uint8ArrayUtils} from "./Uint8ArrayUtils";
 
 export class UuidUtils {
 	static v4(): string {
@@ -28,10 +25,10 @@ export class UuidUtils {
 	 * @param binary UUID
 	 * @returns {string|null} When binary not exists return null
 	 */
-	static toString(binary: Buffer): string
-	static toString(binary?: Buffer): string | null {
+	static toString(binary: Uint8Array): string
+	static toString(binary?: Uint8Array): string | null {
 		if (!binary) return null;
-		return UuidUtils.format(binaryToString(binary));
+		return UuidUtils.format(Uint8ArrayUtils.toHex(binary));
 	}
 
 	/** (UUID: string) to (UUID: Buffer) */

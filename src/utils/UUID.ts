@@ -91,4 +91,8 @@ export class UUID {
   public toBytes(): Uint8Array {
     return new Uint8Array(this.bytes);
   }
+
+  public toJSON(): string {
+    return this.toString();
+  }
 }

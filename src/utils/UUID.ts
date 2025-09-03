@@ -47,6 +47,21 @@ export class UUID {
     return new UUID(new Uint8Array(UUID.BYTE_LENGTH));
   }
 
+  public static equals(...uuids: UUID[]): boolean {
+    const n = uuids.length;
+    if (n <= 1) return true;
+
+    const ref = uuids[0].bytes;
+
+    for (let i = 1; i < n; ++i) {
+      const b = uuids[i].bytes;
+      for (let j = 0; j < UUID.BYTE_LENGTH; ++j) {
+        if (ref[j] !== b[j]) return false;
+      }
+    }
+    return true;
+  }
+
   private readonly bytes: Uint8Array;
 
   // for cache
@@ -71,11 +86,8 @@ export class UUID {
     }
   }
 
-  public equals(other: UUID): boolean {
-    const a = this.bytes, b = other.bytes;
-    let v = 0;
-    for (let i = 0; i < UUID.BYTE_LENGTH; i++) v |= a[i] ^ b[i];
-    return v === 0;
+  public equals(...uuids: UUID[]): boolean {
+    return UUID.equals(this, ...uuids);
   }
 
   public compare(other: UUID): number {

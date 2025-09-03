@@ -62,6 +62,15 @@ export class UUID {
     return true;
   }
 
+  public static compare(uuid1: UUID, uuid2: UUID): number {
+    const a = uuid1.bytes;
+    const b = uuid2.bytes;
+    for (let i = 0; i < UUID.BYTE_LENGTH; i++) {
+      if (a[i] !== b[i]) return a[i] < b[i] ? -1 : 1;
+    }
+    return 0;
+  }
+
   private readonly bytes: Uint8Array;
 
   // for cache
@@ -91,11 +100,7 @@ export class UUID {
   }
 
   public compare(other: UUID): number {
-    const a = this.bytes, b = other.bytes;
-    for (let i = 0; i < UUID.BYTE_LENGTH; i++) {
-      if (a[i] !== b[i]) return a[i] < b[i] ? -1 : 1;
-    }
-    return 0;
+    return UUID.compare(this, other);
   }
 
   public toString(): string {

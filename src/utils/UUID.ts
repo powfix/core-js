@@ -31,6 +31,18 @@ export class UUID {
     return new UUID(str);
   }
 
+  private static parseBytes(bytes: ArrayBufferView): Uint8Array {
+    if (bytes instanceof Uint8Array) {
+      return new Uint8Array(bytes);
+    } else {
+      return new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    }
+  }
+
+  public static fromBytes(bytes: ArrayBufferView): UUID {
+    return new UUID(UUID.parseBytes(bytes));
+  }
+
   public static nil(): UUID {
     return new UUID(new Uint8Array(UUID.BYTE_LENGTH));
   }
@@ -48,12 +60,10 @@ export class UUID {
 
     if (typeof input === 'string') {
       this.bytes = UUID.parseString(input);
+    } else if (ArrayBuffer.isView(input)) {
+      this.bytes = UUID.parseBytes(input);
     } else {
-      if (input instanceof Uint8Array) {
-        this.bytes = new Uint8Array(input);
-      } else {
-        this.bytes = new Uint8Array(input.buffer, input.byteOffset, input.byteLength);
-      }
+      throw new Error("Expected string or ArrayBufferView")
     }
 
     if (this.bytes.byteLength !== UUID.BYTE_LENGTH) {

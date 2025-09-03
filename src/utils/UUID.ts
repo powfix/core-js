@@ -1,9 +1,12 @@
 import {Uint8ArrayUtils} from "./Uint8ArrayUtils";
 
 export class UUID {
+  private static BYTE_LENGTH: number = 16;
+  private static HEX_STR_LENGTH: number = 32;
+
   private static formatHex(hex: string): string {
-    if (hex.length !== 32) {
-      throw new Error('hex length should be 32');
+    if (hex.length !== UUID.HEX_STR_LENGTH) {
+      throw new Error(`hex length should be ${UUID.HEX_STR_LENGTH}`);
     }
     return hex.slice(0, 8) + '-' +
       hex.slice(8, 12) + '-' +
@@ -18,7 +21,7 @@ export class UUID {
 
   private static parseString(str: string): Uint8Array {
     const hex = UUID.stripHyphens(str);
-    if (hex.length !== 32) {
+    if (hex.length !== UUID.HEX_STR_LENGTH) {
       throw new Error('Invalid UUID string');
     }
     return Uint8ArrayUtils.fromHex(hex);
@@ -29,7 +32,7 @@ export class UUID {
   }
 
   public static nil(): UUID {
-    return new UUID(new Uint8Array(16));
+    return new UUID(new Uint8Array(UUID.BYTE_LENGTH));
   }
 
   private readonly bytes: Uint8Array;
@@ -53,21 +56,21 @@ export class UUID {
       }
     }
 
-    if (this.bytes.byteLength !== 16) {
-      throw new Error("UUID must be 16 bytes");
+    if (this.bytes.byteLength !== UUID.BYTE_LENGTH) {
+      throw new Error(`UUID must be ${UUID.BYTE_LENGTH} bytes`);
     }
   }
 
   public equals(other: UUID): boolean {
     const a = this.bytes, b = other.bytes;
     let v = 0;
-    for (let i = 0; i < 16; i++) v |= a[i] ^ b[i];
+    for (let i = 0; i < UUID.BYTE_LENGTH; i++) v |= a[i] ^ b[i];
     return v === 0;
   }
 
   public compare(other: UUID): number {
     const a = this.bytes, b = other.bytes;
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < UUID.BYTE_LENGTH; i++) {
       if (a[i] !== b[i]) return a[i] < b[i] ? -1 : 1;
     }
     return 0;

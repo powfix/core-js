@@ -14,7 +14,7 @@ export class TransactionManager {
 
   // Members
   private logLevel: TransactionManagerLogLevel = TransactionManagerLogLevel.VERBOSE;
-  private transactionTimeoutMap = new Map<Transaction, {handler: NodeJS.Timeout, action: TransactionManagerTimeoutAction}>();
+  private transactionTimeoutMap = new Map<Transaction, {handler: number, action: TransactionManagerTimeoutAction}>();
 
   // Emitter
   private readonly emitter = new EventEmitter<TransactionManagerEventTypes>();

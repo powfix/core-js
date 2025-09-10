@@ -14,7 +14,7 @@ export class TransactionManager {
 
   // Members
   private logLevel: TransactionManagerLogLevel = TransactionManagerLogLevel.VERBOSE;
-  private transactionTimeoutMap = new Map<Transaction, {handler: number, action: TransactionManagerTimeoutAction}>();
+  private transactionTimeoutMap = new Map<Transaction, {handler: ReturnType<typeof setTimeout>, action: TransactionManagerTimeoutAction}>();
 
   // Emitter
   private readonly emitter = new EventEmitter<TransactionManagerEventTypes>();

@@ -71,7 +71,7 @@ export class UUID {
     return 0;
   }
 
-  private readonly bytes: Uint8Array;
+  protected readonly bytes: Uint8Array;
 
   // for cache
   private _str?: string;

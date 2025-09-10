@@ -8,6 +8,6 @@
     "outDir": "./dist/node/esm"
   },
   "include": [
-    "src/index.ts"
+    "src/index.nodejs.ts"
   ]
 }

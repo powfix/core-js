@@ -4,7 +4,6 @@ export * from './ArrayUtils';
 export * from './AxiosUtils';
 export * from './StringUtils';
 export * from './Uint8ArrayUtils';
-export * from './UUID';
 export * from './UuidUtils';
 export * from './BooleanUtils';
 export * from './Calc';

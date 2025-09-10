@@ -1,4 +1,4 @@
-import {Uint8ArrayUtils} from "./Uint8ArrayUtils";
+import {Uint8ArrayUtils} from "../../shared/utils/Uint8ArrayUtils";
 
 export class UUID {
   private static BYTE_LENGTH: number = 16;

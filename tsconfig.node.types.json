@@ -10,6 +10,6 @@
     "outDir": "./dist/node/types"
   },
   "include": [
-    "src/index.ts"
+    "src/index.nodejs.ts"
   ]
 }

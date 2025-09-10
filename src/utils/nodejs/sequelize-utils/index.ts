@@ -1,1 +1,0 @@
-export {SequelizeUtils} from './SequelizeUtils';

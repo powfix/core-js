@@ -1,4 +1,4 @@
-import { AxiosHeaderValue } from "axios";
+import {AxiosHeaderValue} from "axios";
 
 export class AxiosUtils {
   public static headerValue2String(value: AxiosHeaderValue | undefined): string | null {

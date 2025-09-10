@@ -1,6 +1,6 @@
 import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
-import {UuidUtils} from "../../UuidUtils";
-import {NOT_NULL} from "../../../constants";
+import {UuidUtils} from "../../../shared/utils/UuidUtils";
+import {NOT_NULL} from "../../../shared/constants";
 import {Model, NonKnownUuidStringKeys, UuidColumnOptionsBase, UuidColumnOptionsForModel} from "./types";
 
 export class SequelizeUtils {

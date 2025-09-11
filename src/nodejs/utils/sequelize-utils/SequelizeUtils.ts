@@ -39,7 +39,7 @@ export class SequelizeUtils {
           const value = this.getDataValue(columnName);
           return value != null ? UUID.from(value) : value;
         },
-        set(input: UuidInput) {
+        set(input: UuidInput | null) {
           const value = input != null ? UUID.from(input).toBuffer() : input;
           this.setDataValue(columnName, value);
         },

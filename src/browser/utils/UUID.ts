@@ -1,4 +1,5 @@
 import {Uint8ArrayUtils} from "../../shared";
+import {UuidInput} from "./UUID.types";
 
 /**
  * Represents a UUID (Universally Unique Identifier) and provides various utility
@@ -69,7 +70,7 @@ export class UUID {
    * @param input - The value to validate.
    * @returns true if the input is a valid representation of a UUID.
    */
-  public static isValid(input: string | ArrayBufferView): boolean {
+  public static isValid(input: UuidInput): boolean {
     if (typeof input === 'string') {
       const length: number = input.length;
       switch (length) {
@@ -84,6 +85,8 @@ export class UUID {
         default:
           return false;
       }
+    } else if (input instanceof UUID) {
+      return UUID.isValidBytes(input.bytes);
     } else if (ArrayBuffer.isView(input)) {
       return UUID.isValidBytes(input);
     } else {
@@ -198,7 +201,7 @@ export class UUID {
    * @param input - The value to parse.
    * @returns A Uint8Array of length {@link BYTE_LENGTH}.
    */
-  private static parse(input: string | ArrayBufferView): Uint8Array {
+  private static parse(input: UuidInput): Uint8Array {
     if (typeof input === 'string') {
       const length: number = input.length;
       switch (length) {
@@ -211,6 +214,8 @@ export class UUID {
         default:
           throw new Error(`Invalid input string, length should be ${UUID.STR_LENGTH} or ${UUID.HEX_STR_LENGTH}`);
       }
+    } else if (input instanceof UUID) {
+      return input.toBytes();
     } else if (ArrayBuffer.isView(input)) {
       return UUID.parseBytes(input);
     } else {
@@ -223,10 +228,7 @@ export class UUID {
    * @param input - The value to parse.
    * @returns A new {@link UUID} object.
    */
-  public static from(input: string | ArrayBufferView | UUID): UUID {
-    if (input instanceof UUID) {
-      return UUID.fromBytes(input.bytes);
-    }
+  public static from(input: UuidInput): UUID {
     return UUID.fromBytes(UUID.parse(input));
   }
 
@@ -296,7 +298,7 @@ export class UUID {
    * Constructs a new {@link UUID} instance from any supported input type.
    * @param input - The value to parse (string or ArrayBufferView).
    */
-  public constructor(input: string | ArrayBufferView) {
+  public constructor(input: UuidInput) {
     this.bytes = UUID.parse(input);
   }
 

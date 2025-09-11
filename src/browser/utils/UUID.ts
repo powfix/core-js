@@ -148,7 +148,9 @@ export class UUID {
 
   public static equals(...uuids: UUID[]): boolean {
     const n = uuids.length;
-    if (n <= 1) return true;
+    if (n < 2) {
+      throw new Error('At least two UUIDs required for comparison');
+    }
 
     const ref = uuids[0].bytes;
 

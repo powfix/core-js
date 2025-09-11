@@ -223,7 +223,10 @@ export class UUID {
    * @param input - The value to parse.
    * @returns A new {@link UUID} object.
    */
-  public static from(input: string | ArrayBufferView): UUID {
+  public static from(input: string | ArrayBufferView | UUID): UUID {
+    if (input instanceof UUID) {
+      return UUID.fromBytes(input.bytes);
+    }
     return UUID.fromBytes(UUID.parse(input));
   }
 

@@ -2,6 +2,8 @@ import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
 import {UuidUtils} from "../../../shared/utils/UuidUtils";
 import {NOT_NULL} from "../../../shared/constants";
 import {Model, NonKnownUuidStringKeys, UuidColumnOptionsBase, UuidColumnOptionsForModel} from "./types";
+import {UUID} from "../UUID";
+import {type UuidInput} from "../../../shared";
 
 export class SequelizeUtils {
   public static decimal2Number(value: any): number | null | undefined {
@@ -34,18 +36,14 @@ export class SequelizeUtils {
       return {
         type: "binary(16)",
         get() {
-          const value = this.getDataValue(columnName)
-
-          if (value === null) {
-            return value
-          }
-
-          return UuidUtils.toString(this.getDataValue(columnName));
+          const value = this.getDataValue(columnName);
+          return value != null ? UUID.from(value) : value;
         },
-        set(uuid: string | null) {
-          this.setDataValue(columnName, uuid === null ? null : UuidUtils.toBuffer(uuid));
+        set(input: UuidInput) {
+          const value = input != null ? UUID.from(input).toBuffer() : input;
+          this.setDataValue(columnName, value);
         },
-        ...overrideOptions
+        ...overrideOptions,
       }
     } else {
       return {

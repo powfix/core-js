@@ -9,6 +9,8 @@ export * from './BooleanUtils';
 export * from './Calc';
 export * from './CoordinateUtils';
 export * from './DateUtils';
+export * from './Enum';
+export * from './Enum.types';
 export * from './I18nUtils';
 export * from './NumberUtils';
 export * from './ObjectIdUtils';

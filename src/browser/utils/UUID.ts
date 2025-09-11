@@ -180,11 +180,6 @@ export class UUID {
 
   public constructor(input: string | ArrayBufferView) {
     this.bytes = UUID.parse(input);
-
-    // Validate bytes length
-    if (this.bytes.byteLength !== UUID.BYTE_LENGTH) {
-      throw new Error(`UUID must be ${UUID.BYTE_LENGTH} bytes`);
-    }
   }
 
   public equals(...uuids: UUID[]): boolean {

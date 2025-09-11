@@ -174,8 +174,8 @@ export class UUID {
    * @param hex - The hex representation of the UUID.
    * @returns A new {@link UUID} object.
    */
-  public static fromHex(hex: string): UUID {
-    return new UUID(UUID.parseHex(hex));
+  public static fromHex<T extends typeof UUID>(hex: string): InstanceType<T> {
+    return new this(UUID.parseHex(hex)) as InstanceType<T>;
   }
 
   /**
@@ -183,8 +183,8 @@ export class UUID {
    * @param str - The UUID string with hyphens.
    * @returns A new {@link UUID} object.
    */
-  public static fromString(str: string): UUID {
-    return new UUID(UUID.parseString(str));
+  public static fromString<T extends typeof UUID>(str: string): InstanceType<T> {
+    return new this(UUID.parseString(str)) as InstanceType<T>;
   }
 
   /**
@@ -192,8 +192,8 @@ export class UUID {
    * @param bytes - An ArrayBufferView containing 16 bytes.
    * @returns A new {@link UUID} object.
    */
-  public static fromBytes(bytes: ArrayBufferView): UUID {
-    return new UUID(UUID.parseBytes(bytes));
+  public static fromBytes<T extends typeof UUID>(bytes: ArrayBufferView): InstanceType<T> {
+    return new this(UUID.parseBytes(bytes)) as InstanceType<T>;
   }
 
   /**
@@ -228,18 +228,18 @@ export class UUID {
    * @param input - The value to parse.
    * @returns A new {@link UUID} object.
    */
-  public static from(input: UuidInput): UUID {
-    return UUID.fromBytes(UUID.parse(input));
+  public static from<T extends typeof UUID>(this: T, input: UuidInput): InstanceType<T> {
+    return this.fromBytes(UUID.parse(input)) as InstanceType<T>;
   }
 
   /** Returns the nil (all zero) UUID. */
-  public static nil(): UUID {
-    return UUID.fromBytes(new Uint8Array(UUID.BYTE_LENGTH));
+  public static nil<T extends typeof UUID>(this: T): InstanceType<T> {
+    return this.fromBytes(new Uint8Array(UUID.BYTE_LENGTH)) as InstanceType<T>;
   }
 
   /** Returns a UUID consisting of all 0xFF bytes. */
-  public static max(): UUID {
-    return UUID.fromBytes((new Uint8Array(UUID.BYTE_LENGTH)).fill(0xFF));
+  public static max<T extends typeof UUID>(this: T): InstanceType<T> {
+    return this.fromBytes((new Uint8Array(UUID.BYTE_LENGTH)).fill(0xFF)) as InstanceType<T>;
   }
 
   /* --------------------------------------------------------------------

@@ -252,19 +252,19 @@ export class UUID {
 
   /**
    * Compares multiple UUIDs for strict equality.
-   * @param uuids - The UUIDs to compare (at least two required).
+   * @param inputs - The UUIDs to compare (at least two required).
    * @returns true if all provided UUIDs are identical.
    */
-  public static equals(...uuids: UUID[]): boolean {
-    const n = uuids.length;
+  public static equals(...inputs: UUID[]): boolean {
+    const n = inputs.length;
     if (n < 2) {
       throw new Error('At least two UUIDs required for comparison');
     }
 
-    const ref = uuids[0].bytes;
+    const ref = inputs[0].bytes;
 
     for (let i = 1; i < n; ++i) {
-      const b = uuids[i].bytes;
+      const b = inputs[i].bytes;
       for (let j = 0; j < UUID.BYTE_LENGTH; ++j) {
         if (ref[j] !== b[j]) return false;
       }
@@ -307,8 +307,8 @@ export class UUID {
   }
 
   /** Instance wrapper for {@link equals}. */
-  public equals(...uuids: UUID[]): boolean {
-    return UUID.equals(this, ...uuids);
+  public equals(...inputs: UUID[]): boolean {
+    return UUID.equals(this, ...inputs);
   }
 
   /** Instance wrapper for {@link compare}. */

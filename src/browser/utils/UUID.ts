@@ -1,8 +1,55 @@
-import {Uint8ArrayUtils} from "../../shared/utils/Uint8ArrayUtils";
+import {Uint8ArrayUtils} from "../../shared";
 
 export class UUID {
+  private static REGEX_HEX = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}[1-5][0-9a-fA-F]{3}[89abAB][0-9a-fA-F]{3}[0-9a-fA-F]{12}$/;
+  private static REGEX_RFC4122 = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
+
   private static BYTE_LENGTH: number = 16;
+  private static STR_LENGTH: number = 36;
   private static HEX_STR_LENGTH: number = 32;
+
+  public static isValidHex(hex: string): boolean {
+    if (typeof hex !== 'string') {
+      return false;
+    }
+    return UUID.REGEX_HEX.test(hex);
+  }
+
+  public static isValidString(str: string): boolean {
+    if (typeof str !== 'string') {
+      return false;
+    }
+    return UUID.REGEX_RFC4122.test(str);
+  }
+
+  public static isValidBytes(bytes: ArrayBufferView): boolean {
+    return bytes.byteLength === UUID.BYTE_LENGTH;
+  }
+
+  public static isValid(input: string | ArrayBufferView): boolean {
+    if (typeof input === 'string') {
+      const length: number = input.length;
+      switch (length) {
+        case UUID.STR_LENGTH: {
+          // RFC 4122 uuid(string)
+          // 9e472052-a654-4693-9a8b-3ce57ada3d6c
+          return UUID.isValidString(input);
+        }
+        case UUID.HEX_STR_LENGTH: {
+          // RFC 4122 uuid(string) without hyphens
+          // 9e472052a65446939a8b3ce57ada3d6c
+          return UUID.isValidHex(input);
+        }
+        default: {
+          return false;
+        }
+      }
+    } else if (ArrayBuffer.isView(input)) {
+      return UUID.isValidBytes(input);
+    } else {
+      return false;
+    }
+  }
 
   private static formatHex(hex: string): string {
     if (hex.length !== UUID.HEX_STR_LENGTH) {
@@ -19,16 +66,35 @@ export class UUID {
     return str.replace(/-/g, "");
   }
 
+  private static parseHex(hex: string): Uint8Array {
+    if (hex.length !== UUID.HEX_STR_LENGTH) {
+      throw new Error(`Invalid hex string, length should be ${UUID.HEX_STR_LENGTH}`);
+    }
+    return Uint8ArrayUtils.fromHex(hex);
+  }
+
+  public static fromHex(hex: string): UUID {
+    return new UUID(UUID.parseHex(hex));
+  }
+
   private static parseString(str: string): Uint8Array {
+    if (str.length !== UUID.STR_LENGTH) {
+      throw new Error(`Invalid UUID string, invalid character length should be ${UUID.STR_LENGTH}`);
+    }
+
+    if (!UUID.isValid(str)) {
+      throw new Error('Invalid UUID string, should be RFC 4122 format');
+    }
+
     const hex = UUID.stripHyphens(str);
     if (hex.length !== UUID.HEX_STR_LENGTH) {
-      throw new Error('Invalid UUID string');
+      throw new Error('Invalid UUID string, invalid character length after strip hyphens');
     }
     return Uint8ArrayUtils.fromHex(hex);
   }
 
   public static fromString(str: string): UUID {
-    return new UUID(str);
+    return new UUID(UUID.parseString(str));
   }
 
   private static parseBytes(bytes: ArrayBufferView): Uint8Array {
@@ -41,6 +107,35 @@ export class UUID {
 
   public static fromBytes(bytes: ArrayBufferView): UUID {
     return new UUID(UUID.parseBytes(bytes));
+  }
+
+  private static parse(input: string | ArrayBufferView): Uint8Array {
+    if (typeof input === 'string') {
+      const length: number = input.length;
+      switch (length) {
+        case UUID.STR_LENGTH: {
+          // RFC 4122 uuid(string)
+          // 9e472052-a654-4693-9a8b-3ce57ada3d6c
+          return UUID.parseString(input);
+        }
+        case UUID.HEX_STR_LENGTH: {
+          // RFC 4122 uuid(string) without hyphens
+          // 9e472052a65446939a8b3ce57ada3d6c
+          return UUID.parseHex(input);
+        }
+        default: {
+          throw new Error(`Invalid input string, length should be ${UUID.STR_LENGTH} or ${UUID.HEX_STR_LENGTH}`);
+        }
+      }
+    } else if (ArrayBuffer.isView(input)) {
+      return UUID.parseBytes(input);
+    } else {
+      throw new Error("Invalid input, Expected string or ArrayBufferView");
+    }
+  }
+
+  public static from(input: string | ArrayBufferView): UUID {
+    return new UUID(UUID.parse(input));
   }
 
   public static nil(): UUID {
@@ -82,18 +177,9 @@ export class UUID {
   private _hex?: string;
 
   public constructor(input: string | ArrayBufferView) {
-    if (input == null) {
-      throw new Error('Input cannot be null');
-    }
+    this.bytes = UUID.parse(input);
 
-    if (typeof input === 'string') {
-      this.bytes = UUID.parseString(input);
-    } else if (ArrayBuffer.isView(input)) {
-      this.bytes = UUID.parseBytes(input);
-    } else {
-      throw new Error("Expected string or ArrayBufferView")
-    }
-
+    // Validate bytes length
     if (this.bytes.byteLength !== UUID.BYTE_LENGTH) {
       throw new Error(`UUID must be ${UUID.BYTE_LENGTH} bytes`);
     }

@@ -135,15 +135,15 @@ export class UUID {
   }
 
   public static from(input: string | ArrayBufferView): UUID {
-    return new UUID(UUID.parse(input));
+    return UUID.fromBytes(UUID.parse(input));
   }
 
   public static nil(): UUID {
-    return new UUID((new Uint8Array(UUID.BYTE_LENGTH)));
+    return UUID.fromBytes(new Uint8Array(UUID.BYTE_LENGTH));
   }
 
   public static max(): UUID {
-    return new UUID((new Uint8Array(UUID.BYTE_LENGTH)).fill(0xFF));
+    return UUID.fromBytes((new Uint8Array(UUID.BYTE_LENGTH)).fill(0xFF));
   }
 
   public static equals(...uuids: UUID[]): boolean {

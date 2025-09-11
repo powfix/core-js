@@ -4,14 +4,23 @@ type NonFunction<T, Type extends "keys" | "values"> = {
 
 type PureEnumReturnType<E extends object> = [NonFunction<E, "keys">, NonFunction<E, "values">][];
 
+/**
+ * @deprecated Use Enum instead.
+ */
 export function pureEnum<E extends object>(e: E) {
   return Object.entries(e).filter(([key, value]) => !/^-?\d+$/g.test(key) && typeof value !== 'function') as PureEnumReturnType<E>;
 }
 
+/**
+ * @deprecated Use Enum instead.
+ */
 export function pureEnumKeys<E extends object>(e: E) {
   return pureEnum<E>(e).map(([key]) => key)
 }
 
+/**
+ * @deprecated Use Enum instead.
+ */
 export function pureEnumValues<E extends object>(e: E) {
   return pureEnum<E>(e).map(([, value]) => value)
 }

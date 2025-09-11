@@ -1,5 +1,5 @@
-import {fallbackIfEqual} from "./fallbackIfEqual";
+import {fallbackIfMatch} from "./fallbackIfMatch";
 
 export function fallbackIfNull<V, F>(value: V, fallback: F): V | F {
-  return fallbackIfEqual(value, null, fallback);
+  return fallbackIfMatch(value, null, fallback);
 }

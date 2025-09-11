@@ -1,5 +1,5 @@
-import {fallbackIfEqual} from "./fallbackIfEqual";
+import {fallbackIfMatch} from "./fallbackIfMatch";
 
 export function fallbackIfUndefined<V, F>(value: V, fallback: F): V | F {
-  return fallbackIfEqual(value, undefined, fallback);
+  return fallbackIfMatch(value, undefined, fallback);
 }

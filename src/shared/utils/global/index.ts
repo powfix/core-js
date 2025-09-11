@@ -5,7 +5,7 @@ export * from './btoa';
 export * from './castArray';
 export * from './circularDistance';
 export * from './sleep';
-export * from './fallbackIfEqual';
+export * from './fallbackIfMatch';
 export * from './fallbackIfNull';
 export * from './fallbackIfUndefined';
 export * from './firstNonNullish';

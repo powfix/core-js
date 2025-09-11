@@ -1,4 +1,4 @@
-import {EnumEntries} from "./Enum.types";
+import type {EnumEntries} from "./Enum.types";
 
 export class Enum<E extends object> {
   public static entries<E extends object>(e: E): EnumEntries<E> {

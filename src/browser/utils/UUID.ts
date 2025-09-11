@@ -47,6 +47,10 @@ export class UUID {
     return new UUID(new Uint8Array(UUID.BYTE_LENGTH));
   }
 
+  public static max(): UUID {
+    return new UUID((new Uint8Array(UUID.BYTE_LENGTH)).fill(0xFF));
+  }
+
   public static equals(...uuids: UUID[]): boolean {
     const n = uuids.length;
     if (n <= 1) return true;

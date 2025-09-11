@@ -49,10 +49,12 @@ export class SequelizeUtils {
       return {
         type: "binary(16)",
         get() {
-          return UuidUtils.toString(this.getDataValue(columnName));
+          const value = this.getDataValue(columnName);
+          return UUID.from(value);
         },
-        set(uuid: string) {
-          this.setDataValue(columnName, UuidUtils.toBuffer(uuid));
+        set(input: UuidInput) {
+          const value = UUID.from(input).toBuffer();
+          this.setDataValue(columnName, value);
         },
         ...overrideOptions
       }

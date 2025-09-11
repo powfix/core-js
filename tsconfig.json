@@ -9,6 +9,7 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"noEmit": true,
-		"outDir": "dist"
+		"outDir": "dist",
+        "removeComments": true
 	}
 }

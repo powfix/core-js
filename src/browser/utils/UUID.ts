@@ -98,11 +98,11 @@ export class UUID {
   }
 
   private static parseBytes(bytes: ArrayBufferView): Uint8Array {
-    if (bytes instanceof Uint8Array) {
-      return new Uint8Array(bytes);
-    } else {
-      return new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    const view = new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    if (view.length !== UUID.BYTE_LENGTH) {
+      throw new Error(`Expected ${UUID.BYTE_LENGTH} bytes`);
     }
+    return view;
   }
 
   public static fromBytes(bytes: ArrayBufferView): UUID {

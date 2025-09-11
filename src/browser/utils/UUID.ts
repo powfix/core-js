@@ -44,7 +44,7 @@ export class UUID {
   }
 
   public static nil(): UUID {
-    return new UUID(new Uint8Array(UUID.BYTE_LENGTH));
+    return new UUID((new Uint8Array(UUID.BYTE_LENGTH)).fill(0x00));
   }
 
   public static max(): UUID {

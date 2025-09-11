@@ -94,6 +94,10 @@ export class UUID {
     }
   }
 
+  public static version(input: UuidInput): number {
+    return this.parse(input)[14];
+  }
+
   /* --------------------------------------------------------------------
    * Parsing / formatting helpers
    * -------------------------------------------------------------------- */
@@ -310,6 +314,10 @@ export class UUID {
   /** Instance wrapper for {@link compare}. */
   public compare(other: UUID): number {
     return UUID.compare(this, other);
+  }
+
+  public version(): number {
+    return UUID.version(this);
   }
 
   /**

@@ -102,7 +102,7 @@ export class UUID {
     if (view.length !== UUID.BYTE_LENGTH) {
       throw new Error(`Expected ${UUID.BYTE_LENGTH} bytes`);
     }
-    return view;
+    return new Uint8Array(view);
   }
 
   public static fromBytes(bytes: ArrayBufferView): UUID {

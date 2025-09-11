@@ -198,14 +198,16 @@ export class UUID {
       return this._str;
     }
     const hex = this.toHex();
-    return UUID.formatHex(hex);
+    this._str = UUID.formatHex(hex);
+    return this._str;
   }
 
   public toHex(): string {
     if (this._hex != null) {
       return this._hex;
     }
-    return Uint8ArrayUtils.toHex(this.bytes);
+    this._hex = Uint8ArrayUtils.toHex(this.bytes);
+    return this._hex;
   }
 
   public toBytes(): Uint8Array {

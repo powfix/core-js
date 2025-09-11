@@ -7,6 +7,7 @@ export * from './circularDistance';
 export * from './sleep';
 export * from './fallbackIfMatch';
 export * from './fallbackIfNull';
+export * from './fallbackIfNullish';
 export * from './fallbackIfUndefined';
 export * from './firstNonNullish';
 export * from './flat';

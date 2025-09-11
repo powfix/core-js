@@ -1,18 +1,11 @@
-import redis, {
-  createClient,
-  RedisClientType,
-  RedisDefaultModules,
-  RedisFunctions,
-  RedisModules,
-  RedisScripts
-} from 'redis';
+import redis, {createClient} from 'redis';
 
 const LOG_PREFIX = 'RedisClient';
 
 export class RedisClient {
   private readonly options: RedisClient.RedisClientOptions = {};
   private status: RedisClient.Status = RedisClient.Status.STOPPED;
-  public readonly client: RedisClientType<RedisDefaultModules & RedisModules, RedisFunctions, RedisScripts>;
+  public readonly client: ReturnType<typeof createClient>;
 
   public constructor(options?: RedisClient.RedisClientOptions) {
     console.log(Date.now(), LOG_PREFIX, 'initialized');

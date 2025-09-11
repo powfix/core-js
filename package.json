@@ -49,7 +49,6 @@
 		"base-64": "^1.0.0",
 		"eventemitter3": "^5.0.1",
 		"jwt-decode": "^4.0.0",
-		"redis": "4.7.0",
 		"uuid": "9.0.1"
 	},
 	"devDependencies": {
@@ -60,6 +59,7 @@
 		"deepmerge": "^4.3.1",
 		"i18next": "25.4.2",
 		"moment": "^2.30.1",
+		"redis": "^5.8.2",
 		"sequelize": "6.37.7",
 		"sequelize-typescript": "^2.1.6",
 		"ts-node": "^10.9.2",

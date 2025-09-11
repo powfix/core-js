@@ -278,9 +278,9 @@ export class UUID {
    * @param uuid2 - The second UUID.
    * @returns -1 if uuid1 < uuid2, 1 if uuid1 > uuid2, 0 otherwise.
    */
-  public static compare(uuid1: UUID, uuid2: UUID): number {
-    const a = uuid1.bytes;
-    const b = uuid2.bytes;
+  public static compare(uuid1: UuidInput, uuid2: UuidInput): number {
+    const a = this.parse(uuid1);
+    const b = this.parse(uuid2);
     for (let i = 0; i < UUID.BYTE_LENGTH; i++) {
       if (a[i] !== b[i]) return a[i] < b[i] ? -1 : 1;
     }
@@ -312,7 +312,7 @@ export class UUID {
   }
 
   /** Instance wrapper for {@link compare}. */
-  public compare(other: UUID): number {
+  public compare(other: UuidInput): number {
     return UUID.compare(this, other);
   }
 

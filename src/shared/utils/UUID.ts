@@ -178,8 +178,8 @@ export class UUID {
    * @param hex - The hex representation of the UUID.
    * @returns A new {@link UUID} object.
    */
-  public static fromHex<T extends typeof UUID>(hex: string): InstanceType<T> {
-    return new this(UUID.parseHex(hex)) as InstanceType<T>;
+  public static fromHex<T extends typeof UUID>(this: T, hex: string): InstanceType<T> {
+    return new this(this.parseHex(hex)) as InstanceType<T>;
   }
 
   /**
@@ -187,8 +187,8 @@ export class UUID {
    * @param str - The UUID string with hyphens.
    * @returns A new {@link UUID} object.
    */
-  public static fromString<T extends typeof UUID>(str: string): InstanceType<T> {
-    return new this(UUID.parseString(str)) as InstanceType<T>;
+  public static fromString<T extends typeof UUID>(this: T, str: string): InstanceType<T> {
+    return new this(this.parseString(str)) as InstanceType<T>;
   }
 
   /**
@@ -196,8 +196,8 @@ export class UUID {
    * @param bytes - An ArrayBufferView containing 16 bytes.
    * @returns A new {@link UUID} object.
    */
-  public static fromBytes<T extends typeof UUID>(bytes: ArrayBufferView): InstanceType<T> {
-    return new this(UUID.parseBytes(bytes)) as InstanceType<T>;
+  public static fromBytes<T extends typeof UUID>(this: T, bytes: ArrayBufferView): InstanceType<T> {
+    return new this(this.parseBytes(bytes)) as InstanceType<T>;
   }
 
   /**
@@ -205,23 +205,23 @@ export class UUID {
    * @param input - The value to parse.
    * @returns A Uint8Array of length {@link BYTE_LENGTH}.
    */
-  private static parse<T extends typeof UUID>(this: T, input: UuidInput | InstanceType<T>): Uint8Array {
+  private static parse<T extends typeof UUID>(this: T, input: UuidInput): Uint8Array {
     if (typeof input === 'string') {
       const length: number = input.length;
       switch (length) {
         case UUID.STR_LENGTH:
           // RFC 4122 uuid(string)
-          return UUID.parseString(input);
+          return this.parseString(input);
         case UUID.HEX_STR_LENGTH:
           // RFC 4122 uuid(string) without hyphens
-          return UUID.parseHex(input);
+          return this.parseHex(input);
         default:
           throw new Error(`Invalid input string, length should be ${UUID.STR_LENGTH} or ${UUID.HEX_STR_LENGTH}`);
       }
     } else if (input instanceof UUID) {
       return input.toBytes();
     } else if (ArrayBuffer.isView(input)) {
-      return UUID.parseBytes(input);
+      return this.parseBytes(input);
     } else {
       throw new Error("Invalid input, Expected string or ArrayBufferView");
     }
@@ -232,7 +232,7 @@ export class UUID {
    * @param input - The value to parse.
    * @returns A new {@link UUID} object.
    */
-  public static from<T extends typeof UUID>(this: T, input: UuidInput | InstanceType<T>): InstanceType<T> {
+  public static from<T extends typeof UUID>(this: T, input: UuidInput): InstanceType<T> {
     return this.fromBytes(UUID.parse(input)) as InstanceType<T>;
   }
 

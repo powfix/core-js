@@ -292,7 +292,7 @@ export class UUID {
    * -------------------------------------------------------------------- */
 
   /** Raw byte representation of the UUID. */
-  protected readonly bytes: Uint8Array;
+  public readonly bytes: Uint8Array;
 
   // Cached string and hex representations to avoid recomputation.
   private _str?: string;

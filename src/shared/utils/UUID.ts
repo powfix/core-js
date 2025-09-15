@@ -357,4 +357,8 @@ export class UUID {
   public toJSON(): string {
     return this.toString();
   }
+
+  public toBuffer() {
+    return this.bytes.buffer;
+  }
 }

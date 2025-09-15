@@ -205,7 +205,7 @@ export class UUID {
    * @param input - The value to parse.
    * @returns A Uint8Array of length {@link BYTE_LENGTH}.
    */
-  private static parse<T extends typeof UUID>(this: T, input: UuidInput | T): Uint8Array {
+  private static parse<T extends typeof UUID>(this: T, input: UuidInput | InstanceType<T>): Uint8Array {
     if (typeof input === 'string') {
       const length: number = input.length;
       switch (length) {
@@ -232,7 +232,7 @@ export class UUID {
    * @param input - The value to parse.
    * @returns A new {@link UUID} object.
    */
-  public static from<T extends typeof UUID>(this: T, input: UuidInput | T): InstanceType<T> {
+  public static from<T extends typeof UUID>(this: T, input: UuidInput | InstanceType<T>): InstanceType<T> {
     return this.fromBytes(UUID.parse(input)) as InstanceType<T>;
   }
 

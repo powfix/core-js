@@ -1,6 +1,6 @@
 {
 	"name": "@powfix/core-js",
-	"version": "0.20.5",
+	"version": "0.21.0",
 	"description": "core package",
 	"author": "Kwon Kyung-Min <powfix@gmail.com>",
 	"private": false,
@@ -16,12 +16,12 @@
 	"homepage": "https://github.com/powfix/core-js",
 	"license": "MIT",
 	"exports": {
-        ".": {
-          "require": "./dist/cjs/index.js",
-          "import": "./dist/esm/index.mjs",
-          "default": "./dist/cjs/index.js",
-          "types": "./dist/types/index.d.ts"
-        },
+		".": {
+			"require": "./dist/cjs/index.js",
+			"import": "./dist/esm/index.mjs",
+			"default": "./dist/cjs/index.js",
+			"types": "./dist/types/index.d.ts"
+		},
 		"./browser": {
 			"require": "./dist/browser/cjs/index.browser.js",
 			"import": "./dist/browser/esm/index.browser.mjs",

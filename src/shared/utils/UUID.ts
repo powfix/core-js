@@ -295,8 +295,8 @@ export class UUID {
   public readonly bytes: Uint8Array;
 
   // Cached string and hex representations to avoid recomputation.
-  private _str?: string;
-  private _hex?: string;
+  protected _str?: string;
+  protected _hex?: string;
 
   /**
    * Constructs a new {@link UUID} instance from any supported input type.

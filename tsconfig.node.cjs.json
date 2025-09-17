@@ -10,6 +10,6 @@
     "outDir": "./dist/node/cjs"
   },
   "include": [
-    "src/index.nodejs.ts"
+    "src/index.node.ts"
   ]
 }

@@ -40,11 +40,9 @@
     "clean": "rm -rf dist | wc -l",
     "esmfix": "tsc-esm-fix --ext='.mjs'",
     "prebuild": "yarn clean",
-    "build": "tsup",
-    "deploy": "yarn deploy:patch",
-    "deploy:patch": "npm version patch && npm publish",
-    "deploy:minor": "npm version minor && npm publish",
-    "deploy:major": "npm version major && npm publish"
+    "build": "yarn run build:cjs && yarn run build:esm",
+    "build:cjs": "tsup --config tsup.cjs.config.ts",
+    "build:esm": "tsup --config tsup.esm.config.ts"
   },
   "files": [
     "dist"

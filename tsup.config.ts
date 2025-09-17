@@ -5,8 +5,6 @@ const dependencies = Object.keys(packageJson.dependencies || {});
 const devDependencies = Object.keys(packageJson.devDependencies || {});
 const peerDependencies = Object.keys(packageJson.peerDependencies || {});
 
-console.log(dependencies);
-
 export default defineConfig({
   entry: ['src/index.ts', 'src/index.node.ts', 'src/index.browser.ts'],
   format: ['esm', 'cjs'],

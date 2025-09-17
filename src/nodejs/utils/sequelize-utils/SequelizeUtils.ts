@@ -2,8 +2,7 @@ import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
 import {UuidUtils} from "../../../shared/utils/UuidUtils";
 import {NOT_NULL} from "../../../shared/constants";
 import {Model, NonKnownUuidStringKeys, UuidColumnOptionsBase, UuidColumnOptionsForModel} from "./types";
-import {UUID} from "../UUID";
-import {type UuidInput} from "../../../shared";
+import {UUID, type UuidInput} from "@powfix/uuid/node";
 
 export class SequelizeUtils {
   public static decimal2Number(value: any): number | null | undefined {
@@ -24,7 +23,7 @@ export class SequelizeUtils {
       allowNull: false,
       primaryKey: true,
       unique: true,
-      defaultValue: () => UuidUtils.toBuffer(UuidUtils.v4()),
+      defaultValue: () => UUID.from(UuidUtils.v4()).toBuffer(),
     }),
   })
 

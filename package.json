@@ -53,13 +53,13 @@
     "dist"
   ],
   "dependencies": {
-    "@powfix/uuid": "^0.1.2",
     "base-64": "^1.0.0",
     "eventemitter3": "^5.0.1",
     "jwt-decode": "^4.0.0",
     "uuid": "9.0.1"
   },
   "devDependencies": {
+    "@powfix/uuid": "^0.1.2",
     "@types/base-64": "1.0.2",
     "@types/node": "^24.5.1",
     "@types/uuid": "9.0.7",

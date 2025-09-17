@@ -15,25 +15,25 @@
 	],
 	"homepage": "https://github.com/powfix/core-js",
 	"license": "MIT",
-    "type": "module",
-    "main": "./dist/index.cjs",
-    "module": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+	"type": "module",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-          "types": "./dist/index.d.ts",
-          "import": "./dist/index.js",
-          "require": "./dist/index.cjs"
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
 		},
 		"./browser": {
-          "types": "./dist/index.browser.d.ts",
-          "import": "./dist/index.browser.js",
-          "require": "./dist/index.browser.cjs"
+			"types": "./dist/index.browser.d.ts",
+			"import": "./dist/index.browser.js",
+			"require": "./dist/index.browser.cjs"
 		},
 		"./node": {
-          "types": "./dist/index.node.d.ts",
-          "import": "./dist/index.node.js",
-          "require": "./dist/index.node.cjs"
+			"types": "./dist/index.node.d.ts",
+			"import": "./dist/index.node.js",
+			"require": "./dist/index.node.cjs"
 		}
 	},
 	"scripts": {
@@ -60,7 +60,7 @@
 	},
 	"devDependencies": {
 		"@types/base-64": "1.0.2",
-		"@types/node": "20.9.5",
+		"@types/node": "^24.5.1",
 		"@types/uuid": "9.0.7",
 		"axios": "^1.11.0",
 		"deepmerge": "^4.3.1",

@@ -1,82 +1,82 @@
 {
-	"name": "@powfix/core-js",
-	"version": "0.21.6",
-	"description": "core package",
-	"author": "Kwon Kyung-Min <powfix@gmail.com>",
-	"private": false,
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/powfix/core-js"
-	},
-	"keywords": [
-		"javascript",
-		"core",
-		"util"
-	],
-	"homepage": "https://github.com/powfix/core-js",
-	"license": "MIT",
-	"type": "module",
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
-		},
-		"./browser": {
-			"types": "./dist/index.browser.d.ts",
-			"import": "./dist/index.browser.js",
-			"require": "./dist/index.browser.cjs"
-		},
-		"./node": {
-			"types": "./dist/index.node.d.ts",
-			"import": "./dist/index.node.js",
-			"require": "./dist/index.node.cjs"
-		}
-	},
-	"scripts": {
-		"clean": "rm -rf dist | wc -l",
-		"esmfix": "tsc-esm-fix --ext='.mjs'",
-		"prebuild": "yarn clean",
-		"build:esm": "tsc -p tsconfig.index.esm.json && tsc -p tsconfig.browser.esm.json && tsc -p tsconfig.node.esm.json && yarn esmfix",
-		"build:cjs": "tsc -p tsconfig.index.cjs.json && tsc -p tsconfig.browser.cjs.json && tsc -p tsconfig.node.cjs.json",
-		"build:types": "tsc -p tsconfig.index.types.json && tsc -p tsconfig.browser.types.json && tsc -p tsconfig.node.types.json",
-		"build": "yarn build:esm && yarn build:cjs && yarn build:types",
-		"deploy": "yarn deploy:patch",
-		"deploy:patch": "npm version patch && npm publish",
-		"deploy:minor": "npm version minor && npm publish",
-		"deploy:major": "npm version major && npm publish"
-	},
-	"files": [
-		"dist"
-	],
-	"dependencies": {
-		"base-64": "^1.0.0",
-		"eventemitter3": "^5.0.1",
-		"jwt-decode": "^4.0.0",
-		"uuid": "9.0.1"
-	},
-	"devDependencies": {
-		"@types/base-64": "1.0.2",
-		"@types/node": "^24.5.1",
-		"@types/uuid": "9.0.7",
-		"axios": "^1.11.0",
-		"deepmerge": "^4.3.1",
-		"i18next": "25.4.2",
-		"moment": "^2.30.1",
-		"pg-hstore": "^2.3.4",
-		"redis": "^5.8.2",
-		"sequelize": "6.37.7",
-		"sequelize-typescript": "^2.1.6",
-		"ts-node": "^10.9.2",
-		"tsc-esm-fix": "^3.1.2",
-		"tsup": "^8.5.0",
-		"typescript": "5.9.2"
-	},
-	"peerDependencies": {
-		"eventemitter3": ">=5",
-		"moment": ">=2.0.0"
-	}
+  "name": "@powfix/core-js",
+  "version": "0.21.6",
+  "description": "core package",
+  "author": "Kwon Kyung-Min <powfix@gmail.com>",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/powfix/core-js"
+  },
+  "keywords": [
+    "javascript",
+    "core",
+    "util"
+  ],
+  "homepage": "https://github.com/powfix/core-js",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./browser": {
+      "types": "./dist/index.browser.d.ts",
+      "import": "./dist/index.browser.js",
+      "require": "./dist/index.browser.cjs"
+    },
+    "./node": {
+      "types": "./dist/index.node.d.ts",
+      "import": "./dist/index.node.js",
+      "require": "./dist/index.node.cjs"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist | wc -l",
+    "esmfix": "tsc-esm-fix --ext='.mjs'",
+    "prebuild": "yarn clean",
+    "build:esm": "tsc -p tsconfig.index.esm.json && tsc -p tsconfig.browser.esm.json && tsc -p tsconfig.node.esm.json && yarn esmfix",
+    "build:cjs": "tsc -p tsconfig.index.cjs.json && tsc -p tsconfig.browser.cjs.json && tsc -p tsconfig.node.cjs.json",
+    "build:types": "tsc -p tsconfig.index.types.json && tsc -p tsconfig.browser.types.json && tsc -p tsconfig.node.types.json",
+    "build": "yarn build:esm && yarn build:cjs && yarn build:types",
+    "deploy": "yarn deploy:patch",
+    "deploy:patch": "npm version patch && npm publish",
+    "deploy:minor": "npm version minor && npm publish",
+    "deploy:major": "npm version major && npm publish"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "base-64": "^1.0.0",
+    "eventemitter3": "^5.0.1",
+    "jwt-decode": "^4.0.0",
+    "uuid": "9.0.1"
+  },
+  "devDependencies": {
+    "@types/base-64": "1.0.2",
+    "@types/node": "^24.5.1",
+    "@types/uuid": "9.0.7",
+    "axios": "^1.11.0",
+    "deepmerge": "^4.3.1",
+    "i18next": "25.4.2",
+    "moment": "^2.30.1",
+    "pg-hstore": "^2.3.4",
+    "redis": "^5.8.2",
+    "sequelize": "6.37.7",
+    "sequelize-typescript": "^2.1.6",
+    "ts-node": "^10.9.2",
+    "tsc-esm-fix": "^3.1.2",
+    "tsup": "^8.5.0",
+    "typescript": "5.9.2"
+  },
+  "peerDependencies": {
+    "eventemitter3": ">=5",
+    "moment": ">=2.0.0"
+  }
 }

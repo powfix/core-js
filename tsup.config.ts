@@ -1,4 +1,11 @@
 import {defineConfig} from 'tsup';
+import packageJson from './package.json';
+
+const dependencies = Object.keys(packageJson.dependencies || {});
+const devDependencies = Object.keys(packageJson.devDependencies || {});
+const peerDependencies = Object.keys(packageJson.peerDependencies || {});
+
+console.log(dependencies);
 
 export default defineConfig({
   entry: ['src/index.ts', 'src/index.node.ts', 'src/index.browser.ts'],
@@ -8,4 +15,9 @@ export default defineConfig({
   splitting: false,
   sourcemap: false,
   minify: false,
+  external: [
+    ...dependencies,
+    ...devDependencies,
+    ...peerDependencies,
+  ],
 });

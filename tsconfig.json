@@ -32,6 +32,7 @@
 
     // Recommended Options
     "strict": true,
+    "noEmit": true,
     // "verbatimModuleSyntax": true,
     // "isolatedModules": true,
     // "noUncheckedSideEffectImports": true,

@@ -6,7 +6,8 @@
     "declarationMap": false,
     "stripInternal": false,
     "rootDir": "src",
-    "declarationDir": "dist"
+    "declarationDir": "dist",
+    "noEmit": false
   },
   "include": ["src"],
   "exclude": ["dist"]

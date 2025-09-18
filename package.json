@@ -48,6 +48,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "base-64": "^1.0.0",
     "eventemitter3": "^5.0.1",

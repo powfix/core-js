@@ -30,7 +30,10 @@
     "build:esm": "tsup --config tsup.esm.config.ts"
   },
   "files": [
-    "dist"
+    "dist",
+    "AUTHORS",
+    "LICENSE",
+    "README.md"
   ],
   "publishConfig": {
     "access": "public"

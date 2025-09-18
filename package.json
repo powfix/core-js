@@ -19,6 +19,21 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist | wc -l",
+    "esmfix": "tsc-esm-fix --ext='.mjs'",
+    "compile": "tsc",
+    "prebuild": "yarn run clean && yarn run compile",
+    "build": "yarn run build:cjs && yarn run build:esm",
+    "build:cjs": "tsup --config tsup.cjs.config.ts",
+    "build:esm": "tsup --config tsup.esm.config.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -35,21 +50,6 @@
       "import": "./dist/index.node.js",
       "require": "./dist/index.node.cjs"
     }
-  },
-  "scripts": {
-    "clean": "rm -rf dist | wc -l",
-    "esmfix": "tsc-esm-fix --ext='.mjs'",
-    "compile": "tsc",
-    "prebuild": "yarn run clean && yarn run compile",
-    "build": "yarn run build:cjs && yarn run build:esm",
-    "build:cjs": "tsup --config tsup.cjs.config.ts",
-    "build:esm": "tsup --config tsup.esm.config.ts"
-  },
-  "files": [
-    "dist"
-  ],
-  "publishConfig": {
-    "access": "public"
   },
   "dependencies": {
     "base-64": "^1.0.0",

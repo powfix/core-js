@@ -58,7 +58,7 @@
     "uuid": "9.0.1"
   },
   "devDependencies": {
-    "@powfix/uuid": "^0.2.3",
+    "@powfix/uuid": "^0.2.4",
     "@swc/core": "^1.13.5",
     "@types/base-64": "1.0.2",
     "@types/node": "^24.5.1",

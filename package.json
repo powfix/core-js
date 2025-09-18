@@ -23,8 +23,9 @@
     "clean": "rm -rf dist | wc -l",
     "esmfix": "tsc-esm-fix --ext='.mjs'",
     "compile": "tsc",
-    "prebuild": "yarn run clean && yarn run compile",
-    "build": "yarn run build:cjs && yarn run build:esm",
+    "prebuild": "yarn clean",
+    "build": "yarn run build:cjs && yarn run build:esm && yarn run build:dts",
+    "build:dts": "tsc -p tsconfig.declaration.json",
     "build:cjs": "tsup --config tsup.cjs.config.ts",
     "build:esm": "tsup --config tsup.esm.config.ts"
   },

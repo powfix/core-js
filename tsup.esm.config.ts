@@ -5,7 +5,7 @@ export default defineConfig({
   splitting: true,
   target: 'es5',
   format: 'esm',
-  dts: true,
+  dts: false,
   treeshake: true,
   bundle: false,
 });

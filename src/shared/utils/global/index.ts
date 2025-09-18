@@ -11,5 +11,6 @@ export * from './fallbackIfNullish';
 export * from './fallbackIfUndefined';
 export * from './firstNonNullish';
 export * from './flat';
+export * from './mapIfNotNullish';
 export * from './processFirstNonNullish';
 export * from './pureEnum';

@@ -1,5 +1,6 @@
-import {UuidUtils} from "./UuidUtils";
 import {Uint8ArrayUtils} from "./Uint8ArrayUtils";
+import {type UuidInput} from "@powfix/uuid";
+import {UUID} from "@powfix/uuid/node";
 
 export class ObjectIdUtils {
   public static toUuid(objectId: string, pad: 'start' | 'end' = 'start'): string {
@@ -11,11 +12,11 @@ export class ObjectIdUtils {
     const result = new Uint8Array(16);
     const offset = pad === 'start' ? 4 : 0;
     result.set(src, offset);
-    return UuidUtils.toString(result);
+    return UUID.from(result).toString();
   }
 
-  public static fromUuid(uuid: string, pad?: 'start' | 'end'): string {
-    const buffer = UuidUtils.toBuffer(uuid);
+  public static fromUuid(uuid: UuidInput, pad?: 'start' | 'end'): string {
+    const buffer = UUID.from(uuid).toBuffer();
 
     const isPadEnd = buffer.subarray(buffer.length - 4).every(byte => byte === 0);
     if (isPadEnd || pad === 'end') {

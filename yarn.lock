@@ -221,10 +221,10 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
-"@powfix/uuid@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@powfix/uuid/-/uuid-0.2.2.tgz#b6837cdc2c7d5de05b7d08cbd19299ed6cf14545"
-  integrity sha512-E5WL1qwdWF6X9oujxJQ6HIoUkENJVXjv86mDbAcudIrrHBsDd8QhbLXCr1oNkCS3i6v7+5LjvkqngWKIiIEG3Q==
+"@powfix/uuid@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@powfix/uuid/-/uuid-0.2.3.tgz#8db72af5561f535dd5a9a02099631423d73967dc"
+  integrity sha512-xJWuYvixn3DmjZ4BFJlQuoFsCO6JvHjqQagAsMG2wRm+PDxWrcQmYK8O/+dZMXl7CTqDoyqCyJA/O4XpbqVT/Q==
 
 "@redis/bloom@5.8.2":
   version "5.8.2"

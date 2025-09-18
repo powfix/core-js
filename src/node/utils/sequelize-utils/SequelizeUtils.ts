@@ -1,5 +1,4 @@
 import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
-import {UuidUtils} from "../../../shared/utils/UuidUtils";
 import {NOT_NULL} from "../../../shared/constants";
 import {Model, NonKnownUuidStringKeys, UuidColumnOptionsBase, UuidColumnOptionsForModel} from "./types";
 import {UUID, type UuidInput} from "@powfix/uuid/node";
@@ -23,7 +22,7 @@ export class SequelizeUtils {
       allowNull: false,
       primaryKey: true,
       unique: true,
-      defaultValue: () => UUID.from(UuidUtils.v4()).toBuffer(),
+      defaultValue: () => UUID.v4().toBuffer(),
     }),
   })
 

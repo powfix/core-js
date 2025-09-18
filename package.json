@@ -24,10 +24,9 @@
     "esmfix": "tsc-esm-fix --ext='.mjs'",
     "compile": "tsc",
     "prebuild": "yarn clean",
-    "build": "yarn compile && yarn build:cjs && yarn build:esm && yarn build:dts",
-    "build:dts": "tsc -p tsconfig.declaration.json",
-    "build:cjs": "tsup --config tsup.cjs.config.ts",
-    "build:esm": "tsup --config tsup.esm.config.ts"
+    "build": "yarn compile && yarn build:tsup && yarn build:dts",
+    "build:tsup": "tsup --config tsup.config.ts",
+    "build:dts": "tsc -p tsconfig.declaration.json"
   },
   "files": [
     "dist",
@@ -62,7 +61,7 @@
     "uuid": "9.0.1"
   },
   "devDependencies": {
-    "@powfix/uuid": "^0.2.6",
+    "@powfix/uuid": "^0.2.7",
     "@swc/core": "^1.13.5",
     "@types/base-64": "1.0.2",
     "@types/node": "^24.5.1",

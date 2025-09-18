@@ -21,12 +21,13 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist | wc -l",
-    "esmfix": "tsc-esm-fix --ext='.mjs'",
+    "esmfix": "tsc-esm-fix --ext='.js' dist/**/*.js",
     "compile": "tsc",
     "prebuild": "yarn clean",
     "build": "yarn compile && yarn build:tsup && yarn build:dts",
     "build:tsup": "tsup --config tsup.config.ts",
-    "build:dts": "tsc -p tsconfig.declaration.json"
+    "build:dts": "tsc -p tsconfig.declaration.json",
+    "postbuild": "yarn esmfix"
   },
   "files": [
     "dist",

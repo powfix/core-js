@@ -1,7 +1,8 @@
 import {ModelAttributeColumnOptions, Op, WhereOptions} from "sequelize";
 import {NOT_NULL} from "../../../shared/constants";
 import {Model, NonKnownUuidStringKeys, UuidColumnOptionsBase, UuidColumnOptionsForModel} from "./types";
-import {UUID, type UuidInput} from "@powfix/uuid/node";
+import {NullableUuidInput, UUID} from "@powfix/uuid/node";
+import {mapIfNotNullish} from "../../../shared";
 
 export class SequelizeUtils {
   public static decimal2Number(value: any): number | null | undefined {
@@ -30,33 +31,16 @@ export class SequelizeUtils {
   public static buildUuidColumn(options: UuidColumnOptionsBase): Partial<ModelAttributeColumnOptions>
   public static buildUuidColumn(options: UuidColumnOptionsBase): Partial<ModelAttributeColumnOptions> {
     const {columnName, ...overrideOptions} = options
-    if (overrideOptions.allowNull) {
-      return {
-        type: "binary(16)",
-        get() {
-          const value = this.getDataValue(columnName);
-          return value != null ? UUID.from(value) : value;
-        },
-        set(input: UuidInput | null) {
-          const value = input != null ? UUID.from(input).toBuffer() : input;
-          this.setDataValue(columnName, value);
-        },
-        ...overrideOptions,
-      }
-    } else {
-      return {
-        type: "binary(16)",
-        get() {
-          const value = this.getDataValue(columnName);
-          return UUID.from(value);
-        },
-        set(input: UuidInput) {
-          const value = UUID.from(input).toBuffer();
-          this.setDataValue(columnName, value);
-        },
-        ...overrideOptions
-      }
-    }
+    return {
+      type: "binary(16)",
+      get() {
+        return mapIfNotNullish(this.getDataValue(columnName), value => UUID.from(value))
+      },
+      set(value: NullableUuidInput) {
+        this.setDataValue(columnName, mapIfNotNullish(value, e => UUID.from(e).toBuffer()));
+      },
+      ...overrideOptions,
+    };
   }
 
   public static getNullableArrayFilter<T=undefined>(arr: (null | any)[]) {

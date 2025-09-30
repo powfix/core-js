@@ -7,9 +7,11 @@ export class DedupedTaskManager {
     return this.#instance ?? (this.#instance = new DedupedTaskManager());
   }
 
-  #tasks: Map<TaskKey, Promise<any>> = new Map();
+  readonly #tasks: Map<TaskKey, Promise<any>>;
 
-  public constructor() {}
+  public constructor() {
+    this.#tasks = new Map();
+  }
 
   public run<T>(key: TaskKey, factory: () => Promise<T>, options?: RunOptions): Promise<T> {
     if (this.#tasks.has(key)) {

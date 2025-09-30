@@ -1,4 +1,5 @@
 export * from './constants';
+export * from './features';
 export * from './interfaces';
 export * from './managers';
 export * from './scripts';

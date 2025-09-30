@@ -3,7 +3,7 @@ import type {DedupedTaskManagerRunOptions as RunOptions, DedupedTaskManagerTaskK
 export class DedupedTaskManager {
   #tasks: Map<TaskKey, Promise<any>> = new Map();
 
-  run<T>(key: TaskKey, factory: () => Promise<T>, options?: RunOptions): Promise<T> {
+  public run<T>(key: TaskKey, factory: () => Promise<T>, options?: RunOptions): Promise<T> {
     if (this.#tasks.has(key)) {
       const task = this.#tasks.get(key);
       if (task != null) {

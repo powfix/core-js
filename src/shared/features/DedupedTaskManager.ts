@@ -9,6 +9,8 @@ export class DedupedTaskManager {
 
   #tasks: Map<TaskKey, Promise<any>> = new Map();
 
+  public constructor() {}
+
   public run<T>(key: TaskKey, factory: () => Promise<T>, options?: RunOptions): Promise<T> {
     if (this.#tasks.has(key)) {
       const task = this.#tasks.get(key);

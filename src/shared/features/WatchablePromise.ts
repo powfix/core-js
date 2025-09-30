@@ -1,4 +1,4 @@
-import type {WatchablePromiseStatus} from "./WatchablePromise.types";
+import type {PromiseExecutor, WatchablePromiseStatus} from "./WatchablePromise.types";
 
 export class WatchablePromise<T, E = Error> extends Promise<T> {
   public static from<P extends typeof WatchablePromise, T>(this: P, promise: Promise<T>): InstanceType<P> {
@@ -9,7 +9,7 @@ export class WatchablePromise<T, E = Error> extends Promise<T> {
   #status: WatchablePromiseStatus = 'pending';
   #result: T | PromiseLike<T> | E | undefined = undefined;
 
-  public constructor(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void) {
+  public constructor(executor: PromiseExecutor<T>) {
     super((resolve, reject) => {
       executor(
         (value) => {

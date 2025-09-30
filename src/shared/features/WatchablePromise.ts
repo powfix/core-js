@@ -9,7 +9,7 @@ export class WatchablePromise<T, E = Error> extends Promise<T> {
   #status: WatchablePromiseStatus = 'pending';
   #result: T | PromiseLike<T> | E | undefined = undefined;
 
-  constructor(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void) {
+  public constructor(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void) {
     super((resolve, reject) => {
       executor(
         (value) => {

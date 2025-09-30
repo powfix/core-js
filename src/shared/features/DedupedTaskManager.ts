@@ -12,11 +12,10 @@ export class DedupedTaskManager {
     }
 
     const task = factory().finally(() => {
-      const ttl = options?.ttl;
-      if (ttl) {
+      if (options?.ttl) {
         setTimeout(() => {
           this.#tasks.delete(key);
-        }, ttl);
+        }, options.ttl);
       } else {
         this.#tasks.delete(key);
       }

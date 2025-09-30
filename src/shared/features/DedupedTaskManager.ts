@@ -1,6 +1,12 @@
 import type {DedupedTaskManagerRunOptions as RunOptions, DedupedTaskManagerTaskKey as TaskKey} from "./DedupedTaskManager.types";
 
 export class DedupedTaskManager {
+  static #instance: DedupedTaskManager;
+
+  public static getInstance(): DedupedTaskManager {
+    return this.#instance ?? (this.#instance = new DedupedTaskManager());
+  }
+
   #tasks: Map<TaskKey, Promise<any>> = new Map();
 
   public run<T>(key: TaskKey, factory: () => Promise<T>, options?: RunOptions): Promise<T> {

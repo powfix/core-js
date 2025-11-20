@@ -1,11 +1,6 @@
 import {UUID} from "@powfix/uuid";
 
-
 export class SearchParamsUtils {
-  private static get urlSearchParams() {
-    return new URL(window.location.href).searchParams;
-  }
-
   public static getString(searchParams: URLSearchParams, key: string) {
     if (!searchParams.has(key)) {
       return null;

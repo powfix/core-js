@@ -46,11 +46,23 @@ export class SearchParamsUtils {
     this.#searchParams = searchParams;
   }
 
+  public get searchParams() {
+    return this.#searchParams;
+  }
+
   public getString(key: string) {
     return SearchParamsUtils.getString(this.#searchParams, key);
   }
 
   public getStrings(key: string) {
     return SearchParamsUtils.getStrings(this.#searchParams, key);
+  }
+
+  public getUuid(key: string) {
+    return SearchParamsUtils.getUuid(this.#searchParams, key);
+  }
+
+  public getUuids(key: string) {
+    return SearchParamsUtils.getUuids(this.#searchParams, key);
   }
 }

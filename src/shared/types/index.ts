@@ -1,5 +1,5 @@
 export type * from "./If";
-export * from './IntRage';
-export * from './PartialExcept';
-export * from './Object';
+export type * from './IntRage';
+export type * from './PartialExcept';
+export type * from './Object';
 export type * from "./XOR";

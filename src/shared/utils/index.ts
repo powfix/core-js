@@ -8,6 +8,7 @@ export * from './UuidUtils';
 export * from './BooleanUtils';
 export * from './Calc';
 export * from './CoordinateUtils';
+export * from "./CyclicCounter";
 export * from './DateUtils';
 export * from './Enum';
 export * from './Enum.types';

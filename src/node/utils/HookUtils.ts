@@ -28,12 +28,8 @@ export class HookUtils {
     return [
       {model, hookType: 'afterCreate', fn: fns.create},
       {model, hookType: 'afterBulkCreate', fn: fns.create},
-
       {model, hookType: 'afterUpdate', fn: fns.update},
-      {model, hookType: 'afterBulkUpdate', fn: fns.update},
-
       {model, hookType: 'afterDestroy', fn: fns.destroy},
-      {model, hookType: 'afterBulkDestroy', fn: fns.destroy},
     ];
   }
 }

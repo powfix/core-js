@@ -7,6 +7,7 @@ export * from './Uint8ArrayUtils';
 export * from './UuidUtils';
 export * from './BooleanUtils';
 export * from './Calc';
+export * from './ClassName';
 export * from './CoordinateUtils';
 export * from "./CyclicCounter";
 export * from './DateUtils';

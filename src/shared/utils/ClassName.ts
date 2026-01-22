@@ -32,6 +32,10 @@ export class ClassName extends Set<string> {
       }
 
       if (typeof value === "string") {
+        if (value === "") {
+          continue;
+        }
+
         this.add(value);
       }
     }

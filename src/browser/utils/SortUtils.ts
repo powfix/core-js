@@ -12,4 +12,15 @@ export class SortUtils extends BaseSortUtils {
   static toGridSortModel<TField extends string = string>(items: SortItem<TField>[]): GridSortModel {
     return items.map(this.toGridSortItem);
   }
+
+  static fromGridSortItem(item: GridSortModel[number]): SortItem {
+    return {
+      field: item.field,
+      direction: item.sort,
+    };
+  }
+
+  static fromGridSortModel(model: GridSortModel): SortItem[] {
+    return model.map(this.fromGridSortItem);
+  }
 }

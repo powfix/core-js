@@ -10,7 +10,7 @@ export class SortUtils extends BaseSortUtils {
   }
 
   static toGridSortModel<TField extends string = string>(items: SortItem<TField>[]): GridSortModel {
-    return items.map(this.toGridSortItem);
+    return items.map(SortUtils.toGridSortItem);
   }
 
   static fromGridSortItem(item: GridSortModel[number]): SortItem {
@@ -21,6 +21,6 @@ export class SortUtils extends BaseSortUtils {
   }
 
   static fromGridSortModel(model: GridSortModel): SortItem[] {
-    return model.map(this.fromGridSortItem);
+    return model.map(SortUtils.fromGridSortItem);
   }
 }

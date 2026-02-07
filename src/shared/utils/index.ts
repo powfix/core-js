@@ -21,4 +21,5 @@ export * from './RandomUtils';
 export * from './Validator';
 export * from './JuminNumberUtils';
 export * from './Sequencer';
+export * from './SortUtils';
 export * from './try-catch';

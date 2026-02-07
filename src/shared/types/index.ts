@@ -1,3 +1,4 @@
+export * from './sort';
 export type * from "./If";
 export type * from './IntRage';
 export type * from './PartialExcept';

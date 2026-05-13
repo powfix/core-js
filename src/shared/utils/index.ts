@@ -3,6 +3,8 @@ export * from './global';
 export * from './ArrayUtils';
 export * from './AxiosUtils';
 export * from './StringUtils';
+export * from "./TimeSeriesBucketUtils";
+export type * from "./TimeSeriesBucketUtils.types";
 export * from './Uint8ArrayUtils';
 export * from './UuidUtils';
 export * from './BooleanUtils';
